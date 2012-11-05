@@ -1,0 +1,2 @@
+magnolia-blossom-thymeleaf-proto
+================================
