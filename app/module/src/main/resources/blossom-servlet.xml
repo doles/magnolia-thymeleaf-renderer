@@ -8,7 +8,7 @@
 
     <context:annotation-config/>
 
-    <context:component-scan base-package="info.magnolia.module.blossom.sample" use-default-filters="false">
+    <context:component-scan base-package="thymeleaf.controller" use-default-filters="false">
         <context:include-filter type="annotation" expression="info.magnolia.module.blossom.annotation.Template"/>
         <context:include-filter type="annotation" expression="info.magnolia.module.blossom.annotation.Area"/>
         <context:include-filter type="annotation" expression="info.magnolia.module.blossom.annotation.DialogFactory"/>
@@ -39,7 +39,7 @@
     <!-- JSP - renders all views that end with .jsp -->
     <bean class="info.magnolia.module.blossom.view.TemplateViewResolver">
         <property name="order" value="2"/>
-        <property name="prefix" value="/WEB-INF/templates/"/>
+        <property name="prefix" value="/thymeleaf_proto/"/>
         <property name="viewNames" value="*.jsp"/>
         <property name="viewRenderer">
             <bean class="info.magnolia.module.blossom.view.JspTemplateViewRenderer"/>
@@ -49,12 +49,28 @@
 
     <bean class="info.magnolia.module.blossom.view.TemplateViewResolver">
         <property name="order" value="3"/>
-        <property name="prefix" value="/WEB-INF/templates/"/>
-        <property name="viewNames" value="*.jsp"/>
+        <property name="prefix" value="thymeleaf_proto/"/>
+        <property name="viewNames" value="*.html"/>
         <property name="viewRenderer">
-            <bean class="thymeleaf.renderer.ThymeleafRenderer"/>
+            <bean class="thymeleaf.renderer.ThymeleafRenderer">
+                <property name="engine" ref="templateEngine"/>
+            </bean>
         </property>
     </bean>
+    <bean id="templateResolver"
+          class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+        <property name="prefix" value="/WEB-INF/classes/mgnl-files/templates/" />
+        <property name="suffix" value="" />
+        <property name="templateMode" value="HTML5" />
+        <property name="cacheable" value="false"/>
+    </bean>
+
+    <bean id="templateEngine"
+          class="org.thymeleaf.spring3.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver" />
+
+    </bean>
+
 
 
 </beans>

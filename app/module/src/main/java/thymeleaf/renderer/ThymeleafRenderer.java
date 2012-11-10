@@ -1,15 +1,13 @@
 package thymeleaf.renderer;
 
-import freemarker.template.TemplateException;
-import info.magnolia.cms.core.Content;
 import info.magnolia.context.MgnlContext;
-
+import info.magnolia.module.blossom.render.RenderContext;
 import info.magnolia.rendering.context.RenderingContext;
 import info.magnolia.rendering.engine.RenderException;
+import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.renderer.AbstractRenderer;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.rendering.util.AppendableWriter;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -22,7 +20,6 @@ import org.thymeleaf.spring3.context.SpringWebContext;
 import javax.jcr.Node;
 import javax.servlet.ServletContext;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -55,7 +52,7 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
 
 
             final IWebContext context =
-                    new SpringWebContext(MgnlContext.getWebContext().getRequest(), MgnlContext.getWebContext().getResponse(), servletContext , null, new HashMap<String, Object>(), getApplicationContext());
+                    new SpringWebContext(MgnlContext.getWebContext().getRequest(), MgnlContext.getWebContext().getResponse(), servletContext , MgnlContext.getWebContext().getRequest().getLocale(), new HashMap<String, Object>(), getApplicationContext());
 
         try {
             AppendableWriter out = renderingCtx.getAppendable();
@@ -72,7 +69,10 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
         return new HashMap<String, Object>();
     }
 
-
+    @Override
+    protected String resolveTemplateScript(Node content, RenderableDefinition definition, RenderingModel<?> model, String actionResult) {
+        return RenderContext.get().getTemplateScript();
+    }
 
 
     public SpringTemplateEngine getEngine() {

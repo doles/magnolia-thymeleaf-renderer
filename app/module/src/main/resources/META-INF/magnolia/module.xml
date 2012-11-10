@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module SYSTEM "module.dtd" >
 <module>
-  <name>thymeleaf-proto</name>
+  <name>thymeleaf_proto</name>
   <displayName>Thymeleaf-Prototype</displayName>
   <description>The thmymeleaf prototype</description>
   <class>thymeleaf.Module</class>
