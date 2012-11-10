@@ -8,6 +8,7 @@ import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.renderer.AbstractRenderer;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.rendering.util.AppendableWriter;
+import info.magnolia.templating.jsp.cmsfn.JspTemplatingFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -50,9 +51,12 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
     protected void onRender(Node content, RenderableDefinition definition,RenderingContext renderingCtx,  Map<String, Object> ctx, String templateScript) throws RenderException {
         final Locale locale = MgnlContext.getAggregationState().getLocale();
 
-
+            Map<String, Object> vars = new HashMap<String, Object>();
+            vars.put("content", content);
+            vars.put("renderingContext",renderingCtx);
+            vars.put("cmsfn", new JspTemplatingFunction());
             final IWebContext context =
-                    new SpringWebContext(MgnlContext.getWebContext().getRequest(), MgnlContext.getWebContext().getResponse(), servletContext , MgnlContext.getWebContext().getRequest().getLocale(), new HashMap<String, Object>(), getApplicationContext());
+                    new SpringWebContext(MgnlContext.getWebContext().getRequest(), MgnlContext.getWebContext().getResponse(), servletContext , MgnlContext.getWebContext().getRequest().getLocale(), vars, getApplicationContext());
 
         try {
             AppendableWriter out = renderingCtx.getAppendable();

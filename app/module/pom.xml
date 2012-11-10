@@ -25,7 +25,11 @@
           <artifactId>magnolia-templating</artifactId>
           <version>${magnoliaVersion}</version>
       </dependency>
-
+      <dependency>
+          <groupId>info.magnolia</groupId>
+          <artifactId>magnolia-templating-jsp</artifactId>
+          <version>${magnoliaVersion}</version>
+      </dependency>
     <dependency>
       <groupId>info.magnolia</groupId>
       <artifactId>magnolia-core</artifactId>

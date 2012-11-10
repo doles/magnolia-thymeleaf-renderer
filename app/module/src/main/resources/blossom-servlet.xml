@@ -39,7 +39,7 @@
     <!-- JSP - renders all views that end with .jsp -->
     <bean class="info.magnolia.module.blossom.view.TemplateViewResolver">
         <property name="order" value="2"/>
-        <property name="prefix" value="/thymeleaf_proto/"/>
+        <property name="prefix" value="/WEB-INF/classes/mgnl-files/templates/thymeleaf_proto/"/>
         <property name="viewNames" value="*.jsp"/>
         <property name="viewRenderer">
             <bean class="info.magnolia.module.blossom.view.JspTemplateViewRenderer"/>
@@ -68,6 +68,11 @@
     <bean id="templateEngine"
           class="org.thymeleaf.spring3.SpringTemplateEngine">
         <property name="templateResolver" ref="templateResolver" />
+        <property name="additionalDialects">
+            <set>
+                <bean class="thymeleaf.dialect.MagnoliaDialect"/>
+            </set>
+        </property>
 
     </bean>
 
