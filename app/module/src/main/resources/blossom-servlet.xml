@@ -49,7 +49,7 @@
 
     <bean class="info.magnolia.module.blossom.view.TemplateViewResolver">
         <property name="order" value="3"/>
-        <property name="prefix" value="thymeleaf_proto/"/>
+        <property name="prefix" value=""/>
         <property name="viewNames" value="*.html"/>
         <property name="viewRenderer">
             <bean class="thymeleaf.renderer.ThymeleafRenderer">
@@ -59,7 +59,7 @@
     </bean>
     <bean id="templateResolver"
           class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
-        <property name="prefix" value="/WEB-INF/classes/mgnl-files/templates/" />
+        <property name="prefix" value="/WEB-INF/classes/mgnl-files/templates/thymeleaf_proto/" />
         <property name="suffix" value="" />
         <property name="templateMode" value="HTML5" />
         <property name="cacheable" value="false"/>
@@ -75,7 +75,7 @@
         </property>
 
     </bean>
-
+    <bean id="templateExporter" class="thymeleaf.blossom.ThymeleafTemplateExporter"/>
 
 
 </beans>

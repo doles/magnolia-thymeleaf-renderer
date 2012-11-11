@@ -35,7 +35,8 @@ public class MainTemplate {
 
         @RequestMapping("/mainTemplate/promos")
         public String render() {
-            return "areas/promos.html";
+            System.out.println("Problem gelöst");
+            return "areas/area.html :: mainArea";
         }
     }
 }
