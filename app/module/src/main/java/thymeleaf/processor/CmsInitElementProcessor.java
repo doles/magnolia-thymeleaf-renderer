@@ -32,6 +32,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcessor {
+
     private I18nContentSupport i18nContentSupport = I18nContentSupportFactory.getI18nSupport();
     private I18nAuthoringSupport i18nAuthoringSupport = I18nAuthoringSupport.Factory.getInstance();
     private static final String CMS_PAGE_TAG = "cms:page";
@@ -45,7 +46,13 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
     }
 
     @Override
-    protected List<Node> getModifiedChildren(Arguments arguments, Element element, String attributeName) {
+    protected List<Node> getModifiedChildren(Arguments arguments, Element element, String attributeName)
+
+    {
+//        if (!isAdmin()) {
+//            return element.getChildren();
+//        }
+
         String name = element.getNormalizedName();
         if (!"head".equals(name)) {
             throw new TemplateProcessingException("cms:init is only allowed on head element");

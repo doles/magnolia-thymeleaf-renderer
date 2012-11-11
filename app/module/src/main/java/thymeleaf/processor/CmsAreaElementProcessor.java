@@ -1,6 +1,11 @@
 package thymeleaf.processor;
 
+import com.sun.org.apache.xpath.internal.NodeSet;
+import info.magnolia.cms.core.MgnlNodeType;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.jcr.RuntimeRepositoryException;
+import info.magnolia.jcr.util.ContentMap;
+import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.module.blossom.render.BlossomDispatcherServlet;
 import info.magnolia.module.blossom.support.ForwardRequestWrapper;
 import info.magnolia.module.blossom.support.IncludeRequestWrapper;
@@ -10,17 +15,23 @@ import info.magnolia.module.blossom.template.HandlerMetaData;
 import info.magnolia.objectfactory.Components;
 import info.magnolia.registry.RegistrationException;
 import info.magnolia.rendering.context.RenderingContext;
+import info.magnolia.rendering.engine.RenderException;
 import info.magnolia.rendering.engine.RenderingEngine;
 import info.magnolia.rendering.template.AreaDefinition;
 import info.magnolia.rendering.template.TemplateDefinition;
+import info.magnolia.rendering.template.configured.ConfiguredAreaDefinition;
 import info.magnolia.rendering.template.registry.TemplateDefinitionRegistry;
 import info.magnolia.templating.elements.AreaElement;
+import info.magnolia.templating.inheritance.DefaultInheritanceContentDecorator;
+import info.magnolia.templating.jsp.cmsfn.JspTemplatingFunction;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.OrderComparator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.*;
 import org.thymeleaf.Arguments;
+import org.thymeleaf.context.IWebContext;
+import org.thymeleaf.dom.Comment;
 import org.thymeleaf.dom.Element;
 import org.thymeleaf.dom.Node;
 import org.thymeleaf.exceptions.TemplateProcessingException;
@@ -28,18 +39,25 @@ import org.thymeleaf.fragment.FragmentAndTarget;
 import org.thymeleaf.processor.IAttributeNameProcessorMatcher;
 import org.thymeleaf.processor.ProcessorResult;
 import org.thymeleaf.processor.attr.AbstractAttrProcessor;
+import org.thymeleaf.spring3.context.SpringWebContext;
 import org.thymeleaf.standard.expression.StandardExpressionProcessor;
 import org.thymeleaf.standard.fragment.StandardFragmentProcessor;
 import org.thymeleaf.standard.processor.attr.AbstractStandardFragmentHandlingAttrProcessor;
 import org.thymeleaf.standard.processor.attr.StandardFragmentAttrProcessor;
 import org.thymeleaf.util.PrefixUtils;
 import thymeleaf.blossom.ThymeleafTemplateExporter;
+import thymeleaf.magnolia.ThymeleafAreaElement;
 
+import javax.jcr.RepositoryException;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,12 +77,16 @@ public class CmsAreaElementProcessor extends AbstractAttrProcessor {
     private List<HandlerMapping> handlerMappings;
     private List<HandlerAdapter> handlerAdapters;
     private ApplicationContext context;
+    private ServletContext servletContext;
 
-    public CmsAreaElementProcessor(ApplicationContext ctx) {
+
+    public CmsAreaElementProcessor(ApplicationContext ctx, ServletContext sctx) {
 
         super(ATTR_NAME);
         this.templateExporter = ctx.getBean(ThymeleafTemplateExporter.class);
         this.context = ctx;
+        this.servletContext = sctx;
+
         initGHandlerAdapters();
         initHandlerMappings();
     }
@@ -89,11 +111,11 @@ public class CmsAreaElementProcessor extends AbstractAttrProcessor {
         }
     }
 
-    private AreaElement createAreaElement() {
+    private ThymeleafAreaElement createAreaElement() {
         final RenderingEngine renderingEngine = Components.getComponent(RenderingEngine.class);
         final RenderingContext renderingContext = renderingEngine.getRenderingContext();
 
-        return Components.getComponentProvider().newInstance(AreaElement.class, renderingContext);
+        return Components.getComponentProvider().newInstance(ThymeleafAreaElement.class, renderingContext);
     }
 
     @Override
@@ -199,7 +221,7 @@ public class CmsAreaElementProcessor extends AbstractAttrProcessor {
             }
         }
         if (adapter == null) {
-            throw new TemplateProcessingException("Na HandlerAdepter found");
+            throw new TemplateProcessingException("Na HandlerAdapter found");
 
         }
         ModelAndView mv = null;
@@ -224,9 +246,30 @@ public class CmsAreaElementProcessor extends AbstractAttrProcessor {
         final FragmentAndTarget fragmentAndTarget =
                 getFragmentAndTarget(arguments, element, attributeName, template, substituteInclusionNode);
 
+        ThymeleafAreaElement areaElement = createAreaElement();
+        areaElement.setName(areaDef.getName());
+        StringWriter out = new StringWriter();
+        try {
+            areaElement.begin(out);
+        } catch (Exception e) {
+            throw new TemplateProcessingException("render comment",e);
+        }
+        String comment = out.toString();
+        if(comment.startsWith("<!--")){
+            comment = comment.substring(4);
+        }
+        if(comment.endsWith("-->\n")){
+            comment =comment.substring(0,comment.length()-4);
+        }
+        Comment commentNode = new Comment(comment);
+
+        Map<String, Object> vars = areaElement.getContextMap();
+
+        final IWebContext webcontext =
+                new SpringWebContext(MgnlContext.getWebContext().getRequest(), MgnlContext.getWebContext().getResponse(), servletContext , MgnlContext.getWebContext().getRequest().getLocale(), vars, this.context);
         final List<Node> fragmentNodes =
                 fragmentAndTarget.extractFragment(
-                        arguments.getConfiguration(), arguments, arguments.getTemplateRepository());
+                        arguments.getConfiguration(), webcontext, arguments.getTemplateRepository());
 
         if (fragmentNodes == null) {
             throw new TemplateProcessingException(
@@ -238,14 +281,21 @@ public class CmsAreaElementProcessor extends AbstractAttrProcessor {
         element.clearChildren();
         element.removeAttribute(attributeName);
 
+
+
+        List<Node> newNodes = new ArrayList<Node>();
+        newNodes.add(commentNode);
+        newNodes.addAll(fragmentNodes);
+        commentNode = new Comment(" /cms:area ");
+        newNodes.add(commentNode);
         if (substituteInclusionNode) {
 
-            element.setChildren(fragmentNodes);
+            element.setChildren(newNodes);
             element.getParent().extractChild(element);
 
         } else {
 
-            for (final Node fragmentNode : fragmentNodes) {
+            for (final Node fragmentNode : newNodes) {
                 element.addChild(fragmentNode);
             }
 
