@@ -1,7 +1,7 @@
 <!DOCTYPE html >
 
 <html  xmlns:cms="http://www.t8y.com" lang="en" xmlns:th="http://www.thymeleaf.org" >
-  <head cms:init="${content}">
+  <head cms:init="">
     <meta charset="utf-8"/>
     <title>Bootstrap, from Twitter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -38,11 +38,15 @@
         <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
       </div>
 
+
+
       <!-- Example row of columns -->
       <div class="row">
         <div class="span4">
+
           <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <div cms:area="Area"/>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn" href="#">View details &raquo;</a></p>
         </div>
         <div class="span4">
