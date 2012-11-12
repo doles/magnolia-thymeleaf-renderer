@@ -29,9 +29,10 @@
   <body>
 
 
-    <div th:fragment="mainArea">
-        <p>AreaTest</p>
-
+    <div th:fragment="mainArea"><div th:each="component : ${components}">
+             <div th:text="${component}"></div>
+        </div>
+        <p th:text="${test}"></p>
     </div>
 
 

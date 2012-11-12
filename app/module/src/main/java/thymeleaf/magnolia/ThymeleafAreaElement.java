@@ -32,6 +32,7 @@ public class ThymeleafAreaElement extends AreaElement {
     private Node areaNode;
     private AreaDefinition areaDefinition;
     private String type;
+    private Object areaPath2;
 
     public ThymeleafAreaElement(ServerConfiguration server, RenderingContext renderingContext, RenderingEngine renderingEngine) {
         super(server, renderingContext, renderingEngine);
@@ -45,7 +46,16 @@ public class ThymeleafAreaElement extends AreaElement {
 
 
         try {
-            areaNode = getPassedContent();
+            this.areaNode = getPassedContent();
+            if (this.areaNode != null) {
+                this.areaPath2 = getNodePath(areaNode);
+            } else {
+                // will be null if no area has been created (for instance for optional areas)
+                // current content is the parent node
+                Node parentNode = currentContent();
+                this.areaNode = tryToCreateAreaNode(parentNode);
+                this.areaPath2 = getNodePath(parentNode) + "/" + getName();
+            }
             areaDefinition = resolveAreaDefinition();
             type = resolveType();
 

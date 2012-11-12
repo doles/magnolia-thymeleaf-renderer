@@ -7,6 +7,7 @@ import org.springframework.web.context.ServletContextAware;
 import org.thymeleaf.dialect.AbstractDialect;
 import org.thymeleaf.processor.IProcessor;
 import thymeleaf.processor.CmsAreaElementProcessor;
+import thymeleaf.processor.CmsComponentElementProcessor;
 import thymeleaf.processor.CmsInitElementProcessor;
 
 import javax.servlet.ServletContext;
@@ -40,6 +41,7 @@ public class MagnoliaDialect extends AbstractDialect implements ApplicationConte
         final Set<IProcessor> processors = new HashSet<IProcessor>();
         processors.add(new CmsInitElementProcessor());
         processors.add(new CmsAreaElementProcessor(ctx, servletContext));
+        processors.add(new CmsComponentElementProcessor(ctx, servletContext));
         return processors;
     }
 

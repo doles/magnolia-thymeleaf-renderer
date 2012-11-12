@@ -4,6 +4,7 @@ import info.magnolia.module.blossom.annotation.*;
 import info.magnolia.module.blossom.dialog.TabBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import thymeleaf.controller.components.ThymeleafComponent;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,7 +30,7 @@ public class MainTemplate {
 
     @Area("Area")
     @Inherits
-    @AvailableComponentClasses({})
+    @AvailableComponentClasses({ThymeleafComponent.class})
     @Controller
     public static class PromosArea {
 
