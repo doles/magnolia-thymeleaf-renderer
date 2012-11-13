@@ -50,7 +50,7 @@ import java.util.Map;
  * Time: 09:39
  * To change this template use File | Settings | File Templates.
  */
-public class CmsComponentElementProcessor extends AbstractAttrProcessor {
+public class CmsComponentElementProcessor extends AbstractRecursiveInclusionProcessor {
 
     private static final String FRAGMENT_ATTR_NAME = StandardFragmentAttrProcessor.ATTR_NAME;
     public static final String ATTR_NAME = "component";
@@ -58,16 +58,13 @@ public class CmsComponentElementProcessor extends AbstractAttrProcessor {
     private ThymeleafTemplateExporter templateExporter;
     private List<HandlerMapping> handlerMappings;
     private List<HandlerAdapter> handlerAdapters;
-    private ApplicationContext context;
-    private ServletContext servletContext;
+
 
 
     public CmsComponentElementProcessor(ApplicationContext ctx, ServletContext sctx) {
 
-        super(ATTR_NAME);
+        super(ctx,sctx,ATTR_NAME);
         this.templateExporter = ctx.getBean(ThymeleafTemplateExporter.class);
-        this.context = ctx;
-        this.servletContext = sctx;
 
         initGHandlerAdapters();
         initHandlerMappings();
@@ -235,57 +232,10 @@ public class CmsComponentElementProcessor extends AbstractAttrProcessor {
         Map<String, Object> vars = new HashMap<String, Object>();
         vars.put("content",componentElement.getContent());
 
-        final IWebContext webcontext =
-                new SpringWebContext(MgnlContext.getWebContext().getRequest(), MgnlContext.getWebContext().getResponse(), servletContext, MgnlContext.getWebContext().getRequest().getLocale(), vars, this.context);
-        final List<Node> fragmentNodes =
-                fragmentAndTarget.extractFragment(
-                        arguments.getConfiguration(), webcontext, arguments.getTemplateRepository());
-
-        if (fragmentNodes == null) {
-            throw new TemplateProcessingException(
-                    "Cannot correctly process \"" + attributeName + "\" attribute. " +
-                            "Fragment specification \"" + template+ "\" matched null.");
-        }
-
-
-        element.clearChildren();
-        element.removeAttribute(attributeName);
-
-
-        List<Node> newNodes = new ArrayList<Node>();
-        newNodes.add(commentNode);
-        newNodes.addAll(fragmentNodes);
-        commentNode = new Comment(" /cms:component ");
-        newNodes.add(commentNode);
-        if (substituteInclusionNode) {
-
-            element.setChildren(newNodes);
-            element.getParent().extractChild(element);
-
-        } else {
-
-            for (final Node fragmentNode : newNodes) {
-                element.addChild(fragmentNode);
-            }
-
-        }
-
+        doRecursiveProcessing(arguments,element,attributeName,template,mv.getViewName(),substituteInclusionNode,commentNode,vars,templateDefinition.getTitle()," /cms:component");
         return ProcessorResult.OK;
-
     }
 
 
-    protected final FragmentAndTarget getFragmentAndTarget(final Arguments arguments,
-                                                           final Element element, final String attributeName, final String attributeValue,
-                                                           final boolean substituteInclusionNode) {
-
-        final String targetAttributeName =
-                getTargetAttributeName(arguments, element, attributeName, attributeValue);
-
-        return StandardFragmentProcessor.computeStandardFragmentSpec(
-                arguments.getConfiguration(), arguments, attributeValue, null, targetAttributeName,
-                !substituteInclusionNode);
-
-    }
 
 }

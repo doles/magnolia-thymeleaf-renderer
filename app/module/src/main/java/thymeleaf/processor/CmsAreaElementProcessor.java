@@ -30,8 +30,10 @@ import org.springframework.core.OrderComparator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.*;
 import org.thymeleaf.Arguments;
+import org.thymeleaf.TemplateProcessingParameters;
 import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.dom.Comment;
+import org.thymeleaf.dom.Document;
 import org.thymeleaf.dom.Element;
 import org.thymeleaf.dom.Node;
 import org.thymeleaf.exceptions.TemplateProcessingException;
@@ -68,21 +70,19 @@ import java.util.Map;
  * Time: 09:39
  * To change this template use File | Settings | File Templates.
  */
-public class CmsAreaElementProcessor extends AbstractAttrProcessor {
+public class CmsAreaElementProcessor extends AbstractRecursiveInclusionProcessor {
 
-    private static final String FRAGMENT_ATTR_NAME = StandardFragmentAttrProcessor.ATTR_NAME;
+
     public static final String ATTR_NAME = "area";
 
     private ThymeleafTemplateExporter templateExporter;
     private List<HandlerMapping> handlerMappings;
     private List<HandlerAdapter> handlerAdapters;
-    private ApplicationContext context;
-    private ServletContext servletContext;
 
 
     public CmsAreaElementProcessor(ApplicationContext ctx, ServletContext sctx) {
 
-        super(ATTR_NAME);
+        super(ctx,sctx,ATTR_NAME);
         this.templateExporter = ctx.getBean(ThymeleafTemplateExporter.class);
         this.context = ctx;
         this.servletContext = sctx;
@@ -124,19 +124,7 @@ public class CmsAreaElementProcessor extends AbstractAttrProcessor {
     }
 
 
-    protected String getTargetAttributeName(
-            final Arguments arguments, final Element element,
-            final String attributeName, final String attributeValue) {
 
-        if (attributeName != null) {
-            final String prefix = "th";
-            if (prefix != null) {
-                return prefix + ":" + FRAGMENT_ATTR_NAME;
-            }
-        }
-        return FRAGMENT_ATTR_NAME;
-
-    }
 
 
     protected boolean getSubstituteInclusionNode(
@@ -263,63 +251,15 @@ public class CmsAreaElementProcessor extends AbstractAttrProcessor {
 
         Map<String, Object> vars = areaElement.getContextMap();
         vars.put("test","test");
-
-        final IWebContext webcontext =
-                new SpringWebContext(MgnlContext.getWebContext().getRequest(), MgnlContext.getWebContext().getResponse(), servletContext , MgnlContext.getWebContext().getRequest().getLocale(), vars, this.context);
-        final FragmentAndTarget fragmentAndTarget =
-                getFragmentAndTarget(arguments, element, attributeName, template, substituteInclusionNode);
-
-
-        final List<Node> fragmentNodes =
-                fragmentAndTarget.extractFragment(
-                        arguments.getConfiguration(), webcontext, arguments.getTemplateRepository());
-
-        if (fragmentNodes == null) {
-            throw new TemplateProcessingException(
-                    "Cannot correctly process \"" + attributeName + "\" attribute. " +
-                            "Fragment specification \"" + attributeValue + "\" matched null.");
-        }
-
-
-        element.clearChildren();
-        element.removeAttribute(attributeName);
-
-
-
-        List<Node> newNodes = new ArrayList<Node>();
-        newNodes.add(commentNode);
-        newNodes.addAll(fragmentNodes);
-        commentNode = new Comment(" /cms:area ");
-        newNodes.add(commentNode);
-        if (substituteInclusionNode) {
-
-            element.setChildren(newNodes);
-            element.getParent().extractChild(element);
-
-        } else {
-
-            for (final Node fragmentNode : newNodes) {
-                element.addChild(fragmentNode);
-            }
-
-        }
+        final String documentName = areaDef.getName();
+        doRecursiveProcessing(arguments, element, attributeName, attributeValue, template, substituteInclusionNode, commentNode, vars, documentName," /cms:area ");
 
         return ProcessorResult.OK;
 
     }
 
 
-    protected final FragmentAndTarget getFragmentAndTarget(final Arguments arguments,
-                                                           final Element element, final String attributeName, final String attributeValue,
-                                                           final boolean substituteInclusionNode) {
 
-        final String targetAttributeName =
-                getTargetAttributeName(arguments, element, attributeName, attributeValue);
 
-        return StandardFragmentProcessor.computeStandardFragmentSpec(
-                arguments.getConfiguration(), arguments, attributeValue, null, targetAttributeName,
-                !substituteInclusionNode);
-
-    }
 
 }
