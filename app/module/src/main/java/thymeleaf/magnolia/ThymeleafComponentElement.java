@@ -4,6 +4,7 @@ import info.magnolia.cms.beans.config.ServerConfiguration;
 import info.magnolia.cms.i18n.Messages;
 import info.magnolia.cms.i18n.MessagesManager;
 import info.magnolia.jcr.inheritance.InheritanceNodeWrapper;
+import info.magnolia.module.blossom.template.BlossomTemplateDefinition;
 import info.magnolia.registry.RegistrationException;
 import info.magnolia.rendering.context.RenderingContext;
 import info.magnolia.rendering.engine.RenderException;
@@ -125,5 +126,10 @@ public class ThymeleafComponentElement extends ComponentElement{
             return dialog;
         }
         return null;
+    }
+
+    public BlossomTemplateDefinition getTemplate(Node content) throws RegistrationException {
+        return (BlossomTemplateDefinition)templateDefinitionAssignment2.getAssignedTemplateDefinition(content);
+
     }
 }

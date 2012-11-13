@@ -44,9 +44,9 @@
       <div class="row">
         <div th:fragment="component" class="span4">
 
-          <h2 th:text="${cmsfn.asContentMap(content)[test]}">Heading</h2>
-            <div cms:area="Area"/>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <h2 th:text="${cmsfn.asContentMap(content)[head]}">Heading</h2>
+
+            <p th:text="${cmsfn.asContentMap(content)[text]}">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn" href="#">View details &raquo;</a></p>
         </div>
         <div class="span4">

@@ -1,6 +1,7 @@
 package thymeleaf.processor;
 
 import info.magnolia.context.MgnlContext;
+import info.magnolia.jcr.util.ContentMap;
 import info.magnolia.module.blossom.support.IncludeRequestWrapper;
 import info.magnolia.module.blossom.template.BlossomAreaDefinition;
 import info.magnolia.module.blossom.template.BlossomTemplateDefinition;
@@ -90,9 +91,7 @@ public class CmsComponentElementProcessor extends AbstractRecursiveInclusionProc
         }
     }
 
-    private ThymeleafComponentElement createComponentElement() {
-        final RenderingEngine renderingEngine = Components.getComponent(RenderingEngine.class);
-        final RenderingContext renderingContext = renderingEngine.getRenderingContext();
+    private ThymeleafComponentElement createComponentElement(RenderingContext renderingContext) {
 
         return Components.getComponentProvider().newInstance(ThymeleafComponentElement.class, renderingContext);
     }
@@ -121,8 +120,8 @@ public class CmsComponentElementProcessor extends AbstractRecursiveInclusionProc
     protected boolean getSubstituteInclusionNode(
             final Arguments arguments,
             final Element element, final String attributeName, final String attributeValue) {
-        // th:include does not substitute the inclusion node
-        return false;
+
+        return true;
     }
 
 
@@ -133,22 +132,27 @@ public class CmsComponentElementProcessor extends AbstractRecursiveInclusionProc
         HttpServletRequest request = MgnlContext.getWebContext().getRequest();
         final HttpServletResponse response = MgnlContext.getWebContext().getResponse();
 
-        javax.jcr.Node content =(javax.jcr.Node) StandardExpressionProcessor.processExpression(arguments,  element.getAttributeValue(attributeName));
-
-        Object ctxObj = StandardExpressionProcessor.processExpression(
-                arguments, "${renderingContext}");
-        if (!(ctxObj instanceof RenderingContext)) {
-            throw new TemplateProcessingException("Musst pass a RenderingContext here");
+        javax.jcr.Node content=null;
+        Object contentObject = StandardExpressionProcessor.processExpression(arguments,  element.getAttributeValue(attributeName));
+        if(contentObject instanceof ContentMap){
+            content = ((ContentMap)contentObject).getJCRNode();
+        } else if(contentObject instanceof javax.jcr.Node){
+            content =(javax.jcr.Node)contentObject;
+        }else {
+            throw new TemplateProcessingException("Cannot cast "+contentObject.getClass()+" to javax.jcr.Node");
         }
+
+        final RenderingEngine renderingEngine = Components.getComponent(RenderingEngine.class);
+        final RenderingContext renderingContext = renderingEngine.getRenderingContext();
+        ThymeleafComponentElement componentElement = createComponentElement(renderingContext);
+
         BlossomTemplateDefinition templateDefinition = null;
         try {
-            RenderingContext renderingContext = (RenderingContext) ctxObj;
-            templateDefinition = (BlossomTemplateDefinition) renderingContext.getRenderableDefinition();
 
+            templateDefinition = (BlossomTemplateDefinition) componentElement.getTemplate(content);
+        } catch (Exception x) {
 
-        } catch (ClassCastException x) {
-
-            throw new TemplateProcessingException("Only Blossom, templates supported", x);
+            throw new TemplateProcessingException("Only Blossom, templates supported or template not found", x);
         }
 
         if (templateDefinition == null) {
@@ -217,10 +221,7 @@ public class CmsComponentElementProcessor extends AbstractRecursiveInclusionProc
         final boolean substituteInclusionNode =
                 getSubstituteInclusionNode(arguments, element, attributeName, template);
 
-        final FragmentAndTarget fragmentAndTarget =
-                getFragmentAndTarget(arguments, element, attributeName, template, substituteInclusionNode);
 
-        ThymeleafComponentElement componentElement = createComponentElement();
         componentElement.setContent(content);
        // componentElement.setName(templateDefinition.getName());
         StringWriter out = new StringWriter();

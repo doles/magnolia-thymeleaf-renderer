@@ -26,6 +26,7 @@ public class ThymeleafComponent {
 
     @TabFactory("Properties")
     public void createTab(TabBuilder builder) {
-        builder.addEdit("test", "Testtext", "");
+        builder.addEdit("head", "head", "");
+        builder.addEdit("text", "Testtext", "");
     }
 }

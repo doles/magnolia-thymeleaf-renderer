@@ -29,11 +29,15 @@
   <body>
 
 
-    <div class="row" th:fragment="mainArea"><div th:each="component : ${components}">
-             <div cms:component="${component}"></div>
+    <div class="row" th:fragment="mainArea" >
+        <div  th:each="component : ${components}">
+             <div cms:component="${component}">
+
+             </div>
         </div>
-        <p th:text="${test}"></p>
     </div>
+
+
 
 
     <!-- Placed at the end of the document so the pages load faster -->

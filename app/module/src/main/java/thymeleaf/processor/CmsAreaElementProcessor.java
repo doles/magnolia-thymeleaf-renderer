@@ -82,7 +82,7 @@ public class CmsAreaElementProcessor extends AbstractRecursiveInclusionProcessor
 
     public CmsAreaElementProcessor(ApplicationContext ctx, ServletContext sctx) {
 
-        super(ctx,sctx,ATTR_NAME);
+        super(ctx, sctx, ATTR_NAME);
         this.templateExporter = ctx.getBean(ThymeleafTemplateExporter.class);
         this.context = ctx;
         this.servletContext = sctx;
@@ -111,9 +111,7 @@ public class CmsAreaElementProcessor extends AbstractRecursiveInclusionProcessor
         }
     }
 
-    private ThymeleafAreaElement createAreaElement() {
-        final RenderingEngine renderingEngine = Components.getComponent(RenderingEngine.class);
-        final RenderingContext renderingContext = renderingEngine.getRenderingContext();
+    private ThymeleafAreaElement createAreaElement(RenderingContext renderingContext) {
 
         return Components.getComponentProvider().newInstance(ThymeleafAreaElement.class, renderingContext);
     }
@@ -124,14 +122,11 @@ public class CmsAreaElementProcessor extends AbstractRecursiveInclusionProcessor
     }
 
 
-
-
-
     protected boolean getSubstituteInclusionNode(
             final Arguments arguments,
             final Element element, final String attributeName, final String attributeValue) {
         // th:include does not substitute the inclusion node
-        return false;
+        return true;
     }
 
 
@@ -144,15 +139,14 @@ public class CmsAreaElementProcessor extends AbstractRecursiveInclusionProcessor
 
         final String attributeValue = element.getAttributeValue(attributeName);
 
-        Object ctxObj = StandardExpressionProcessor.processExpression(
-                arguments, "${renderingContext}");
-        if (!(ctxObj instanceof RenderingContext)) {
-            throw new TemplateProcessingException("Musst pass a RenderingContext here");
-        }
+        final RenderingEngine renderingEngine = Components.getComponent(RenderingEngine.class);
+        final RenderingContext renderingContext = renderingEngine.getRenderingContext();
+
         AreaDefinition areaDef = null;
+        BlossomTemplateDefinition templateDefinition;
         try {
-            RenderingContext renderingContext = (RenderingContext) ctxObj;
-            BlossomTemplateDefinition templateDefinition = (BlossomTemplateDefinition) renderingContext.getRenderableDefinition();
+
+            templateDefinition = (BlossomTemplateDefinition) renderingContext.getRenderableDefinition();
             if (templateDefinition.getAreas().containsKey(attributeValue)) {
                 areaDef = templateDefinition.getAreas().get(attributeValue);
             }
@@ -169,16 +163,21 @@ public class CmsAreaElementProcessor extends AbstractRecursiveInclusionProcessor
         Object handlerBean = null;
         String path = ((BlossomAreaDefinition) areaDef).getHandlerPath();
         for (HandlerMetaData meta : templateExporter.getDetectedHandlers().getTemplates()) {
-            final List<HandlerMetaData> areasByEnclosingClass = templateExporter.getDetectedHandlers().getAreasByEnclosingClass(meta.getHandlerClass());
-            if (areasByEnclosingClass != null) {
-                for (HandlerMetaData areaMeta : areasByEnclosingClass) {
+
+            // make sure we get the right area def from out template
+            if (meta.getHandlerPath().equals(templateDefinition.getHandlerPath())) {
+                final List<HandlerMetaData> areasByEnclosingClass = templateExporter.getDetectedHandlers().getAreasByEnclosingClass(meta.getHandlerClass());
+                if (areasByEnclosingClass != null) {
+                    for (HandlerMetaData areaMeta : areasByEnclosingClass) {
 
 
-                    if (areaMeta.getHandlerPath().equals(path)) {
-                        handlerBean = areaMeta.getHandler();
-                        break;
+                        if (areaMeta.getHandlerPath().equals(path)) {
+                            handlerBean = areaMeta.getHandler();
+                            break;
+                        }
                     }
                 }
+                break;
             }
         }
         if (handlerBean == null) {
@@ -213,14 +212,14 @@ public class CmsAreaElementProcessor extends AbstractRecursiveInclusionProcessor
 
         }
         ModelAndView mv = null;
-        MgnlContext.getWebContext().push(request,response);
-        request = new IncludeRequestWrapper(request, MgnlContext.getContextPath() + path, MgnlContext.getContextPath(),path, null, request.getQueryString());
+        MgnlContext.getWebContext().push(request, response);
+        request = new IncludeRequestWrapper(request, MgnlContext.getContextPath() + path, MgnlContext.getContextPath(), path, null, request.getQueryString());
 
         try {
             mv = adapter.handle(request, response, handlerBean);
         } catch (Exception e) {
             throw new TemplateProcessingException("Spring handler error", e);
-        }  finally {
+        } finally {
             MgnlContext.getWebContext().pop();
         }
         String template = mv.getViewName();
@@ -232,34 +231,31 @@ public class CmsAreaElementProcessor extends AbstractRecursiveInclusionProcessor
                 getSubstituteInclusionNode(arguments, element, attributeName, template);
 
 
-        ThymeleafAreaElement areaElement = createAreaElement();
+        ThymeleafAreaElement areaElement = createAreaElement(renderingContext);
         areaElement.setName(areaDef.getName());
         StringWriter out = new StringWriter();
         try {
             areaElement.begin(out);
         } catch (Exception e) {
-            throw new TemplateProcessingException("render comment",e);
+            throw new TemplateProcessingException("render comment", e);
         }
         String comment = out.toString();
-        if(comment.startsWith("<!--")){
+        if (comment.startsWith("<!--")) {
             comment = comment.substring(4);
         }
-        if(comment.endsWith("-->\n")){
-            comment =comment.substring(0,comment.length()-4);
+        if (comment.endsWith("-->\n")) {
+            comment = comment.substring(0, comment.length() - 4);
         }
         Comment commentNode = new Comment(comment);
 
         Map<String, Object> vars = areaElement.getContextMap();
-        vars.put("test","test");
+        vars.put("test", "test");
         final String documentName = areaDef.getName();
-        doRecursiveProcessing(arguments, element, attributeName, attributeValue, template, substituteInclusionNode, commentNode, vars, documentName," /cms:area ");
+        doRecursiveProcessing(arguments, element, attributeName, attributeValue, template, substituteInclusionNode, commentNode, vars, documentName, " /cms:area ");
 
         return ProcessorResult.OK;
 
     }
-
-
-
 
 
 }
