@@ -251,9 +251,9 @@ public class CmsAreaElementProcessor extends AbstractRecursiveInclusionProcessor
         Map<String, Object> vars = areaElement.getContextMap();
         vars.put("test", "test");
         final String documentName = areaDef.getName();
-        doRecursiveProcessing(arguments, element, attributeName, attributeValue, template, substituteInclusionNode, commentNode, vars, documentName, " /cms:area ");
+        ProcessorResult result = doRecursiveProcessing(arguments, element, attributeName, attributeValue, template, substituteInclusionNode, commentNode, vars, documentName, " /cms:area ");
 
-        return ProcessorResult.OK;
+        return result;
 
     }
 

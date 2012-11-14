@@ -62,16 +62,18 @@ public abstract class AbstractRecursiveInclusionProcessor extends AbstractAttrPr
         this.servletContext =sctx;
     }
 
-    protected void doRecursiveProcessing(Arguments arguments, Element element, String attributeName, String fragmentSpec, String template, boolean substituteInclusionNode, Comment commentNode, Map<String, Object> vars, String documentName, String closeTag) {
-        final IWebContext webcontext =
-                new SpringWebContext(MgnlContext.getWebContext().getRequest(), MgnlContext.getWebContext().getResponse(), servletContext , MgnlContext.getWebContext().getRequest().getLocale(), vars, this.context);
+    protected ProcessorResult doRecursiveProcessing(Arguments arguments, Element element, String attributeName, String fragmentSpec, String template, boolean substituteInclusionNode, Comment commentNode, Map<String, Object> vars, String documentName, String closeTag) {
+//        final IWebContext webcontext =
+//                new SpringWebContext(MgnlContext.getWebContext().getRequest(), MgnlContext.getWebContext().getResponse(), servletContext , MgnlContext.getWebContext().getRequest().getLocale(), vars, this.context);
+
+
         final FragmentAndTarget fragmentAndTarget =
                 getFragmentAndTarget(arguments, element, attributeName, template, substituteInclusionNode);
 
 
         final List<Node> fragmentNodes =
                 fragmentAndTarget.extractFragment(
-                        arguments.getConfiguration(), webcontext, arguments.getTemplateRepository());
+                        arguments.getConfiguration(), arguments, arguments.getTemplateRepository());
 
         if (fragmentNodes == null) {
             throw new TemplateProcessingException(
@@ -81,21 +83,7 @@ public abstract class AbstractRecursiveInclusionProcessor extends AbstractAttrPr
         // process fragment nodes
 
 
-        Document document = new Document(documentName);
-        for (final Node processingRootNode : fragmentNodes) {
-            if (processingRootNode != null) {
-                final Node clonedProcessingRootNode =
-                        processingRootNode.cloneNode(document, false);
-                document.addChild(clonedProcessingRootNode);
-            }
-        }
-        TemplateProcessingParameters params = new TemplateProcessingParameters(arguments.getConfiguration(), documentName,webcontext );
 
-        final Arguments areaArgs =
-                new Arguments(arguments.getTemplateEngine(),params,arguments.getTemplateResolution(),arguments.getTemplateRepository(),document);
-
-        document.precompute(areaArgs.getConfiguration());
-        document.process(areaArgs);
 
         element.clearChildren();
         element.removeAttribute(attributeName);
@@ -103,28 +91,18 @@ public abstract class AbstractRecursiveInclusionProcessor extends AbstractAttrPr
 
         List<Node> newNodes = new ArrayList<Node>();
         newNodes.add(commentNode);
-        for(Node newNode : document.getChildren()){
-            final Node clonedNode =
-                    newNode.cloneNode(arguments.getDocument(), false);
-            newNodes.add(clonedNode);
-
-        }
-
+        newNodes.addAll(fragmentNodes);
 
         commentNode = new Comment(closeTag);
         newNodes.add(commentNode);
-        if (substituteInclusionNode) {
 
-            element.setChildren(newNodes);
-            element.getParent().extractChild(element);
+        element.setChildren(newNodes);
+        element.getParent().extractChild(element);
 
-        } else {
-
-            for (final Node fragmentNode : newNodes) {
-                element.addChild(fragmentNode);
-            }
-
+        for(Node node:fragmentNodes){ // workaround: local vars don't get set on the replacement node
+            node.setAllNodeLocalVariables(vars);
         }
+        return ProcessorResult.setLocalVariables(vars);
     }
 
 

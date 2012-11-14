@@ -30,6 +30,8 @@
 
 
     <div class="row" th:fragment="mainArea" >
+        <p th:text="${test==null?'null':'kk'}"></p>
+        <p th:text="${components==null?'null':'kk'}"></p>
         <div  th:each="component : ${components}">
              <div cms:component="${component}">
 
