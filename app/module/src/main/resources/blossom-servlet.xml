@@ -39,7 +39,7 @@
     <!-- JSP - renders all views that end with .jsp -->
     <bean class="info.magnolia.module.blossom.view.TemplateViewResolver">
         <property name="order" value="2"/>
-        <property name="prefix" value="/WEB-INF/classes/mgnl-files/templates/thymeleaf_proto/"/>
+        <property name="prefix" value="/WEB-INF/classes/thymeleaf_proto/"/>
         <property name="viewNames" value="*.jsp"/>
         <property name="viewRenderer">
             <bean class="info.magnolia.module.blossom.view.JspTemplateViewRenderer"/>
@@ -58,12 +58,15 @@
         </property>
     </bean>
     <bean id="templateResolver"
-          class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
-        <property name="prefix" value="/WEB-INF/classes/mgnl-files/templates/thymeleaf_proto/" />
+          class="org.thymeleaf.templateresolver.TemplateResolver">
+        <property name="prefix" value="/WEB-INF/classes/thymeleaf_proto/" />
         <property name="suffix" value="" />
         <property name="templateMode" value="HTML5" />
         <property name="cacheable" value="false"/>
+        <property name="resourceResolver" ref="resourceResolver"/>
     </bean>
+
+    <bean name="resourceResolver" class="thymeleaf.resolver.InplaceTemplateResourceResolver"/>
 
     <bean id="templateEngine"
           class="org.thymeleaf.spring3.SpringTemplateEngine">

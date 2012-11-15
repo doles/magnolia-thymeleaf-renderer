@@ -6,7 +6,7 @@
   <description>The thmymeleaf prototype</description>
   <class>thymeleaf.Module</class>
   <versionHandler>thymeleaf.setup.ModuleVersionHandler</versionHandler>
-  <version>1.0.0</version>
+  <version>1.0.3</version>
 
   <dependencies>
     <dependency>
