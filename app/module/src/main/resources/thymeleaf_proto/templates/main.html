@@ -9,16 +9,15 @@
     <meta name="author" content="" />
 
     <!-- Le styles -->
-    <link th:href="'/docroot/bootstrap/css/bootstrap.css'" href="../../../../../../../../app-webapp/src/main/webapp/docroot/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
       }
     </style>
-    <link th:href="'/docroot/bootstrap/css/bootstrap.css'" href="../../../../../../../../app-webapp/src/main/webapp/docroot/bootstrap/css/bootstrap.css" rel="stylesheet" />
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+   <link th:each="cssfile : ${stkfn.theme(stkfn.site(content)).cssFiles}" th:href="${cssfile.link}" href="../../../../../../../../app-webapp/src/main/webapp/docroot/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -34,7 +33,8 @@
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
         <h1 th:text="${cmsfn.asContentMap(content)[test]}">Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+       <p th:text="${stkfn.theme(stkfn.site(content)).name}">test</p>
+
         <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
       </div>
 

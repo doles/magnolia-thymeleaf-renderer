@@ -2,12 +2,15 @@ package thymeleaf.renderer;
 
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.blossom.render.RenderContext;
+import info.magnolia.module.templatingkit.functions.STKTemplatingFunctions;
+import info.magnolia.objectfactory.Components;
 import info.magnolia.rendering.context.RenderingContext;
 import info.magnolia.rendering.engine.RenderException;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.renderer.AbstractRenderer;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.rendering.util.AppendableWriter;
+import info.magnolia.templating.functions.TemplatingFunctions;
 import info.magnolia.templating.jsp.cmsfn.JspTemplatingFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +58,9 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
             vars.put("content", content);
             vars.put("renderingContext",renderingCtx);
             vars.put("cmsfn", new JspTemplatingFunction());
+
+        STKTemplatingFunctions stkfn = Components.getComponent(STKTemplatingFunctions.class);
+        vars.put("stkfn", stkfn);
             final IWebContext context =
                     new SpringWebContext(MgnlContext.getWebContext().getRequest(), MgnlContext.getWebContext().getResponse(), servletContext , MgnlContext.getWebContext().getRequest().getLocale(), vars, getApplicationContext());
 
