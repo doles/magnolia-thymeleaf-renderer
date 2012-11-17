@@ -55,6 +55,7 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
             vars.put("content", content);
             vars.put("renderingContext",renderingCtx);
             vars.put("cmsfn", new JspTemplatingFunction());
+
             final IWebContext context =
                     new SpringWebContext(MgnlContext.getWebContext().getRequest(), MgnlContext.getWebContext().getResponse(), servletContext , MgnlContext.getWebContext().getRequest().getLocale(), vars, getApplicationContext());
 
