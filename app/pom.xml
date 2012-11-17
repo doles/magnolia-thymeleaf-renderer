@@ -109,6 +109,6 @@
   <modules>
     <module>app-webapp</module>
     <module>module</module>
-      <module>theme</module>
+    
   </modules>
 </project>
