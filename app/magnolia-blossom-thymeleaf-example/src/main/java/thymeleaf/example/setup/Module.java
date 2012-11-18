@@ -1,4 +1,4 @@
-package thymeleaf;
+package thymeleaf.example.setup;
 
 import info.magnolia.module.ModuleLifecycle;
 import info.magnolia.module.ModuleLifecycleContext;
@@ -13,11 +13,13 @@ import info.magnolia.module.blossom.module.BlossomModuleSupport;
  */
 public class Module extends BlossomModuleSupport implements ModuleLifecycle {
     public void start(ModuleLifecycleContext moduleLifecycleContext) {
-
+        initRootWebApplicationContext("classpath:/applicationContext.xml");
+        initBlossomDispatcherServlet("blossom", "classpath:/blossom-servlet.xml");
     }
 
     public void stop(ModuleLifecycleContext moduleLifecycleContext) {
-
+        destroyDispatcherServlets();
+        closeRootWebApplicationContext();
     }
 
 }

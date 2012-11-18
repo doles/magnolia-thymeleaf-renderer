@@ -202,12 +202,18 @@ public class CmsComponentElementProcessor extends AbstractRecursiveInclusionProc
             throw new TemplateProcessingException("Na HandlerAdapter found");
 
         }
+        componentElement.setContent(content);
+        Map<String, Object> vars = new HashMap<String, Object>();
+        vars.put("content",componentElement.getContent());
+
         ModelAndView mv = null;
         MgnlContext.getWebContext().push(request, response);
-        request = new IncludeRequestWrapper(request, MgnlContext.getContextPath() + path, MgnlContext.getContextPath(), path, null, request.getQueryString());
-
+        IncludeRequestWrapper wrapper = new IncludeRequestWrapper(request, MgnlContext.getContextPath() + path, MgnlContext.getContextPath(), path, null, request.getQueryString());
+        for(String key : vars.keySet()){
+            wrapper.setSpecialAttribute(key, vars.get(key)) ;
+        }
         try {
-            mv = adapter.handle(request, response, handlerBean);
+            mv = adapter.handle(wrapper, response, handlerBean);
         } catch (Exception e) {
             throw new TemplateProcessingException("Spring handler error", e);
         } finally {
@@ -216,24 +222,12 @@ public class CmsComponentElementProcessor extends AbstractRecursiveInclusionProc
         String template = mv.getViewName();
 
 
-        //Object result = handler.invoke(handlerBean)
-
-        final boolean substituteInclusionNode =
-                getSubstituteInclusionNode(arguments, element, attributeName, template);
-
-
-        componentElement.setContent(content);
-       // componentElement.setName(templateDefinition.getName());
-        StringWriter out = new StringWriter();
-
         String comment = componentElement.createComment();
 
         Comment commentNode = new Comment(comment);
 
-        Map<String, Object> vars = new HashMap<String, Object>();
-        vars.put("content",componentElement.getContent());
 
-        doRecursiveProcessing(arguments,element,attributeName,template,mv.getViewName(),substituteInclusionNode,commentNode,vars,templateDefinition.getTitle()," /cms:component");
+        doRecursiveProcessing(arguments,element,attributeName,template,mv.getViewName(),commentNode,vars,templateDefinition.getTitle()," /cms:component");
         return ProcessorResult.OK;
     }
 

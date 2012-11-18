@@ -211,25 +211,6 @@ public class CmsAreaElementProcessor extends AbstractRecursiveInclusionProcessor
             throw new TemplateProcessingException("Na HandlerAdapter found");
 
         }
-        ModelAndView mv = null;
-        MgnlContext.getWebContext().push(request, response);
-        request = new IncludeRequestWrapper(request, MgnlContext.getContextPath() + path, MgnlContext.getContextPath(), path, null, request.getQueryString());
-
-        try {
-            mv = adapter.handle(request, response, handlerBean);
-        } catch (Exception e) {
-            throw new TemplateProcessingException("Spring handler error", e);
-        } finally {
-            MgnlContext.getWebContext().pop();
-        }
-        String template = mv.getViewName();
-
-
-        //Object result = handler.invoke(handlerBean)
-
-        final boolean substituteInclusionNode =
-                getSubstituteInclusionNode(arguments, element, attributeName, template);
-
 
         ThymeleafAreaElement areaElement = createAreaElement(renderingContext);
         areaElement.setName(areaDef.getName());
@@ -249,9 +230,28 @@ public class CmsAreaElementProcessor extends AbstractRecursiveInclusionProcessor
         Comment commentNode = new Comment(comment);
 
         Map<String, Object> vars = areaElement.getContextMap();
-        vars.put("test", "test");
+
+
+        ModelAndView mv = null;
+        MgnlContext.getWebContext().push(request, response);
+        IncludeRequestWrapper wrapper = new IncludeRequestWrapper(request, MgnlContext.getContextPath() + path, MgnlContext.getContextPath(), path, null, request.getQueryString());
+        for(String key: vars.keySet()){
+            wrapper.setSpecialAttribute(key,vars.get(key));
+        }
+        try {
+            mv = adapter.handle(wrapper, response, handlerBean);
+        } catch (Exception e) {
+            throw new TemplateProcessingException("Spring handler error", e);
+        } finally {
+            MgnlContext.getWebContext().pop();
+        }
+        String template = mv.getViewName();
+
+
+
+
         final String documentName = areaDef.getName();
-        ProcessorResult result = doRecursiveProcessing(arguments, element, attributeName, attributeValue, template, substituteInclusionNode, commentNode, vars, documentName, " /cms:area ");
+        ProcessorResult result = doRecursiveProcessing(arguments, element, attributeName, attributeValue, template,  commentNode, vars, documentName, " /cms:area ");
 
         return result;
 

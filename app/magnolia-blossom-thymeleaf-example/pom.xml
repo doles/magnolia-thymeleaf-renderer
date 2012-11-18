@@ -8,7 +8,7 @@
   <packaging>war</packaging>
     <properties>
         <magnoliaVersion>4.5.6</magnoliaVersion>
-        <javaVersion>1.5</javaVersion>
+        <javaVersion>1.7</javaVersion>
     </properties>
 
   <dependencies>
@@ -82,7 +82,12 @@
       <artifactId>magnolia-blossom-thymeleaf-module</artifactId>
       <version>1.0.1</version>
       </dependency>
-
+      <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>servlet-api</artifactId>
+          <version>2.5</version>
+          <scope>provided</scope>
+      </dependency>
 
 
   </dependencies>

@@ -6,6 +6,8 @@ import info.magnolia.module.blossom.dialog.TabBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.jcr.Node;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Thomas
@@ -20,7 +22,8 @@ public class ThymeleafComponent {
 
 
     @RequestMapping("/thymeleafComponent")
-    public String handleRequest() {
+    public String handleRequest(Node content) {
+        System.out.println("Node:"+ content);
         return "components/component.html :: component";
     }
 

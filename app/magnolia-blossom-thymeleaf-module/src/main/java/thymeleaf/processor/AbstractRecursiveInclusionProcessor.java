@@ -62,13 +62,13 @@ public abstract class AbstractRecursiveInclusionProcessor extends AbstractAttrPr
         this.servletContext =sctx;
     }
 
-    protected ProcessorResult doRecursiveProcessing(Arguments arguments, Element element, String attributeName, String fragmentSpec, String template, boolean substituteInclusionNode, Comment commentNode, Map<String, Object> vars, String documentName, String closeTag) {
+    protected ProcessorResult doRecursiveProcessing(Arguments arguments, Element element, String attributeName, String fragmentSpec, String template,  Comment commentNode, Map<String, Object> vars, String documentName, String closeTag) {
 //        final IWebContext webcontext =
 //                new SpringWebContext(MgnlContext.getWebContext().getRequest(), MgnlContext.getWebContext().getResponse(), servletContext , MgnlContext.getWebContext().getRequest().getLocale(), vars, this.context);
 
 
         final FragmentAndTarget fragmentAndTarget =
-                getFragmentAndTarget(arguments, element, attributeName, template, substituteInclusionNode);
+                getFragmentAndTarget(arguments, element, attributeName, template, true);
 
 
         final List<Node> fragmentNodes =

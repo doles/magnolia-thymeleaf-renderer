@@ -1,4 +1,4 @@
-package thymeleaf.setup;
+package thymeleaf.example.setup;
 
 import info.magnolia.module.DefaultModuleVersionHandler;
 
