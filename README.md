@@ -6,3 +6,5 @@ This is a working, fully functional prototype for an integration of thymeleaf in
 It currently supports only blossom templates with spring annotated controllers
 
 The custom dialect comes with cms:init, cms:area and cms:component
+
+To see how the blossom-serlvet needs to be setup, and how to use the magnolia processors take a look at the example web app
