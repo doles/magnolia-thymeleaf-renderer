@@ -8,7 +8,6 @@ import info.magnolia.module.delta.Delta;
 import info.magnolia.module.delta.DeltaBuilder;
 import info.magnolia.module.delta.Task;
 import info.magnolia.module.inplacetemplating.setup.TemplatesInstallTask;
-import info.magnolia.module.model.Version;
 
 import java.util.List;
 

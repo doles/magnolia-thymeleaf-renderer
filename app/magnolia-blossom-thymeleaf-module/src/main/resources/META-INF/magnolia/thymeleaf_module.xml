@@ -2,8 +2,8 @@
 <!DOCTYPE module SYSTEM "module.dtd" >
 <module>
   <name>thymeleaf_proto</name>
-  <displayName>Thymeleaf-Prototype</displayName>
-  <description>The thmymeleaf prototype</description>
+  <displayName>Magnolia-Blossom-Thymeleaf-Module</displayName>
+  <description>The Magnolia-Blossom-Thymeleaf-Module</description>
   <class>thymeleaf.Module</class>
   <versionHandler>thymeleaf.setup.ModuleVersionHandler</versionHandler>
   <version>1.0.5</version>

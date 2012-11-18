@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>magnolia-thymeleaf-proto</groupId>
-    <artifactId>app</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
-  </parent>
-  <artifactId>app-webapp</artifactId>
-  <name>app: webapp</name>
+  <groupId>magnolia-blossom-thymeleaf</groupId>
+  <artifactId>magnolia-blossom-thymeleaf-example</artifactId>
+  <name>Thymeleaf Magnolia Webapp Example</name>
+  <version>1.0.0</version>
   <packaging>war</packaging>
+    <properties>
+        <magnoliaVersion>4.5.6</magnoliaVersion>
+        <javaVersion>1.5</javaVersion>
+    </properties>
+
   <dependencies>
     <!-- Add your project specific dependencies here: -->
+      <dependency>
+          <groupId>info.magnolia</groupId>
+          <artifactId>magnolia-empty-webapp</artifactId>
+          <version>${magnoliaVersion}</version>
+          <type>war</type>
+      </dependency>
+      <dependency>
+          <groupId>info.magnolia</groupId>
+          <artifactId>magnolia-empty-webapp</artifactId>
+          <version>${magnoliaVersion}</version>
+          <type>pom</type>
+          <!-- Well it looks like there is more to fix with MAGNOLIA-3545, commenting scope:import for now -->
+          <!--<scope>import</scope>-->
+      </dependency>
+      <dependency>
+          <!-- only necessary until MAGNOLIA-3545 is resolved -->
+          <groupId>info.magnolia</groupId>
+          <artifactId>magnolia-project</artifactId>
+          <version>${magnoliaVersion}</version>
+          <type>pom</type>
+          <scope>import</scope>
+      </dependency>
 
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-empty-webapp</artifactId>
-      <type>pom</type>
-    </dependency>
-    <dependency>
-      <groupId>info.magnolia</groupId>
-      <artifactId>magnolia-empty-webapp</artifactId>
-      <type>war</type>
-    </dependency>
       <dependency>
           <groupId>info.magnolia</groupId>
           <artifactId>magnolia-module-dms</artifactId>
@@ -64,8 +77,11 @@
           <artifactId>spring-webmvc</artifactId>
           <version>3.1.0.RELEASE</version>
       </dependency>
-     
-
+      <dependency>
+      <groupId>magnolia-blossom-thymeleaf</groupId>
+      <artifactId>magnolia-blossom-thymeleaf-module</artifactId>
+      <version>1.0.1</version>
+      </dependency>
 
 
 

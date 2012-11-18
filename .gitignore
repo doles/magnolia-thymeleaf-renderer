@@ -9,3 +9,8 @@
 /app/app-webapp/target
 *.ipr
 *.iws
+/app/magnolia-blossom-thymeleaf-example/overlays
+/app/magnolia-blossom-thymeleaf-example/target
+*.iml
+/app/magnolia-blossom-thymeleaf-module/target
+/thymeleaf-proto

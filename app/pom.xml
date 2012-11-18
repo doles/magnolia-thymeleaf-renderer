@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>magnolia-thymeleaf-proto</groupId>
+  <groupId>magnolia-blossom-thymeleaf</groupId>
   <artifactId>app</artifactId>
   <name>app (parent pom)</name>
   <version>1.0-SNAPSHOT</version>
@@ -18,41 +18,6 @@
     <developerConnection/>
     <url/>
   </scm>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-empty-webapp</artifactId>
-        <version>${magnoliaVersion}</version>
-        <type>war</type>
-      </dependency>
-      <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-empty-webapp</artifactId>
-        <version>${magnoliaVersion}</version>
-        <type>pom</type>
-        <!-- Well it looks like there is more to fix with MAGNOLIA-3545, commenting scope:import for now -->
-        <!--<scope>import</scope>-->
-      </dependency>
-      <dependency>
-        <!-- only necessary until MAGNOLIA-3545 is resolved -->
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-project</artifactId>
-        <version>${magnoliaVersion}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
-      <!-- TEST -->
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.8.2</version>
-        <scope>test</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
 
 
   <build>
@@ -107,8 +72,8 @@
   </repositories>
 
   <modules>
-    <module>app-webapp</module>
-    <module>module</module>
+    <module>magnolia-blossom-thymeleaf-example</module>
+    <module>magnolia-blossom-thymeleaf-module</module>
     
   </modules>
 </project>
