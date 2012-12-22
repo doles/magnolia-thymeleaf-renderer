@@ -4,7 +4,7 @@
 
   <groupId>magnolia-blossom-thymeleaf</groupId>
   <artifactId>magnolia-blossom-thymeleaf-module</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Magnolia Blossom Thymeleaf Module</name>
   <!--
@@ -126,15 +126,8 @@
           </snapshots>
       </repository>
       <repository>
-          <id>vaadin-addons</id>
-          <url>http://maven.vaadin.com/vaadin-addons</url>
-          <snapshots>
-              <enabled>true</enabled>
-          </snapshots>
-      </repository>
-      <repository>
-          <id>thirdparty</id>
-          <url>http://nexus.magnolia-cms.com/content/repositories/thirdparty/</url>
+          <id>magnolia.public</id>
+          <url>http://nexus.magnolia-cms.com/content/repositories/public/</url>
           <snapshots>
               <enabled>false</enabled>
           </snapshots>
