@@ -4,7 +4,7 @@
     <groupId>magnolia-blossom-thymeleaf</groupId>
     <artifactId>magnolia-blossom-thymeleaf-example</artifactId>
     <name>Thymeleaf Magnolia Webapp Example</name>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
 
