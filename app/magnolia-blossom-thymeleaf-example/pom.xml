@@ -6,7 +6,18 @@
     <name>Thymeleaf Magnolia Webapp Example</name>
     <version>1.0.2-SNAPSHOT</version>
     <packaging>war</packaging>
-
+    <distributionManagement>
+        <repository>
+            <id>myRepoId</id>
+            <name>myCompanyRepository</name>
+            <url>file://c:/temp</url>
+        </repository>
+        <snapshotRepository>
+            <id>myRepoId</id>
+            <name>myCompanyRepository</name>
+            <url>file://c:/temp</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <properties>
         <magnoliaVersion>4.5.7</magnoliaVersion>
