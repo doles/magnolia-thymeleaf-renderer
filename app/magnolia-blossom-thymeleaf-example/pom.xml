@@ -25,7 +25,7 @@
     <profiles>
         <profile>
             <id>dev</id>
-
+            <activation><activeByDefault>false</activeByDefault></activation>
             <build>
                 <plugins>
                     <plugin>
@@ -51,6 +51,7 @@
         </profile>
         <profile>
             <id>stage</id>
+            <activation><activeByDefault>false</activeByDefault></activation>
             <build>
                 <plugins>
                     <plugin>
