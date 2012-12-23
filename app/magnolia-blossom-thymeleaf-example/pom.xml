@@ -52,7 +52,7 @@
         </profile>
         <profile>
             <id>stage</id>
-            <activation><activeByDefault>false</activeByDefault></activation>
+            <activation><activeByDefault>true</activeByDefault></activation>
             <build>
                 <plugins>
                     <plugin>
