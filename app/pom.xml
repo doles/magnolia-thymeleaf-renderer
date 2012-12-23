@@ -23,7 +23,18 @@
         <url>https://github.com/eiswind/magnolia-blossom-thymeleaf-proto.git</url>
     </scm>
 
-
+    <distributionManagement>
+        <repository>
+            <id>myRepoId</id>
+            <name>myCompanyRepository</name>
+            <url>file://c:/temp</url>
+        </repository>
+        <snapshotRepository>
+            <id>myRepoId</id>
+            <name>myCompanyRepository</name>
+            <url>file://c:/temp</url>
+        </snapshotRepository>
+    </distributionManagement>
   <build>
     <plugins>
       <plugin>

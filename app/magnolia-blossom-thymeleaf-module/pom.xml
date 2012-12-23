@@ -10,7 +10,18 @@
   <!--
   <description>Please uncomment and fill in ...</description>
   -->
-
+    <distributionManagement>
+        <repository>
+            <id>myRepoId</id>
+            <name>myCompanyRepository</name>
+            <url>file://c:/temp</url>
+        </repository>
+        <snapshotRepository>
+            <id>myRepoId</id>
+            <name>myCompanyRepository</name>
+            <url>file://c:/temp</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <properties>
         <magnoliaVersion>4.5.7</magnoliaVersion>
