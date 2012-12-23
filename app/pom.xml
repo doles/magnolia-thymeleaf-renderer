@@ -25,15 +25,13 @@
 
     <distributionManagement>
         <repository>
-            <id>myRepoId</id>
-            <name>myCompanyRepository</name>
-            <url>file://c:/temp</url>
+            <id>central</id>
+            <name>libs-release-local</name>
+            <url>
+                http://192.168.8.128:8081/artifactory/libs-release-local
+            </url>
+            <uniqueVersion>false</uniqueVersion>
         </repository>
-        <snapshotRepository>
-            <id>myRepoId</id>
-            <name>myCompanyRepository</name>
-            <url>file://c:/temp</url>
-        </snapshotRepository>
     </distributionManagement>
   <build>
     <plugins>
@@ -84,36 +82,6 @@
   </build>
 
 
-  <repositories>
-
-      <repository>
-          <id>magnolia.public.releases</id>
-          <url>http://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/</url>
-          <snapshots>
-              <enabled>false</enabled>
-          </snapshots>
-      </repository>
-      <repository>
-          <id>magnolia.public</id>
-          <url>http://nexus.magnolia-cms.com/content/repositories/public/</url>
-          <snapshots>
-              <enabled>false</enabled>
-          </snapshots>
-      </repository>
-
-
-
-      <!-- IF YOU NEED MODULES FROM THE ENTERPRISE VERSION, UNCOMMENT THE FOLLOWING REPOSITORY -->
-    <!--
-    <repository>
-      <id>magnolia.enterprise.releases</id>
-      <url>http://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    -->
-  </repositories>
 
   <modules>
     <module>magnolia-blossom-thymeleaf-example</module>
