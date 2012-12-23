@@ -45,6 +45,7 @@
                                     <directory>src/main/webapp</directory>
                                 </resource>
                             </webResources>
+                            <classifier>dev</classifier>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -69,6 +70,7 @@
                                     <directory>src/main/webapp</directory>
                                 </resource>
                             </webResources>
+                            <classifier>stage</classifier>
                         </configuration>
                     </plugin>
                 </plugins>
