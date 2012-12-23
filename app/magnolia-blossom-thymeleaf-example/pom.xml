@@ -44,6 +44,7 @@
                                 </resource>
                             </webResources>
                             <classifier>dev</classifier>
+
                         </configuration>
                     </plugin>
                 </plugins>
@@ -70,6 +71,7 @@
                                 </resource>
                             </webResources>
                             <classifier>stage</classifier>
+
                         </configuration>
                     </plugin>
                 </plugins>
@@ -168,8 +170,8 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <!-- exclude jars copied "physically" from the webapp overlay - so we only get those resolved by Maven's dependency management -->
-                    <dependentWarExcludes>WEB-INF/lib/*.jar</dependentWarExcludes>
+
+                    <outputFileNameMapping>@{groupId}@-@{artifactId}@-@{baseVersion}@@{dashClassifier?}@.@{extension}@</outputFileNameMapping>
                 </configuration>
             </plugin>
             <plugin>
