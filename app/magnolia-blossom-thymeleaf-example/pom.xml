@@ -31,7 +31,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-war-plugin</artifactId>
-                        <version>2.3</version>
+
                         <configuration>
                             <webResources>
                                 <resource>
@@ -58,7 +58,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-war-plugin</artifactId>
-                        <version>2.3</version>
+
                         <configuration>
                             <webResources>
                                 <resource>
@@ -169,10 +169,7 @@
 
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <configuration>
 
-                    <outputFileNameMapping>@{groupId}@-@{artifactId}@-@{baseVersion}@@{dashClassifier?}@.@{extension}@</outputFileNameMapping>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
