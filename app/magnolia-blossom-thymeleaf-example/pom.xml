@@ -11,7 +11,7 @@
             <id>central</id>
             <name>libs-release-local</name>
             <url>
-                http://192.168.178.34:8081/artifactory/libs-release-local
+                http://ubuntu64:8081/artifactory/libs-release-local
             </url>
             <uniqueVersion>false</uniqueVersion>
         </repository>
