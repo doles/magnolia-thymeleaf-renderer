@@ -8,7 +8,6 @@ import thymeleaf.controller.components.ThymeleafComponent;
 import thymeleaf.controller.components.ThymeleafComponent2;
 
 /**
- * Created with IntelliJ IDEA.
  * User: Thomas
  * Date: 10.11.12
  * Time: 08:05
