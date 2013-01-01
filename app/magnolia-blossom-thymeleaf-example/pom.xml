@@ -8,10 +8,14 @@
     <packaging>war</packaging>
 
 
-    <properties>
-        <magnoliaVersion>4.5.7</magnoliaVersion>
-        <javaVersion>1.7</javaVersion>
-    </properties>
+    <parent>
+        <groupId>magnolia-blossom-thymeleaf</groupId>
+        <artifactId>thymeleaf-example</artifactId>
+        <version>1.0.18-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
+
+
 
     <profiles>
         <profile>

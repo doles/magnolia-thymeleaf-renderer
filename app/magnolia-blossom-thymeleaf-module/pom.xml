@@ -10,12 +10,14 @@
   <!--
   <description>Please uncomment and fill in ...</description>
   -->
+    <parent>
+        <groupId>magnolia-blossom-thymeleaf</groupId>
+        <artifactId>thymeleaf-example</artifactId>
+        <version>1.0.18-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
 
 
-    <properties>
-        <magnoliaVersion>4.5.7</magnoliaVersion>
-        <javaVersion>1.7</javaVersion>
-    </properties>
   <dependencies>
       <dependency>
           <groupId>info.magnolia</groupId>
