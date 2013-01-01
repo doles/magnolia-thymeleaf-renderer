@@ -61,7 +61,7 @@
         </profile>
         <profile>
             <id>stage</id>
-            <activation><activeByDefault>true</activeByDefault></activation>
+            <activation><activeByDefault>false</activeByDefault></activation>
             <build>
                 <plugins>
                     <plugin>
