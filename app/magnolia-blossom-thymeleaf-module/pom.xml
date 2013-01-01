@@ -10,12 +10,23 @@
   <!--
   <description>Please uncomment and fill in ...</description>
   -->
-    <parent>
-        <groupId>magnolia-blossom-thymeleaf</groupId>
-        <artifactId>thymeleaf-example</artifactId>
-        <version>1.0.18-SNAPSHOT</version>
-        <relativePath>../</relativePath>
-    </parent>
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>libs-release-local</name>
+            <url>
+                http://ubuntu64:8081/artifactory/libs-release-local
+            </url>
+            <uniqueVersion>false</uniqueVersion>
+        </repository>
+        <snapshotRepository>
+            <uniqueVersion>true</uniqueVersion>
+            <id>snapshots</id>
+            <name>libs-snapshots-local</name>
+            <url>http://ubuntu64:8081/artifactory/libs-snapshots-local</url>
+
+        </snapshotRepository>
+    </distributionManagement>
 
 
   <dependencies>
