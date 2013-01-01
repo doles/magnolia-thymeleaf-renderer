@@ -4,7 +4,7 @@
     <groupId>magnolia-blossom-thymeleaf</groupId>
     <artifactId>magnolia-blossom-thymeleaf-example</artifactId>
     <name>Thymeleaf Magnolia Webapp Example</name>
-    <version>1.0.18</version>
+    <version>1.0.19-SNAPSHOT</version>
     <packaging>war</packaging>
     <properties>
         <magnoliaVersion>4.5.7</magnoliaVersion>
@@ -150,7 +150,7 @@
         <dependency>
             <groupId>magnolia-blossom-thymeleaf</groupId>
             <artifactId>magnolia-blossom-thymeleaf-module</artifactId>
-            <version>1.0.18</version>
+            <version>1.0.19-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
