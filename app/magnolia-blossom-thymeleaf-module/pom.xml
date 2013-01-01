@@ -7,30 +7,15 @@
   <version>1.0.22-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Magnolia Blossom Thymeleaf Module</name>
-  <!--
-  <description>Please uncomment and fill in ...</description>
-  -->
-    <properties>
-        <magnoliaVersion>4.5.7</magnoliaVersion>
-        <javaVersion>1.7</javaVersion>
-    </properties>
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <name>libs-release-local</name>
-            <url>
-                http://ubuntu64:8081/artifactory/libs-release-local
-            </url>
-            <uniqueVersion>false</uniqueVersion>
-        </repository>
-        <snapshotRepository>
-            <uniqueVersion>true</uniqueVersion>
-            <id>snapshots</id>
-            <name>libs-snapshots-local</name>
-            <url>http://ubuntu64:8081/artifactory/libs-snapshot-local</url>
 
-        </snapshotRepository>
-    </distributionManagement>
+
+    <parent>
+        <groupId>magnolia-blossom-thymeleaf</groupId>
+        <artifactId>thymeleaf-example-parent</artifactId>
+
+        <version>1.0.21-SNAPSHOT</version>
+        <relativePath>../parent/pom.xml</relativePath>
+    </parent>
 
 
   <dependencies>

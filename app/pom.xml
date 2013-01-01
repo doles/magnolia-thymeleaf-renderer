@@ -6,40 +6,14 @@
   <name>thymeleaf-example (parent pom)</name>
   <version>1.0.22-SNAPSHOT</version>
   <packaging>pom</packaging>
+  <parent>
+    <groupId>magnolia-blossom-thymeleaf</groupId>
+    <artifactId>thymeleaf-example-parent</artifactId>
 
-  <properties>
-    <magnoliaVersion>4.5.7</magnoliaVersion>
-    <javaVersion>1.7</javaVersion>
-  </properties>
+    <version>1.0.21-SNAPSHOT</version>
+      <relativePath>parent/pom.xml</relativePath>
+  </parent>
 
-  <!-- Fill the following in, so you can use the release plugin -->
-    <scm>
-        <connection>
-            scm:git:git://github.com/eiswind/magnolia-blossom-thymeleaf-proto.git
-        </connection>
-        <developerConnection>
-            scm:git:ssh://git@github.com/eiswind/magnolia-blossom-thymeleaf-proto.git
-        </developerConnection>
-        <url>https://github.com/eiswind/magnolia-blossom-thymeleaf-proto.git</url>
-    </scm>
-
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <name>libs-release-local</name>
-            <url>
-                http://ubuntu64:8081/artifactory/libs-release-local
-            </url>
-            <uniqueVersion>false</uniqueVersion>
-        </repository>
-        <snapshotRepository>
-            <uniqueVersion>true</uniqueVersion>
-            <id>snapshots</id>
-            <name>libs-snapshots-local</name>
-            <url>http://ubuntu64:8081/artifactory/libs-snapshot-local</url>
-
-        </snapshotRepository>
-    </distributionManagement>
 
     <profiles>
         <profile>
@@ -55,59 +29,10 @@
     </profiles>
 
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
-        <configuration>
-          <source>${javaVersion}</source>
-          <target>${javaVersion}</target>
-        </configuration>
-      </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-release-plugin</artifactId>
-            <version>2.2.1</version>
-            <executions>
-                <execution>
-                    <id>default</id>
-                    <goals>
-                        <goal>perform</goal>
-                    </goals>
-                    <configuration>
-                        <pomFileName>magnolia-blossom-thymeleaf-example/pom.xml</pomFileName>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
-
-    </plugins>
-
-    <!-- default resources configuration which will filter your module descriptors -->
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <includes>
-          <include>**/*</include>
-        </includes>
-      </resource>
-      <resource>
-        <filtering>true</filtering>
-        <directory>src/main/resources</directory>
-        <includes>
-          <include>META-INF/magnolia/*</include>
-        </includes>
-      </resource>
-    </resources>
-  </build>
-
-
 
   <modules>
     <module>magnolia-blossom-thymeleaf-example</module>
     <module>magnolia-blossom-thymeleaf-module</module>
-    
+
   </modules>
 </project>
