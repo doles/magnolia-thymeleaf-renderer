@@ -10,6 +10,10 @@
   <!--
   <description>Please uncomment and fill in ...</description>
   -->
+    <properties>
+        <magnoliaVersion>4.5.7</magnoliaVersion>
+        <javaVersion>1.7</javaVersion>
+    </properties>
     <distributionManagement>
         <repository>
             <id>central</id>
