@@ -34,5 +34,6 @@
     <module>magnolia-blossom-thymeleaf-example</module>
     <module>magnolia-blossom-thymeleaf-module</module>
 
+
   </modules>
 </project>
