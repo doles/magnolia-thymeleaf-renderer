@@ -4,7 +4,7 @@
   <groupId>magnolia-blossom-thymeleaf</groupId>
   <artifactId>thymeleaf-example-parent</artifactId>
   <name>thymeleaf-example-parent (parent pom)</name>
-  <version>1.0.21</version>
+  <version>1.0.22-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <parent>
