@@ -13,7 +13,7 @@
         <groupId>magnolia-blossom-thymeleaf</groupId>
         <artifactId>thymeleaf-example-parent</artifactId>
 
-        <version>1.0.22-SNAPSHOT</version>
+        <version>1.0.23-SNAPSHOT</version>
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
