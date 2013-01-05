@@ -146,7 +146,7 @@
         <dependency>
             <groupId>magnolia-blossom-thymeleaf</groupId>
             <artifactId>magnolia-blossom-thymeleaf-module</artifactId>
-             <version>1.0.23-SNAPSHOT</version>
+
             <type>pom</type>
             <!-- Well it looks like there is more to fix with MAGNOLIA-3545, commenting scope:import for now -->
             <!--<scope>import</scope>-->
