@@ -13,10 +13,7 @@
         <version>1.0.23-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <properties>
-        <magnoliaVersion>4.5.7</magnoliaVersion>
-        <javaVersion>1.7</javaVersion>
-    </properties>
+
 
     <profiles>
         <profile>
