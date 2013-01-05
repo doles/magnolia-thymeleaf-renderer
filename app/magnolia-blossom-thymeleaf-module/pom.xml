@@ -4,7 +4,7 @@
 
   <groupId>magnolia-blossom-thymeleaf</groupId>
   <artifactId>magnolia-blossom-thymeleaf-module</artifactId>
-    <version>1.0.24-SNAPSHOT</version>
+    <version>1.0.24</version>
   <packaging>jar</packaging>
   <name>Magnolia Blossom Thymeleaf Module</name>
 
