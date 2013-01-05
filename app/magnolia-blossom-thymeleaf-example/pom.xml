@@ -8,12 +8,15 @@
     <packaging>war</packaging>
     <parent>
         <groupId>magnolia-blossom-thymeleaf</groupId>
-        <artifactId>thymeleaf-example-parent</artifactId>
+        <artifactId>thymeleaf-example</artifactId>
 
         <version>1.0.23-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-
+    <properties>
+        <magnoliaVersion>4.5.7</magnoliaVersion>
+        <javaVersion>1.7</javaVersion>
+    </properties>
 
     <profiles>
         <profile>
@@ -142,44 +145,15 @@
             <version>2.5</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>magnolia-blossom-thymeleaf</groupId>
             <artifactId>magnolia-blossom-thymeleaf-module</artifactId>
-
-            <type>pom</type>
-            <!-- Well it looks like there is more to fix with MAGNOLIA-3545, commenting scope:import for now -->
-            <!--<scope>import</scope>-->
+            <version>1.0.23-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 
 
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>${javaVersion}</source>
-                    <target>${javaVersion}</target>
-                </configuration>
-            </plugin>
 
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <tag>${project.artifactId}/${project.version}</tag>
-
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

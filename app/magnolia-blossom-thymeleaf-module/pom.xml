@@ -11,12 +11,15 @@
 
     <parent>
         <groupId>magnolia-blossom-thymeleaf</groupId>
-        <artifactId>thymeleaf-example-parent</artifactId>
+        <artifactId>thymeleaf-example</artifactId>
 
-        <version>1.0.23-SNAPSHOTs</version>
+        <version>1.0.23-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-
+    <properties>
+        <magnoliaVersion>4.5.7</magnoliaVersion>
+        <javaVersion>1.7</javaVersion>
+    </properties>
 
   <dependencies>
       <dependency>

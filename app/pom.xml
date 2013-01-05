@@ -4,7 +4,7 @@
   <groupId>magnolia-blossom-thymeleaf</groupId>
   <artifactId>thymeleaf-example</artifactId>
   <name>thymeleaf-example (parent pom)</name>
-
+  <version>1.0.23-SNPASHOT</version>
   <packaging>pom</packaging>
 
 
@@ -21,10 +21,7 @@
         </profile>
     </profiles>
 
-    <properties>
-        <magnoliaVersion>4.5.7</magnoliaVersion>
-        <javaVersion>1.7</javaVersion>
-    </properties>
+
 
     <!-- Fill the following in, so you can use the release plugin -->
     <scm>
@@ -40,4 +37,32 @@
 
 
   </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>${javaVersion}</source>
+                    <target>${javaVersion}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <tag>${project.artifactId}/${project.version}</tag>
+
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
