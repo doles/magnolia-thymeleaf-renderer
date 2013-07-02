@@ -21,7 +21,7 @@ public class ThymeleafComponent2 {
 
     @RequestMapping("/thymeleafComponent2")
     public String handleRequest() {
-        return "components/component.html :: component2";
+        return "templates/main.html :: component2";
     }
 
     @TabFactory("Properties")

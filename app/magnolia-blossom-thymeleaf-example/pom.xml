@@ -19,7 +19,30 @@
         <url>scm:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</url>
     </scm>
 
+    <repositories>
+        <repository>
 
+            <id>magnolia-public</id>
+            <name>magnolia-public</name>
+            <url>http://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+
+            <id>magnolia-forge</id>
+            <name>magnolia-forge</name>
+            <url>http://nexus.magnolia-cms.com/content/repositories/magnolia.forge.releases/</url>
+            <layout>default</layout>
+        </repository>
+
+        <repository>
+            <id>magnolia-thirdparty</id>
+            <name>magnolia-thirdparty</name>
+            <url>http://nexus.magnolia-cms.com/content/repositories/thirdparty.customized/</url>
+            <layout>default</layout>
+        </repository>
+
+    </repositories>
     <profiles>
         <profile>
             <id>dev</id>
