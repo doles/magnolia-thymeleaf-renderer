@@ -2,8 +2,8 @@ package thymeleaf.blossom;
 
 import info.magnolia.module.blossom.annotation.Area;
 import info.magnolia.module.blossom.annotation.Template;
+import info.magnolia.module.blossom.dialog.BlossomDialogDefinitionProvider;
 import info.magnolia.module.blossom.dialog.BlossomDialogDescription;
-import info.magnolia.module.blossom.dialog.BlossomDialogRegistry;
 import info.magnolia.module.blossom.dialog.DialogDescriptionBuilder;
 import info.magnolia.module.blossom.dispatcher.BlossomDispatcher;
 import info.magnolia.module.blossom.dispatcher.BlossomDispatcherAware;
@@ -13,6 +13,7 @@ import info.magnolia.module.blossom.template.*;
 import info.magnolia.objectfactory.Components;
 import info.magnolia.rendering.template.AreaDefinition;
 import info.magnolia.rendering.template.registry.TemplateDefinitionRegistry;
+import info.magnolia.ui.dialog.registry.DialogDefinitionRegistry;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,11 +100,8 @@ public class ThymeleafTemplateExporter extends AbstractUrlMappedHandlerPostProce
 
         List<BlossomDialogDescription> dialogDescriptions = dialogDescriptionBuilder.buildDescriptions(templateDefinition.getHandler());
         for (BlossomDialogDescription dialogDescription : dialogDescriptions) {
-            try {
-                Components.getComponent(BlossomDialogRegistry.class).addDialogDescription(dialogDescription);
-            } catch (RepositoryException e) {
-                logger.error("Unable to register dialog factory within template [" + dialogDescription.getFactoryMetaData().getFactoryMethod() + "] with handlerPath [" + templateDefinition.getHandlerPath() + "]", e);
-            }
+
+            Components.getComponent(DialogDefinitionRegistry.class).register(new BlossomDialogDefinitionProvider(dialogDescription));
 
             if (logger.isDebugEnabled()) {
                 logger.debug("Registered dialog factory within template [" + templateDefinition.getId() + "] with id [" + dialogDescription.getId() + "]");
@@ -125,12 +123,8 @@ public class ThymeleafTemplateExporter extends AbstractUrlMappedHandlerPostProce
 
         templateDefinition.setDialog(dialogId);
 
-        try {
-            Components.getComponent(BlossomDialogRegistry.class).addDialogDescription(dialogDescription);
-        } catch (RepositoryException e) {
-            logger.error("Failed to register dialog for template [" + templateId + "] with id [" + dialogId + "]", e);
-            return;
-        }
+        Components.getComponent(DialogDefinitionRegistry.class).register(new BlossomDialogDefinitionProvider(dialogDescription));
+
 
         if (logger.isDebugEnabled()) {
             logger.debug("Registered dialog for template [" + templateId + "] with id [" + dialogId + "]");
@@ -160,12 +154,7 @@ public class ThymeleafTemplateExporter extends AbstractUrlMappedHandlerPostProce
 
         areaDefinition.setDialog(dialogId);
 
-        try {
-            Components.getComponent(BlossomDialogRegistry.class).addDialogDescription(dialogDescription);
-        } catch (RepositoryException e) {
-            logger.error("Failed to register dialog for area [" + areaName + "] with id [" + dialogId + "]", e);
-            return;
-        }
+        Components.getComponent(DialogDefinitionRegistry.class).register(new BlossomDialogDefinitionProvider(dialogDescription));
 
         if (logger.isDebugEnabled()) {
             logger.debug("Registered dialog for area [" + areaName + "] with id [" + dialogId + "]");
@@ -185,8 +174,5 @@ public class ThymeleafTemplateExporter extends AbstractUrlMappedHandlerPostProce
     public DetectedHandlersMetaData getDetectedHandlers() {
         return detectedHandlers;
     }
-
-
-
 
 }
