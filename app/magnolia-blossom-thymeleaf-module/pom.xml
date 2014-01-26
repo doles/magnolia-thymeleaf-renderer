@@ -19,35 +19,7 @@
         <url>scm:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</url>
     </scm>
 
-    <repositories>
-        <repository>
 
-            <id>magnolia-public</id>
-            <name>magnolia-public</name>
-            <url>http://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-
-            <id>magnolia-forge</id>
-            <name>magnolia-forge</name>
-            <url>http://nexus.magnolia-cms.com/content/repositories/magnolia.forge.releases/</url>
-            <layout>default</layout>
-        </repository>
-
-        <repository>
-            <id>magnolia-thirdparty</id>
-            <name>magnolia-thirdparty</name>
-            <url>http://nexus.magnolia-cms.com/content/repositories/thirdparty.customized/</url>
-            <layout>default</layout>
-        </repository>
-
-        <repository>
-            <id>vaadin-addons</id>
-            <url>http://maven.vaadin.com/vaadin-addons</url>
-        </repository>
-
-    </repositories>
   <dependencies>
 
       <dependency>
@@ -75,6 +47,28 @@
           <groupId>info.magnolia</groupId>
           <artifactId>magnolia-templating-jsp</artifactId>
           <version>${magnoliaVersion}</version>
+      </dependency>
+      <dependency>
+          <groupId>info.magnolia</groupId>
+          <artifactId>magnolia-module-inplace-templating</artifactId>
+          <version>2.2</version>
+      </dependency>
+
+
+      <dependency>
+          <groupId>info.magnolia.blossom</groupId>
+          <artifactId>magnolia-module-blossom</artifactId>
+          <version>3.0</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>info.magnolia.ui</groupId>
+                  <artifactId>magnolia-ui-framework</artifactId>
+              </exclusion>
+              <exclusion>
+                  <groupId>info.magnolia.ui</groupId>
+                  <artifactId>magnolia-ui-admincentral</artifactId>
+              </exclusion>
+          </exclusions>
       </dependency>
         <!-- TEST -->
         <dependency>
@@ -106,7 +100,12 @@
           <artifactId>spring-webmvc</artifactId>
           <version>3.1.0.RELEASE</version>
       </dependency>
-
+      <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>servlet-api</artifactId>
+          <version>2.5</version>
+          <scope>provided</scope>
+      </dependency>
   </dependencies>
 
   <build>

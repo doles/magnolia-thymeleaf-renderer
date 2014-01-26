@@ -2,7 +2,8 @@ package thymeleaf.controller.components;
 
 import info.magnolia.module.blossom.annotation.TabFactory;
 import info.magnolia.module.blossom.annotation.Template;
-import info.magnolia.module.blossom.dialog.TabBuilder;
+import info.magnolia.ui.form.config.TabBuilder;
+import info.magnolia.ui.framework.config.UiConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,11 +24,13 @@ public class ThymeleafComponent2 {
     public String handleRequest() {
         return "templates/main.html :: component2";
     }
-
     @TabFactory("Properties")
-    public void createTab(TabBuilder builder) {
-        builder.addEdit("head", "head", "");
-        builder.addEdit("text", "Testtext", "");
-        builder.addEdit("button", "Button", "");
+    public void createTab(UiConfig cfg,TabBuilder tab) {
+        tab.fields(
+                cfg.fields.text("head").label("Head"),
+                cfg.fields.text("text").label("Text"),
+                cfg.fields.text("button").label("Button")
+        );
     }
+
 }
