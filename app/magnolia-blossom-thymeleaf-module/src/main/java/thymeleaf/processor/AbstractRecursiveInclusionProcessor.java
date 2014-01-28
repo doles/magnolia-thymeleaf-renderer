@@ -1,46 +1,21 @@
 package thymeleaf.processor;
 
-import info.magnolia.context.MgnlContext;
-import info.magnolia.module.blossom.support.IncludeRequestWrapper;
-import info.magnolia.module.blossom.template.BlossomAreaDefinition;
-import info.magnolia.module.blossom.template.BlossomTemplateDefinition;
-import info.magnolia.module.blossom.template.HandlerMetaData;
-import info.magnolia.objectfactory.Components;
-import info.magnolia.rendering.context.RenderingContext;
-import info.magnolia.rendering.engine.RenderingEngine;
-import info.magnolia.rendering.template.AreaDefinition;
-import org.springframework.beans.factory.BeanFactoryUtils;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.OrderComparator;
-import org.springframework.web.servlet.HandlerAdapter;
-import org.springframework.web.servlet.HandlerExecutionChain;
-import org.springframework.web.servlet.HandlerMapping;
-import org.springframework.web.servlet.ModelAndView;
-import org.thymeleaf.Arguments;
-import org.thymeleaf.TemplateProcessingParameters;
-import org.thymeleaf.context.IWebContext;
-import org.thymeleaf.dom.Comment;
-import org.thymeleaf.dom.Document;
-import org.thymeleaf.dom.Element;
-import org.thymeleaf.dom.Node;
-import org.thymeleaf.exceptions.TemplateProcessingException;
-import org.thymeleaf.fragment.FragmentAndTarget;
-import org.thymeleaf.processor.ProcessorResult;
-import org.thymeleaf.processor.attr.AbstractAttrProcessor;
-import org.thymeleaf.spring3.context.SpringWebContext;
-import org.thymeleaf.standard.expression.StandardExpressionProcessor;
-import org.thymeleaf.standard.fragment.StandardFragmentProcessor;
-import org.thymeleaf.standard.processor.attr.StandardFragmentAttrProcessor;
-import thymeleaf.blossom.ThymeleafTemplateExporter;
-import thymeleaf.magnolia.ThymeleafAreaElement;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.ServletContext;
+
+import org.springframework.context.ApplicationContext;
+import org.thymeleaf.Arguments;
+import org.thymeleaf.dom.Comment;
+import org.thymeleaf.dom.Element;
+import org.thymeleaf.dom.Node;
+import org.thymeleaf.processor.ProcessorResult;
+import org.thymeleaf.processor.attr.AbstractAttrProcessor;
+import org.thymeleaf.standard.fragment.StandardFragment;
+import org.thymeleaf.standard.fragment.StandardFragmentProcessor;
+import org.thymeleaf.standard.processor.attr.StandardFragmentAttrProcessor;
 
 /**
  * Created with IntelliJ IDEA.
@@ -66,20 +41,8 @@ public abstract class AbstractRecursiveInclusionProcessor extends AbstractAttrPr
 //        final IWebContext webcontext =
 //                new SpringWebContext(MgnlContext.getWebContext().getRequest(), MgnlContext.getWebContext().getResponse(), servletContext , MgnlContext.getWebContext().getRequest().getLocale(), vars, this.context);
 
+        final List<Node> fragmentNodes = computeFragment(arguments, element, attributeName, template);
 
-        final FragmentAndTarget fragmentAndTarget =
-                getFragmentAndTarget(arguments, element, attributeName, template, true);
-
-
-        final List<Node> fragmentNodes =
-                fragmentAndTarget.extractFragment(
-                        arguments.getConfiguration(), arguments, arguments.getTemplateRepository());
-
-        if (fragmentNodes == null) {
-            throw new TemplateProcessingException(
-                    "Cannot correctly process \"" + attributeName + "\" attribute. " +
-                            "Fragment specification \"" + fragmentSpec + "\" matched null.");
-        }
         // process fragment nodes
 
 
@@ -106,21 +69,23 @@ public abstract class AbstractRecursiveInclusionProcessor extends AbstractAttrPr
     }
 
 
-    protected final FragmentAndTarget getFragmentAndTarget(final Arguments arguments,
-                                                           final Element element, final String attributeName, final String attributeValue,
-                                                           final boolean substituteInclusionNode) {
 
-        final String targetAttributeName =
-                getTargetAttributeName(arguments, element, attributeName, attributeValue);
+    protected final List<Node> computeFragment(final Arguments arguments, final Element element,
+            final String attributeName, final String attributeValue) {
 
-        return StandardFragmentProcessor.computeStandardFragmentSpec(
-                arguments.getConfiguration(), arguments, attributeValue, null, targetAttributeName,
-                !substituteInclusionNode);
+        final String fragmentSignatureAttributeName = getFragmentSignatureUnprefixedAttributeName(arguments, element,
+                attributeName, attributeValue);
 
+        final StandardFragment fragment = StandardFragmentProcessor.computeStandardFragmentSpec(
+                arguments.getConfiguration(), arguments, attributeValue, null, fragmentSignatureAttributeName);
+
+        final List<Node> extractedNodes = fragment.extractFragment(arguments.getConfiguration(), arguments,
+                arguments.getTemplateRepository());
+
+        return extractedNodes;
     }
 
-    protected String getTargetAttributeName(
-            final Arguments arguments, final Element element,
+    protected String getFragmentSignatureUnprefixedAttributeName(final Arguments arguments, final Element element,
             final String attributeName, final String attributeValue) {
 
         if (attributeName != null) {
@@ -131,6 +96,12 @@ public abstract class AbstractRecursiveInclusionProcessor extends AbstractAttrPr
         }
         return FRAGMENT_ATTR_NAME;
 
+    }
+
+    protected boolean getRemoveHostNode(final Arguments arguments, final Element element, final String attributeName,
+            final String attributeValue) {
+        // th:include does not substitute the inclusion node
+        return false;
     }
 
 }
