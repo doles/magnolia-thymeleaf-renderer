@@ -1,67 +1,39 @@
 package thymeleaf.processor;
 
-import com.sun.org.apache.xpath.internal.NodeSet;
-import info.magnolia.cms.core.MgnlNodeType;
 import info.magnolia.context.MgnlContext;
-import info.magnolia.jcr.RuntimeRepositoryException;
-import info.magnolia.jcr.util.ContentMap;
-import info.magnolia.jcr.util.NodeUtil;
-import info.magnolia.module.blossom.render.BlossomDispatcherServlet;
-import info.magnolia.module.blossom.support.ForwardRequestWrapper;
 import info.magnolia.module.blossom.support.IncludeRequestWrapper;
 import info.magnolia.module.blossom.template.BlossomAreaDefinition;
 import info.magnolia.module.blossom.template.BlossomTemplateDefinition;
 import info.magnolia.module.blossom.template.HandlerMetaData;
 import info.magnolia.objectfactory.Components;
-import info.magnolia.registry.RegistrationException;
 import info.magnolia.rendering.context.RenderingContext;
-import info.magnolia.rendering.engine.RenderException;
 import info.magnolia.rendering.engine.RenderingEngine;
 import info.magnolia.rendering.template.AreaDefinition;
-import info.magnolia.rendering.template.TemplateDefinition;
-import info.magnolia.rendering.template.configured.ConfiguredAreaDefinition;
-import info.magnolia.rendering.template.registry.TemplateDefinitionRegistry;
-import info.magnolia.templating.elements.AreaElement;
-import info.magnolia.templating.inheritance.DefaultInheritanceContentDecorator;
-import info.magnolia.templating.jsp.cmsfn.JspTemplatingFunction;
-import org.springframework.beans.factory.BeanFactoryUtils;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.OrderComparator;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.*;
-import org.thymeleaf.Arguments;
-import org.thymeleaf.TemplateProcessingParameters;
-import org.thymeleaf.context.IWebContext;
-import org.thymeleaf.dom.Comment;
-import org.thymeleaf.dom.Document;
-import org.thymeleaf.dom.Element;
-import org.thymeleaf.dom.Node;
-import org.thymeleaf.exceptions.TemplateProcessingException;
-import org.thymeleaf.fragment.FragmentAndTarget;
-import org.thymeleaf.processor.IAttributeNameProcessorMatcher;
-import org.thymeleaf.processor.ProcessorResult;
-import org.thymeleaf.processor.attr.AbstractAttrProcessor;
-import org.thymeleaf.spring3.context.SpringWebContext;
-import org.thymeleaf.standard.expression.StandardExpressionProcessor;
-import org.thymeleaf.standard.fragment.StandardFragmentProcessor;
-import org.thymeleaf.standard.processor.attr.AbstractStandardFragmentHandlingAttrProcessor;
-import org.thymeleaf.standard.processor.attr.StandardFragmentAttrProcessor;
-import org.thymeleaf.util.PrefixUtils;
-import thymeleaf.blossom.ThymeleafTemplateExporter;
-import thymeleaf.magnolia.ThymeleafAreaElement;
 
-import javax.jcr.RepositoryException;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import org.springframework.beans.factory.BeanFactoryUtils;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.OrderComparator;
+import org.springframework.web.servlet.HandlerAdapter;
+import org.springframework.web.servlet.HandlerExecutionChain;
+import org.springframework.web.servlet.HandlerMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.Arguments;
+import org.thymeleaf.dom.Comment;
+import org.thymeleaf.dom.Element;
+import org.thymeleaf.exceptions.TemplateProcessingException;
+import org.thymeleaf.processor.ProcessorResult;
+
+import thymeleaf.blossom.ThymeleafTemplateExporter;
+import thymeleaf.magnolia.ThymeleafAreaElement;
 
 /**
  * Created with IntelliJ IDEA.

@@ -3,14 +3,21 @@ package thymeleaf.processor;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.ContentMap;
 import info.magnolia.module.blossom.support.IncludeRequestWrapper;
-import info.magnolia.module.blossom.template.BlossomAreaDefinition;
 import info.magnolia.module.blossom.template.BlossomTemplateDefinition;
 import info.magnolia.module.blossom.template.HandlerMetaData;
 import info.magnolia.objectfactory.Components;
 import info.magnolia.rendering.context.RenderingContext;
 import info.magnolia.rendering.engine.RenderingEngine;
-import info.magnolia.rendering.template.AreaDefinition;
-import info.magnolia.rendering.template.TemplateDefinition;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.OrderComparator;
@@ -19,30 +26,15 @@ import org.springframework.web.servlet.HandlerExecutionChain;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.Arguments;
-import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.dom.Comment;
 import org.thymeleaf.dom.Element;
-import org.thymeleaf.dom.Node;
 import org.thymeleaf.exceptions.TemplateProcessingException;
-import org.thymeleaf.fragment.FragmentAndTarget;
 import org.thymeleaf.processor.ProcessorResult;
-import org.thymeleaf.processor.attr.AbstractAttrProcessor;
-import org.thymeleaf.spring3.context.SpringWebContext;
 import org.thymeleaf.standard.expression.StandardExpressionProcessor;
-import org.thymeleaf.standard.fragment.StandardFragmentProcessor;
 import org.thymeleaf.standard.processor.attr.StandardFragmentAttrProcessor;
-import thymeleaf.blossom.ThymeleafTemplateExporter;
-import thymeleaf.magnolia.ThymeleafAreaElement;
-import thymeleaf.magnolia.ThymeleafComponentElement;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import thymeleaf.blossom.ThymeleafTemplateExporter;
+import thymeleaf.magnolia.ThymeleafComponentElement;
 
 /**
  * Created with IntelliJ IDEA.
