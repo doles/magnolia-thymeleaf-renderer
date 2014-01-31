@@ -56,6 +56,9 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
             vars.put("renderingContext",renderingCtx);
             vars.put("cmsfn", new JspTemplatingFunction());
 
+            // copy all spring model attributes into the sprint web context as variables
+            vars.putAll(RenderContext.get().getModel());
+
             final IWebContext context =
                     new SpringWebContext(MgnlContext.getWebContext().getRequest(), MgnlContext.getWebContext().getResponse(), servletContext , MgnlContext.getWebContext().getRequest().getLocale(), vars, getApplicationContext());
 
