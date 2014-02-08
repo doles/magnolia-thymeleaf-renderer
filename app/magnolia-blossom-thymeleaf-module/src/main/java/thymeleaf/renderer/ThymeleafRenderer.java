@@ -9,21 +9,30 @@ import info.magnolia.rendering.renderer.AbstractRenderer;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.rendering.util.AppendableWriter;
 import info.magnolia.templating.jsp.cmsfn.JspTemplatingFunction;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.jcr.Node;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.context.ServletContextAware;
+import org.springframework.web.servlet.support.RequestContext;
 import org.thymeleaf.context.IWebContext;
+import org.thymeleaf.context.ProcessingContext;
 import org.thymeleaf.spring3.SpringTemplateEngine;
 import org.thymeleaf.spring3.context.SpringWebContext;
-
-import javax.jcr.Node;
-import javax.servlet.ServletContext;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import org.thymeleaf.spring3.naming.SpringContextVariableNames;
+import org.thymeleaf.standard.fragment.StandardFragment;
+import org.thymeleaf.standard.fragment.StandardFragmentProcessor;
+import org.thymeleaf.standard.processor.attr.StandardFragmentAttrProcessor;
 
 
 public class ThymeleafRenderer extends AbstractRenderer implements ServletContextAware, ApplicationContextAware {
@@ -49,22 +58,37 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
 
     @Override
     protected void onRender(Node content, RenderableDefinition definition,RenderingContext renderingCtx,  Map<String, Object> ctx, String templateScript) throws RenderException {
-        final Locale locale = MgnlContext.getAggregationState().getLocale();
 
-            Map<String, Object> vars = new HashMap<String, Object>();
-            vars.put("content", content);
-            vars.put("renderingContext",renderingCtx);
-            vars.put("cmsfn", new JspTemplatingFunction());
+        Map<String, Object> vars = new HashMap<String, Object>(ctx);
+        vars.put("content", content);
+        vars.put("renderingContext",renderingCtx);
+        vars.put("cmsfn", new JspTemplatingFunction());
 
-            // copy all spring model attributes into the sprint web context as variables
-            vars.putAll(RenderContext.get().getModel());
+        final HttpServletRequest request = MgnlContext.getWebContext().getRequest();
+        final HttpServletResponse response = MgnlContext.getWebContext().getResponse();
 
-            final IWebContext context =
-                    new SpringWebContext(MgnlContext.getWebContext().getRequest(), MgnlContext.getWebContext().getResponse(), servletContext , MgnlContext.getWebContext().getRequest().getLocale(), vars, getApplicationContext());
+        // setup spring request context in spring web context
+        final RequestContext requestContext = new RequestContext(request, response, servletContext, vars);
+        vars.put(SpringContextVariableNames.SPRING_REQUEST_CONTEXT, requestContext);
 
-        try {
-            AppendableWriter out = renderingCtx.getAppendable();
-            engine.process(templateScript, context, out);
+        // copy all spring model attributes into the spring web context as variables
+        vars.putAll(RenderContext.get().getModel());
+
+        final IWebContext context = new SpringWebContext(request, response, servletContext, MgnlContext.getWebContext()
+                .getRequest().getLocale(), vars, getApplicationContext());
+
+        try (AppendableWriter out = renderingCtx.getAppendable()) {
+            // need to ensure engine initialised before getting configuration
+            if (!engine.isInitialized()) {
+                engine.initialize();
+            }
+            // allow template fragment syntax to be used e.g. template.html :: area
+            final StandardFragment fragment = StandardFragmentProcessor.computeStandardFragmentSpec(
+                    engine.getConfiguration(), new ProcessingContext(context), templateScript, null, "th:"
+                            + StandardFragmentAttrProcessor.ATTR_NAME);
+
+            // and pass the fragment name and spec then onto the engine
+            engine.process(fragment.getTemplateName(), context, fragment.getFragmentSpec(), out);
         }catch(IOException x) {
             throw new RenderException(x);
         }

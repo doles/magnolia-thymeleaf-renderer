@@ -40,8 +40,8 @@ public class MagnoliaDialect extends AbstractDialect implements ApplicationConte
     public Set<IProcessor> getProcessors() {
         final Set<IProcessor> processors = new HashSet<IProcessor>();
         processors.add(new CmsInitElementProcessor());
-        processors.add(new CmsAreaElementProcessor(ctx, servletContext));
-        processors.add(new CmsComponentElementProcessor(ctx, servletContext));
+        processors.add(new CmsAreaElementProcessor());
+        processors.add(new CmsComponentElementProcessor());
         return processors;
     }
 

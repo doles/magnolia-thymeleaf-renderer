@@ -50,7 +50,7 @@
     <bean class="info.magnolia.module.blossom.view.TemplateViewResolver">
         <property name="order" value="3"/>
         <property name="prefix" value=""/>
-        <property name="viewNames" value="*.html"/>
+        <property name="viewNames" value="*.html*"/>
         <property name="viewRenderer">
             <bean class="thymeleaf.renderer.ThymeleafRenderer">
                 <property name="engine" ref="templateEngine"/>
@@ -78,7 +78,4 @@
         </property>
 
     </bean>
-    <bean id="templateExporter" class="thymeleaf.blossom.ThymeleafTemplateExporter"/>
-
-
 </beans>
