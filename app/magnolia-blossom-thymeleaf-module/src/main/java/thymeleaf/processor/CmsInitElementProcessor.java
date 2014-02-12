@@ -1,11 +1,15 @@
 package thymeleaf.processor;
 
+import info.magnolia.cms.beans.config.ServerConfiguration;
+import info.magnolia.cms.core.AggregationState;
 import info.magnolia.cms.core.Content;
 import info.magnolia.cms.gui.dialog.Dialog;
 import info.magnolia.cms.gui.i18n.I18nAuthoringSupport;
 import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
+import info.magnolia.cms.security.Permission;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.rendering.context.RenderingContext;
 import info.magnolia.rendering.engine.RenderException;
 import info.magnolia.rendering.template.RenderableDefinition;
@@ -49,9 +53,18 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
     protected List<Node> getModifiedChildren(Arguments arguments, Element element, String attributeName)
 
     {
-//        if (!isAdmin()) {
-//            return element.getChildren();
-//        }
+        AggregationState aggregationState = MgnlContext.getAggregationState();
+
+        Content activePage = aggregationState.getMainContent();
+
+        boolean isAdmin = ServerConfiguration.getInstance().isAdmin()
+                && !aggregationState.isPreviewMode()
+                && activePage != null
+                && NodeUtil.isGranted(activePage.getJCRNode(), Permission.SET);
+
+        if (!isAdmin) {
+            return element.getChildren();
+        }
 
         String name = element.getNormalizedName();
         if (!"head".equals(name)) {
