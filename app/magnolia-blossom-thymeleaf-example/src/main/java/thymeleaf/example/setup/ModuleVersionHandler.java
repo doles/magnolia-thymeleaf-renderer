@@ -30,4 +30,5 @@ public class ModuleVersionHandler extends DefaultModuleVersionHandler {
         install.add(new TemplatesInstallTask("/thymeleaf_proto/.*\\.html", true));
         return install;
     }
+    
 }
