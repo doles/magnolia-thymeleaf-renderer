@@ -3,8 +3,7 @@ package thymeleaf.processor;
 import info.magnolia.cms.beans.config.ServerConfiguration;
 import info.magnolia.cms.core.AggregationState;
 import info.magnolia.cms.core.Content;
-import info.magnolia.cms.gui.dialog.Dialog;
-import info.magnolia.cms.gui.i18n.I18nAuthoringSupport;
+import info.magnolia.ui.framework.i18n.DefaultI18NAuthoringSupport;
 import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.security.Permission;
@@ -38,7 +37,7 @@ import java.util.List;
 public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcessor {
 
     private I18nContentSupport i18nContentSupport = I18nContentSupportFactory.getI18nSupport();
-    private I18nAuthoringSupport i18nAuthoringSupport = I18nAuthoringSupport.Factory.getInstance();
+    private DefaultI18NAuthoringSupport i18nAuthoringSupport = new DefaultI18NAuthoringSupport();
     private static final String CMS_PAGE_TAG = "cms:page";
     public static final String CONTENT_ATTRIBUTE = "content";
 

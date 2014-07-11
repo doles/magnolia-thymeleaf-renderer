@@ -1,144 +1,163 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>magnolia-blossom-thymeleaf</groupId>
+		<artifactId>thymeleaf-example</artifactId>
+		<version>2.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>magnolia-blossom-thymeleaf-module</artifactId>
+	<packaging>jar</packaging>
+	<name>Magnolia Blossom Thymeleaf Module</name>
 
-  <groupId>magnolia-blossom-thymeleaf</groupId>
-  <artifactId>magnolia-blossom-thymeleaf-module</artifactId>
-    <version>1.0.26-SNAPSHOT</version>
-  <packaging>jar</packaging>
-  <name>Magnolia Blossom Thymeleaf Module</name>
-
-    <properties>
-        <magnoliaVersion>5.2.1</magnoliaVersion>
-        <javaVersion>1.7</javaVersion>
-    </properties>
-    <!-- Fill the following in, so you can use the release plugin -->
-    <scm>
-        <connection>scm:git:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</connection>
-        <developerConnection>scm:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</developerConnection>
-        <url>scm:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</url>
-    </scm>
-
-
-  <dependencies>
-
-      <dependency>
-          <groupId>info.magnolia</groupId>
-          <artifactId>magnolia-empty-webapp</artifactId>
-          <version>${magnoliaVersion}</version>
-          <type>pom</type>
-      </dependency>
-      <dependency>
-          <groupId>info.magnolia</groupId>
-          <artifactId>magnolia-core</artifactId>
-          <version>${magnoliaVersion}</version>
-      </dependency>
-      <dependency>
-          <groupId>info.magnolia</groupId>
-          <artifactId>magnolia-rendering</artifactId>
-          <version>${magnoliaVersion}</version>
-      </dependency>
-      <dependency>
-          <groupId>info.magnolia</groupId>
-          <artifactId>magnolia-templating</artifactId>
-          <version>${magnoliaVersion}</version>
-      </dependency>
-      <dependency>
-          <groupId>info.magnolia</groupId>
-          <artifactId>magnolia-templating-jsp</artifactId>
-          <version>${magnoliaVersion}</version>
-      </dependency>
-      <dependency>
-          <groupId>info.magnolia</groupId>
-          <artifactId>magnolia-module-inplace-templating</artifactId>
-          <version>2.2</version>
-      </dependency>
+	<properties>
+		<magnoliaVersion>5.3.1-SNAPSHOT</magnoliaVersion>
+		<javaVersion>1.7</javaVersion>
+		<blossomVersion>3.0.2</blossomVersion>
+		<springVersion>3.2.8.RELEASE</springVersion>
+	</properties>
+	<!-- Fill the following in, so you can use the release plugin -->
+	<scm>
+		<connection>scm:git:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</connection>
+		<developerConnection>scm:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</developerConnection>
+		<url>scm:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</url>
+	</scm>
 
 
-      <dependency>
-          <groupId>info.magnolia.blossom</groupId>
-          <artifactId>magnolia-module-blossom</artifactId>
-          <version>3.0</version>
-          <exclusions>
-              <exclusion>
-                  <groupId>info.magnolia.ui</groupId>
-                  <artifactId>magnolia-ui-framework</artifactId>
-              </exclusion>
-              <exclusion>
-                  <groupId>info.magnolia.ui</groupId>
-                  <artifactId>magnolia-ui-admincentral</artifactId>
-              </exclusion>
-          </exclusions>
-      </dependency>
-        <!-- TEST -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.2</version>
-            <scope>test</scope>
-        </dependency>
-    <!-- TEST -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.8.2</version>
-      <scope>test</scope>
-    </dependency>
+	<dependencies>
 
-      <dependency>
-          <groupId>org.thymeleaf</groupId>
-          <artifactId>thymeleaf</artifactId>
-          <version>2.1.2.RELEASE</version>
-      </dependency>
-      <dependency>
-          <groupId>org.thymeleaf</groupId>
-          <artifactId>thymeleaf-spring3</artifactId>
-          <version>2.1.2.RELEASE</version>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-webmvc</artifactId>
-          <version>3.1.0.RELEASE</version>
-      </dependency>
-      <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
-          <version>2.5</version>
-          <scope>provided</scope>
-      </dependency>
-  </dependencies>
+		<dependency>
+			<groupId>info.magnolia</groupId>
+			<artifactId>magnolia-core</artifactId>
+			<version>${magnoliaVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>info.magnolia</groupId>
+			<artifactId>magnolia-rendering</artifactId>
+			<version>${magnoliaVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>info.magnolia</groupId>
+			<artifactId>magnolia-templating</artifactId>
+			<version>${magnoliaVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>info.magnolia</groupId>
+			<artifactId>magnolia-templating-jsp</artifactId>
+			<version>${magnoliaVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>info.magnolia.blossom</groupId>
+			<artifactId>magnolia-module-blossom</artifactId>
+			<version>${blossomVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>info.magnolia</groupId>
+			<artifactId>magnolia-module-inplace-templating</artifactId>
+		</dependency>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
-        <configuration>
-          <source>${javaVersion}</source>
-          <target>${javaVersion}</target>
-        </configuration>
-      </plugin>
-    </plugins>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springVersion}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${springVersion}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
-    <!-- default resources configuration which will filter the module descriptor -->
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <includes>
-          <include>**/*</include>
-        </includes>
-      </resource>
-      <resource>
-        <filtering>true</filtering>
-        <directory>src/main/resources</directory>
-        <includes>
-          <include>META-INF/magnolia/*</include>
-        </includes>
-      </resource>
-    </resources>
-  </build>
 
+		<!-- TEST -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- TEST -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf</artifactId>
+			<version>2.1.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf-spring3</artifactId>
+			<version>2.1.2.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${javaVersion}</source>
+					<target>${javaVersion}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<!-- default resources configuration which will filter the module descriptor -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>META-INF/magnolia/*</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>magnolia.public</id>
+			<url>http://nexus.magnolia-cms.com/content/groups/public</url>
+			<snapshots>
+			</snapshots>
+		</repository><!-- IF YOU NEED MODULES FROM THE ENTERPRISE VERSION, UNCOMMENT 
+			THE FOLLOWING REPOSITORY --><!-- <repository> <id>magnolia.enterprise.releases</id> <url>http://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases</url> 
+			<snapshots> <enabled>false</enabled> </snapshots> </repository> -->
+		<repository>
+			<id>vaadin-addons</id>
+			<url>http://maven.vaadin.com/vaadin-addons</url>
+		</repository>
+	</repositories>
 
 
 </project>

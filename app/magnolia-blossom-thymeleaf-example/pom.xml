@@ -1,225 +1,145 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>magnolia-blossom-thymeleaf</groupId>
-    <artifactId>magnolia-blossom-thymeleaf-example</artifactId>
-    <version>1.0.25-SNAPSHOT</version>
-    <name>Thymeleaf Magnolia Webapp Example</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>magnolia-blossom-thymeleaf</groupId>
+		<artifactId>thymeleaf-example</artifactId>
+		<version>2.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<artifactId>magnolia-blossom-thymeleaf-example</artifactId>
+	<name>Thymeleaf Magnolia Webapp Example</name>
 
-    <packaging>war</packaging>
+	<packaging>war</packaging>
 
-    <properties>
-            <magnoliaVersion>5.2.1</magnoliaVersion>
-        <javaVersion>1.7</javaVersion>
-    </properties>
-    <!-- Fill the following in, so you can use the release plugin -->
-    <scm>
-        <connection>scm:git:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</connection>
-        <developerConnection>scm:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</developerConnection>
-        <url>scm:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</url>
-    </scm>
-
-
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <activation><activeByDefault>true</activeByDefault></activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-
-                        <configuration>
-                            <webResources>
-                                <resource>
-                                    <!-- this is relative to the pom.xml directory -->
-                                    <directory>src/main/profiles/dev/webapp</directory>
-                                </resource>
-                                <resource>
-                                    <!-- this is relative to the pom.xml directory -->
-                                    <directory>src/main/webapp</directory>
-                                </resource>
-                            </webResources>
-                            <classifier>dev</classifier>
-
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>stage</id>
-            <activation><activeByDefault>false</activeByDefault></activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-
-                        <configuration>
-                            <webResources>
-                                <resource>
-                                    <!-- this is relative to the pom.xml directory -->
-                                    <directory>src/main/profiles/stage/webapp</directory>
-                                </resource>
-                                <resource>
-                                    <!-- this is relative to the pom.xml directory -->
-                                    <directory>src/main/webapp</directory>
-                                </resource>
-                            </webResources>
-                            <classifier>stage</classifier>
-
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
-    <dependencies>
-        <!-- Add your project specific dependencies here: -->
-
-        <!-- magnolia -->
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-empty-webapp</artifactId>
-            <version>${magnoliaVersion}</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-core</artifactId>
-            <version>${magnoliaVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-rendering</artifactId>
-            <version>${magnoliaVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-templating</artifactId>
-            <version>${magnoliaVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-templating-jsp</artifactId>
-            <version>${magnoliaVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-data</artifactId>
-            <version>2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia.blossom</groupId>
-            <artifactId>magnolia-module-blossom</artifactId>
-            <version>3.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>info.magnolia.ui</groupId>
-                    <artifactId>magnolia-ui-framework</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>info.magnolia.ui</groupId>
-                    <artifactId>magnolia-ui-admincentral</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia.ui</groupId>
-            <artifactId>magnolia-ui-framework</artifactId>
-            <version>${magnoliaVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-4-5-migration</artifactId>
-            <version>1.2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-legacy-admininterface</artifactId>
-            <version>${magnoliaVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-standard-templating-kit</artifactId>
-            <version>2.7</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-categorization</artifactId>
-            <version>2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia.dam</groupId>
-            <artifactId>magnolia-dam</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-groovy</artifactId>
-            <version>2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-webdav</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia.ui</groupId>
-            <artifactId>magnolia-ui-contentapp</artifactId>
-            <version>${magnoliaVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-observation</artifactId>
-            <version>2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia</groupId>
-            <artifactId>magnolia-module-imaging</artifactId>
-            <version>3.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>info.magnolia.activation</groupId>
-            <artifactId>magnolia-module-activation</artifactId>
-            <version>${magnoliaVersion}</version>
-        </dependency>
+	<properties>
+		<magnoliaVersion>5.3.1-SNAPSHOT</magnoliaVersion>
+		<javaVersion>1.7</javaVersion>
+	</properties>
+	<!-- Fill the following in, so you can use the release plugin -->
+	<scm>
+		<connection>scm:git:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</connection>
+		<developerConnection>scm:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</developerConnection>
+		<url>scm:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</url>
+	</scm>
 
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>3.1.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>magnolia-blossom-thymeleaf</groupId>
-            <artifactId>magnolia-blossom-thymeleaf-module</artifactId>
-            <version>1.0.26-SNAPSHOT</version>
-        </dependency>
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
 
-    </dependencies>
+						<configuration>
+							<webResources>
+								<resource>
+									<!-- this is relative to the pom.xml directory -->
+									<directory>src/main/profiles/dev/webapp</directory>
+								</resource>
+								<resource>
+									<!-- this is relative to the pom.xml directory -->
+									<directory>src/main/webapp</directory>
+								</resource>
+							</webResources>
+							<classifier>dev</classifier>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>${javaVersion}</source>
-                    <target>${javaVersion}</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>stage</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+
+						<configuration>
+							<webResources>
+								<resource>
+									<!-- this is relative to the pom.xml directory -->
+									<directory>src/main/profiles/stage/webapp</directory>
+								</resource>
+								<resource>
+									<!-- this is relative to the pom.xml directory -->
+									<directory>src/main/webapp</directory>
+								</resource>
+							</webResources>
+							<classifier>stage</classifier>
+
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<dependencies>
+		<!-- Add your project specific dependencies here: --><!-- Overlay Magnolia Empty Webapp. Alternatively, use the bundled-webapp 
+			or the enterprise-webapp. Dependencies versions are already imported by parent, 
+			so no need to replicate here. -->
+		<dependency>
+			<groupId>info.magnolia</groupId>
+			<artifactId>magnolia-empty-webapp</artifactId>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>info.magnolia</groupId>
+			<artifactId>magnolia-empty-webapp</artifactId>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>info.magnolia</groupId>
+			<artifactId>magnolia-empty-webapp</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>magnolia-blossom-thymeleaf</groupId>
+			<artifactId>magnolia-blossom-thymeleaf-module</artifactId>
+			<version>2.0-SNAPSHOT</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${javaVersion}</source>
+					<target>${javaVersion}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration><!-- exclude jars copied "physically" from the webapp 
+						overlay - so we only get those resolved by Maven's dependency management -->
+					<dependentWarExcludes>WEB-INF/lib/*.jar</dependentWarExcludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.2.1.v20140609</version>
+				<configuration>
+					<scanIntervalSeconds>5</scanIntervalSeconds>
+					<war>${project.basedir}/target/magnolia-blossom-thymeleaf-example-2.0-SNAPSHOT-dev.war</war>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
