@@ -8,6 +8,12 @@
 	<version>2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
+    <properties>
+        <magnoliaVersion>5.3.1</magnoliaVersion>
+        <javaVersion>1.7</javaVersion>
+        <blossomVersion>3.0.2</blossomVersion>
+        <springVersion>3.2.8.RELEASE</springVersion>
+    </properties>
 
 	<profiles>
 		<profile>
@@ -26,10 +32,7 @@
 		</profile>
 	</profiles>
 
-	<properties>
-		<magnoliaVersion>5.3.1-SNAPSHOT</magnoliaVersion>
-		<javaVersion>1.7</javaVersion>
-	</properties>
+
 	<!-- Fill the following in, so you can use the release plugin -->
 	<scm>
 		<connection>scm:git:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</connection>

@@ -13,10 +13,6 @@
 
 	<packaging>war</packaging>
 
-	<properties>
-		<magnoliaVersion>5.3.1-SNAPSHOT</magnoliaVersion>
-		<javaVersion>1.7</javaVersion>
-	</properties>
 	<!-- Fill the following in, so you can use the release plugin -->
 	<scm>
 		<connection>scm:git:git:git@github.com:eiswind/magnolia-blossom-thymeleaf-proto.git</connection>
