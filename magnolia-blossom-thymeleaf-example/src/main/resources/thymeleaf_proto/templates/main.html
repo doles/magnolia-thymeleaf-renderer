@@ -32,7 +32,7 @@
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
-        <h1 th:text="${cmsfn.asContentMap(content)[test]}">Hello, world!</h1>
+        <h1 th:text="${content[test]}">Hello, world!</h1>
 
 
         <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
@@ -53,18 +53,18 @@
 
         <div th:fragment="component" class="span4">
 
-            <h2 th:text="${cmsfn.asContentMap(content)[head]}">Heading</h2>
+            <h2 th:text="${content[head]}">Heading</h2>
 
-            <p th:text="${cmsfn.asContentMap(content)[text]}">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p th:text="${content[text]}">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
             <p><a class="btn" href="#">View details &raquo;</a></p>
         </div>
 
         <div th:fragment="component2" class="span4">
 
-            <h2 th:text="${cmsfn.asContentMap(content)[head]}">Heading</h2>
+            <h2 th:text="${content[head]}">Heading</h2>
 
-            <p th:text="${cmsfn.asContentMap(content)[text]}">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn" href="#" th:text="${cmsfn.asContentMap(content)[button]}">View details &raquo;</a></p>
+            <p th:text="${content[text]}">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn" href="#" th:text="${content[button]}">View details &raquo;</a></p>
         </div>
       </div>
 

@@ -3,25 +3,27 @@ package thymeleaf.processor;
 import info.magnolia.cms.beans.config.ServerConfiguration;
 import info.magnolia.cms.core.AggregationState;
 import info.magnolia.cms.core.Content;
-import info.magnolia.ui.framework.i18n.DefaultI18NAuthoringSupport;
 import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.security.Permission;
 import info.magnolia.context.MgnlContext;
+import info.magnolia.jcr.util.ContentMap;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.rendering.context.RenderingContext;
-import info.magnolia.rendering.engine.RenderException;
-import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.elements.MarkupHelper;
+import info.magnolia.templating.jsp.cmsfn.JspTemplatingFunction;
+import info.magnolia.ui.framework.i18n.DefaultI18NAuthoringSupport;
 import org.thymeleaf.Arguments;
-import org.thymeleaf.dom.*;
+import org.thymeleaf.dom.Comment;
+import org.thymeleaf.dom.Element;
 import org.thymeleaf.dom.Node;
+import org.thymeleaf.dom.Text;
 import org.thymeleaf.exceptions.TemplateProcessingException;
 import org.thymeleaf.processor.attr.AbstractChildrenModifierAttrProcessor;
 import org.thymeleaf.standard.expression.StandardExpressionProcessor;
 
-import javax.jcr.*;
+import javax.jcr.RepositoryException;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -103,10 +105,16 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
             helper.append(" "+CMS_PAGE_TAG);
             Object nodeObj = StandardExpressionProcessor.processExpression(
                     arguments, "${content}");
-            if(!(nodeObj instanceof javax.jcr.Node)){
-                throw new TemplateProcessingException("Musst pass a javx.jcr.Node here");
+            javax.jcr.Node node;
+            if(nodeObj instanceof javax.jcr.Node){
+                node =  (javax.jcr.Node)nodeObj;
+            } else if(nodeObj instanceof ContentMap){
+                node = JspTemplatingFunction.asJCRNode((ContentMap)nodeObj);
+            } else {
+                throw new TemplateProcessingException("Musst pass a javx.jcr.Node or ContentMap here");
+
             }
-            javax.jcr.Node node = (javax.jcr.Node)nodeObj;
+
             if(node != null) {
                 helper.attribute(CONTENT_ATTRIBUTE, getNodePath(node));
             }
