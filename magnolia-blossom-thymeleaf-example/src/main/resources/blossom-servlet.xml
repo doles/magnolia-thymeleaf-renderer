@@ -32,6 +32,7 @@
         </property>
     </bean>
 
+
     <bean class="info.magnolia.module.blossom.view.UuidRedirectViewResolver">
         <property name="order" value="1" />
     </bean>
@@ -58,18 +59,18 @@
         </property>
     </bean>
     <bean id="templateResolver"
-          class="org.thymeleaf.templateresolver.TemplateResolver">
+          class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
         <property name="prefix" value="/WEB-INF/classes/thymeleaf_proto/" />
         <property name="suffix" value="" />
         <property name="templateMode" value="HTML5" />
         <property name="cacheable" value="false"/>
-        <property name="resourceResolver" ref="resourceResolver"/>
+        <!--<property name="resourceResolver" ref="resourceResolver"/>-->
     </bean>
 
-    <bean name="resourceResolver" class="thymeleaf.resolver.InplaceTemplateResourceResolver"/>
+    <!--<bean name="resourceResolver" class="thymeleaf.resolver.InplaceTemplateResourceResolver"/>-->
 
     <bean id="templateEngine"
-          class="org.thymeleaf.spring3.SpringTemplateEngine">
+          class="org.thymeleaf.spring4.SpringTemplateEngine">
         <property name="templateResolver" ref="templateResolver" />
         <property name="additionalDialects">
             <set>

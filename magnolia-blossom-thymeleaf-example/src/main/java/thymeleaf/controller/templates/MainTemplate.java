@@ -6,7 +6,6 @@ import info.magnolia.ui.framework.config.UiConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import thymeleaf.controller.components.ThymeleafComponent;
-import thymeleaf.controller.components.ThymeleafComponent2;
 
 /**
  * User: Thomas
@@ -34,7 +33,7 @@ public class MainTemplate {
 
     @Area("Area")
     @Inherits
-    @AvailableComponentClasses({ThymeleafComponent.class, ThymeleafComponent2.class})
+    @AvailableComponentClasses({ThymeleafComponent.class})
     @Controller
     public static class PromosArea {
 

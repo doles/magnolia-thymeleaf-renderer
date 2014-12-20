@@ -185,6 +185,9 @@ Number of occurrences: %o%n
   <category name="openwfe">
     <priority value="WARN" />
   </category>
+  <category name="thymeleaf">
+    <priority value="WARN" />
+  </category>
 
   <root>
     <priority value="ALL" />
