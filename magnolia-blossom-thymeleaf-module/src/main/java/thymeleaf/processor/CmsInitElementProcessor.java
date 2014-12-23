@@ -2,7 +2,6 @@ package thymeleaf.processor;
 
 import info.magnolia.cms.beans.config.ServerConfiguration;
 import info.magnolia.cms.core.AggregationState;
-import info.magnolia.cms.core.Content;
 import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.security.Permission;
@@ -56,12 +55,12 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
     {
         AggregationState aggregationState = MgnlContext.getAggregationState();
 
-        Content activePage = aggregationState.getMainContent();
+        javax.jcr.Node activePage = aggregationState.getMainContentNode();
 
         boolean isAdmin = ServerConfiguration.getInstance().isAdmin()
                 && !aggregationState.isPreviewMode()
                 && activePage != null
-                && NodeUtil.isGranted(activePage.getJCRNode(), Permission.SET);
+                && NodeUtil.isGranted(activePage, Permission.SET);
 
         if (!isAdmin) {
             return element.getChildren();
