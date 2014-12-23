@@ -14,7 +14,6 @@ import info.magnolia.templating.functions.TemplatingFunctions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
@@ -74,10 +73,10 @@ public class RendererTest {
 
         ComponentProvider componentProvider = mock(ComponentProvider.class);
 
-        PowerMockito.when(componentProvider.getComponent(RenderingEngine.class)).thenReturn(engine);
+        when(componentProvider.getComponent(RenderingEngine.class)).thenReturn(engine);
         Provider<AggregationState> provider = mock(Provider.class);
         TemplatingFunctions templatingFunctions = new TemplatingFunctions(provider);
-        PowerMockito.when(componentProvider.getComponent(TemplatingFunctions.class)).thenReturn(templatingFunctions);
+        when(componentProvider.getComponent(TemplatingFunctions.class)).thenReturn(templatingFunctions);
 
         Components.pushProvider(componentProvider);
 
@@ -95,7 +94,7 @@ public class RendererTest {
         RenderableDefinition renderableDefinition = mock(RenderableDefinition.class);
         RenderingContext renderingContext = mock(RenderingContext.class);
 
-        Map<String,Object> vars = new HashMap<String,Object>();
+        Map<String,Object> vars = new HashMap<>();
 
         renderer.onRender(node,renderableDefinition, renderingContext, vars, "");
 
