@@ -6,7 +6,6 @@ import info.magnolia.ui.form.config.TabBuilder;
 import info.magnolia.ui.framework.config.UiConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.jcr.Node;
 
@@ -23,7 +22,7 @@ import javax.jcr.Node;
 public class ThymeleafComponent {
 
 
-    @RequestMapping(value="/thymeleafComponent", method = RequestMethod.GET)
+    @RequestMapping("/thymeleafComponent")
     public String handleRequest3(Node content) {
         System.out.println("Node:"+ content);
         return "templates/main.html :: component";
