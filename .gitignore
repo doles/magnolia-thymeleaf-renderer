@@ -8,3 +8,6 @@ magnolia-blossom-thymeleaf-module/target
 target
 magnolia-blossom-thymeleaf-example/derby.log
 repositories
+cache
+logs
+tmp
