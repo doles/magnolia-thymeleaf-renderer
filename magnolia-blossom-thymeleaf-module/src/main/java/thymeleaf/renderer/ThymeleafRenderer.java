@@ -9,16 +9,6 @@ import info.magnolia.rendering.renderer.AbstractRenderer;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.rendering.util.AppendableWriter;
 import info.magnolia.templating.jsp.cmsfn.JspTemplatingFunction;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.jcr.Node;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -27,12 +17,20 @@ import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.support.RequestContext;
 import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.context.ProcessingContext;
-import org.thymeleaf.spring3.SpringTemplateEngine;
-import org.thymeleaf.spring3.context.SpringWebContext;
-import org.thymeleaf.spring3.naming.SpringContextVariableNames;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.context.SpringWebContext;
+import org.thymeleaf.spring4.naming.SpringContextVariableNames;
 import org.thymeleaf.standard.fragment.StandardFragment;
 import org.thymeleaf.standard.fragment.StandardFragmentProcessor;
 import org.thymeleaf.standard.processor.attr.StandardFragmentAttrProcessor;
+
+import javax.jcr.Node;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ThymeleafRenderer extends AbstractRenderer implements ServletContextAware, ApplicationContextAware {
@@ -60,7 +58,7 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
     protected void onRender(Node content, RenderableDefinition definition,RenderingContext renderingCtx,  Map<String, Object> ctx, String templateScript) throws RenderException {
 
         Map<String, Object> vars = new HashMap<String, Object>(ctx);
-        vars.put("content", content);
+        vars.put("content", JspTemplatingFunction.asContentMap(content));
         vars.put("renderingContext",renderingCtx);
         vars.put("cmsfn", new JspTemplatingFunction());
 

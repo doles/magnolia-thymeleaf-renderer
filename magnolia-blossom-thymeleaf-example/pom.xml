@@ -37,19 +37,83 @@
                 </exclusion>
                 <exclusion>
                     <groupId>info.magnolia</groupId>
-                    <artifactId>magnolia-demo-projekt</artifactId>
+                    <artifactId>magnolia-demo-project</artifactId>
                 </exclusion>
-
+                <exclusion>
+                    <groupId>info.magnolia</groupId>
+                    <artifactId>magnolia-empty-webapp</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>info.magnolia</groupId>
+                    <artifactId>magnolia-module-data</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>info.magnolia</groupId>
+                    <artifactId>magnolia-module-mail</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>info.magnolia.contacts</groupId>
+                    <artifactId>magnolia-contacts</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>info.magnolia.contacts</groupId>
+                    <artifactId>magnolia-contacts</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>info.magnolia</groupId>
+                    <artifactId>magnolia-theme-pop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>info.magnolia</groupId>
+                    <artifactId>magnolia-module-commenting</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>info.magnolia</groupId>
+                    <artifactId>magnolia-module-categorization</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>info.magnolia</groupId>
+                    <artifactId>magnolia-module-standard-templating-kit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>info.magnolia</groupId>
+                    <artifactId>magnolia-module-google-sitemap</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
-
+        <dependency>
+            <groupId>info.magnolia</groupId>
+            <artifactId>magnolia-empty-webapp</artifactId>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>info.magnolia</groupId>
+            <artifactId>magnolia-module-imaging</artifactId>
+            <type>pom</type>
+        </dependency>
         <dependency>
             <groupId>magnolia-blossom-thymeleaf</groupId>
             <artifactId>magnolia-blossom-thymeleaf-module</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
 
+
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${springVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
+
+
 
     <build>
         <plugins>

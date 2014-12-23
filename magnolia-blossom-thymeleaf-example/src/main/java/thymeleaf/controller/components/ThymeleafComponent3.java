@@ -17,13 +17,13 @@ import javax.jcr.Node;
  * Time: 14:39
  * To change this template use File | Settings | File Templates.
  */
-@Template(id = "thymeleaf_proto:components/thymeleafComponent", title = "Thymeleaf Component")
+@Template(id = "thymeleaf_proto:components/thymeleafComponent3", title = "Thymeleaf Component3")
 @Controller
 
-public class ThymeleafComponent {
+public class ThymeleafComponent3 {
 
 
-    @RequestMapping(value="/thymeleafComponent", method = RequestMethod.GET)
+    @RequestMapping(value="/thymeleafComponent3", method = RequestMethod.GET)
     public String handleRequest3(Node content) {
         System.out.println("Node:"+ content);
         return "templates/main.html :: component";
