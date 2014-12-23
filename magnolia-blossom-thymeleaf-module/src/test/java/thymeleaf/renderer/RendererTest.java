@@ -24,6 +24,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import thymeleaf.dialect.MagnoliaDialect;
 
 import javax.annotation.Resource;
 import javax.jcr.Node;
@@ -86,7 +88,8 @@ public class RendererTest {
         ServletContext servletContext = mock(ServletContext.class);
 
         SpringTemplateEngine thymeEngine = new SpringTemplateEngine();
-
+        thymeEngine.addTemplateResolver(new ClassLoaderTemplateResolver());
+        thymeEngine.addDialect(new MagnoliaDialect());
         ThymeleafRenderer renderer = new ThymeleafRenderer();
         renderer.setApplicationContext(webApplicationContext);
         renderer.setServletContext(servletContext);
@@ -96,7 +99,7 @@ public class RendererTest {
 
         Map<String,Object> vars = new HashMap<>();
 
-        renderer.onRender(node,renderableDefinition, renderingContext, vars, "");
+        renderer.onRender(node,renderableDefinition, renderingContext, vars, "main.html");
 
 
     }
