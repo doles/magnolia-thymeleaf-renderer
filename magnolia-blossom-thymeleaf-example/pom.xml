@@ -117,22 +117,11 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>${javaVersion}</source>
-                    <target>${javaVersion}</target>
-                </configuration>
-            </plugin>
-            <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <configuration><!-- exclude jars copied "physically" from the webapp
-						overlay - so we only get those resolved by Maven's dependency management -->
-                    <dependentWarExcludes>WEB-INF/lib/*.jar</dependentWarExcludes>
-                </configuration>
-            </plugin>
+           </plugin>
 
         </plugins>
     </build>
