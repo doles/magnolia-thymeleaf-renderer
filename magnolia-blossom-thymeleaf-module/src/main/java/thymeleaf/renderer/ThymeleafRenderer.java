@@ -11,8 +11,6 @@ import info.magnolia.rendering.renderer.AbstractRenderer;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.rendering.util.AppendableWriter;
 import info.magnolia.templating.jsp.cmsfn.JspTemplatingFunction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.context.ServletContextAware;
@@ -38,7 +36,7 @@ import java.util.Map;
 public class ThymeleafRenderer extends AbstractRenderer implements ServletContextAware, ApplicationContextAware {
 
 
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    //private final Logger log = LoggerFactory.getLogger(getClass());
 
     private SpringTemplateEngine engine;
 

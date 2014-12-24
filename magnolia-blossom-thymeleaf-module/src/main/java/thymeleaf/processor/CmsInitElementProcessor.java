@@ -88,7 +88,7 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
             el.setAttribute("src", ctx + script);
             result.add(el);
             Text t= new Text("\n");
-            result.add(t);;
+            result.add(t);
         }
         el = new Element("script");
         el.setAttribute("type", "text/javascript");
