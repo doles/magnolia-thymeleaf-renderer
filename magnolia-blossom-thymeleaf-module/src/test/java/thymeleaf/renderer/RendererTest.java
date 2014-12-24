@@ -14,6 +14,7 @@ import info.magnolia.objectfactory.Components;
 import info.magnolia.rendering.context.RenderingContext;
 import info.magnolia.rendering.engine.RenderingEngine;
 import info.magnolia.rendering.template.RenderableDefinition;
+import info.magnolia.rendering.util.AppendableWriter;
 import info.magnolia.templating.functions.TemplatingFunctions;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,8 +24,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -38,6 +37,7 @@ import javax.jcr.Workspace;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -58,18 +58,17 @@ public class RendererTest {
 
     @Resource
     private WebApplicationContext webApplicationContext;
+    private Node node;
+    private ThymeleafRenderer renderer;
+    private RenderableDefinition renderableDefinition;
+    private RenderingContext renderingContext;
 
-    private MockMvc mockMvc;
 
     @Before
-    public void setUp() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+    public void setUp() throws Exception{
 
-    }
-    @Test
-    public void testRenderer() throws Exception{
-
-        Node node = mock(Node.class);
+        /** mock up magnolia */
+        node = mock(Node.class);
         Session session = mock(Session.class);
         Workspace workspace = mock(Workspace.class);
         when(workspace.getName()).thenReturn("pages");
@@ -118,20 +117,30 @@ public class RendererTest {
         SpringTemplateEngine thymeEngine = new SpringTemplateEngine();
         thymeEngine.addTemplateResolver(new ClassLoaderTemplateResolver());
         thymeEngine.addDialect(new MagnoliaDialect());
-        ThymeleafRenderer renderer = new ThymeleafRenderer();
+        renderer = new ThymeleafRenderer();
         renderer.setApplicationContext(webApplicationContext);
         renderer.setServletContext(servletContext);
         renderer.setEngine(thymeEngine);
-        RenderableDefinition renderableDefinition = mock(RenderableDefinition.class);
-        RenderingContext renderingContext = mock(RenderingContext.class);
+        renderableDefinition = mock(RenderableDefinition.class);
+        renderingContext = mock(RenderingContext.class);
         when(engine.getRenderingContext()).thenReturn(renderingContext);
+        AppendableWriter out = new AppendableWriter(new StringWriter());
+        when(renderingContext.getAppendable()).thenReturn(out);
         BlossomTemplateDefinition templateDefinition = mock(BlossomTemplateDefinition.class);
         when(templateDefinition.getDialog()).thenReturn(null);
         when(templateDefinition.getAreas()).thenReturn(new HashMap<>());
         when(renderingContext.getRenderableDefinition()).thenReturn(templateDefinition);
+    }
+
+
+
+    @Test
+    public void smokeTest() throws Exception{
+
+
         Map<String,Object> vars = new HashMap<>();
 
-        renderer.onRender(node,renderableDefinition, renderingContext, vars, "main.html");
+        renderer.onRender(node, renderableDefinition, renderingContext, vars, "main.html");
 
 
     }
