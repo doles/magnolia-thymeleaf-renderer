@@ -143,8 +143,6 @@ public class RendererTest {
         Map<String, AreaDefinition> areaMap = new HashMap<>();
         areaMap.put("Area",areaDef);
         when(templateDefinition.getAreas()).thenReturn(areaMap);
-
-
         when(renderingContext.getRenderableDefinition()).thenReturn(templateDefinition);
     }
 
