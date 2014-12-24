@@ -68,7 +68,7 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
         if (!"head".equals(name)) {
             throw new TemplateProcessingException("cms:init is only allowed on head element");
         }
-        List<Node> result = new ArrayList<Node>(element.getChildren());
+        List<Node> result = new ArrayList<>(element.getChildren());
         Element el = new Element("meta");
         el.setAttribute("gwt:property", "locale=" + i18nContentSupport.getLocale());
         result.add(el);
