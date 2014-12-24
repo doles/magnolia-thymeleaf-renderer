@@ -13,6 +13,7 @@ import info.magnolia.objectfactory.ComponentProvider;
 import info.magnolia.objectfactory.Components;
 import info.magnolia.rendering.context.RenderingContext;
 import info.magnolia.rendering.engine.RenderingEngine;
+import info.magnolia.rendering.template.AreaDefinition;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.rendering.util.AppendableWriter;
 import info.magnolia.templating.functions.TemplatingFunctions;
@@ -42,6 +43,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import static junit.framework.Assert.assertTrue;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -62,6 +64,7 @@ public class RendererTest {
     private ThymeleafRenderer renderer;
     private RenderableDefinition renderableDefinition;
     private RenderingContext renderingContext;
+    private StringWriter stringWriter;
 
 
     @Before
@@ -107,6 +110,7 @@ public class RendererTest {
         I18nContentSupport i18nContentSupport = mock(I18nContentSupport.class);
         when(i18nContentSupport.getDefaultLocale()).thenReturn(Locale.ENGLISH);
         when(componentProvider.getComponent(I18nContentSupport.class)).thenReturn(i18nContentSupport);
+
         Components.pushProvider(componentProvider);
 
         RenderContext.push();
@@ -124,11 +128,18 @@ public class RendererTest {
         renderableDefinition = mock(RenderableDefinition.class);
         renderingContext = mock(RenderingContext.class);
         when(engine.getRenderingContext()).thenReturn(renderingContext);
-        AppendableWriter out = new AppendableWriter(new StringWriter());
+        stringWriter = new StringWriter();
+        AppendableWriter out = new AppendableWriter(stringWriter);
         when(renderingContext.getAppendable()).thenReturn(out);
         BlossomTemplateDefinition templateDefinition = mock(BlossomTemplateDefinition.class);
         when(templateDefinition.getDialog()).thenReturn(null);
-        when(templateDefinition.getAreas()).thenReturn(new HashMap<>());
+        AreaDefinition areaDef = mock(AreaDefinition.class);
+        when(areaDef.getName()).thenReturn("Area");
+        Map<String, AreaDefinition> areaMap = new HashMap<>();
+        areaMap.put("Area",areaDef);
+        when(templateDefinition.getAreas()).thenReturn(areaMap);
+
+
         when(renderingContext.getRenderableDefinition()).thenReturn(templateDefinition);
     }
 
@@ -142,7 +153,9 @@ public class RendererTest {
 
         renderer.onRender(node, renderableDefinition, renderingContext, vars, "main.html");
 
-
+        String result = stringWriter.toString();
+        // basic check if cms:init has been processed
+        assertTrue(result.contains("cms:page"));
     }
 
 }
