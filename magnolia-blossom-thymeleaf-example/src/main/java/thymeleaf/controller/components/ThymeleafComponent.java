@@ -24,7 +24,7 @@ public class ThymeleafComponent {
 
     @RequestMapping("/thymeleafComponent")
     public String handleRequest3(Node content) {
-        System.out.println("Node:"+ content);
+//        System.out.println("Node:"+ content);
         return "templates/main.html :: component";
     }
 

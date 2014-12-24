@@ -162,7 +162,7 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
         try {
             return node.getSession().getWorkspace().getName() + ":" + node.getPath();
         } catch (RepositoryException e) {
-            throw new TemplateProcessingException("Can't construct node path for node " + node);
+            throw new TemplateProcessingException("Can't construct node path for node " + node,e);
         }
     }
 }
