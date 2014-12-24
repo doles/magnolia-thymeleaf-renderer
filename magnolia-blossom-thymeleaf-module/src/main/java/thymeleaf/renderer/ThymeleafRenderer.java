@@ -37,7 +37,7 @@ import java.util.Map;
 
 public class ThymeleafRenderer extends AbstractRenderer implements ServletContextAware, ApplicationContextAware {
 
-    public static final String RENDERING_CONTEXT = "renderingContext";
+
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private SpringTemplateEngine engine;
@@ -62,7 +62,7 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
 
         Map<String, Object> vars = new HashMap<String, Object>(ctx);
         vars.put("content", JspTemplatingFunction.asContentMap(content));
-        vars.put(RENDERING_CONTEXT,renderingCtx);
+
         vars.put("cmsfn", new JspTemplatingFunction());
 
         final HttpServletRequest request = MgnlContext.getWebContext().getRequest();

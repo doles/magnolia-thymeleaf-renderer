@@ -8,6 +8,7 @@ import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.objectfactory.Components;
 import info.magnolia.rendering.context.RenderingContext;
+import info.magnolia.rendering.engine.RenderingEngine;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.elements.MarkupHelper;
 import org.thymeleaf.Arguments;
@@ -17,7 +18,6 @@ import org.thymeleaf.dom.Node;
 import org.thymeleaf.dom.Text;
 import org.thymeleaf.exceptions.TemplateProcessingException;
 import org.thymeleaf.processor.attr.AbstractChildrenModifierAttrProcessor;
-import thymeleaf.renderer.ThymeleafRenderer;
 
 import javax.jcr.RepositoryException;
 import java.io.IOException;
@@ -105,12 +105,8 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
 
                 helper.attribute(CONTENT_ATTRIBUTE, getNodePath(activePage));
 
-            Object ctxObj = arguments.getContext().getVariables().get(ThymeleafRenderer.RENDERING_CONTEXT);
-            if(!(ctxObj instanceof RenderingContext)){
-                throw new TemplateProcessingException("Musst pass a RenderingContext here");
-            }
-
-            RenderingContext renderingContext = (RenderingContext)ctxObj;
+            final RenderingEngine renderingEngine = Components.getComponent(RenderingEngine.class);
+            final RenderingContext renderingContext = renderingEngine.getRenderingContext();
             TemplateDefinition templateDefinition = (TemplateDefinition)renderingContext.getRenderableDefinition();
             String dlg = templateDefinition.getDialog();
             if(dlg!=null){

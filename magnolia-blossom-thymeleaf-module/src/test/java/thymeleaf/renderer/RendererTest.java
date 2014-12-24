@@ -15,8 +15,11 @@ import info.magnolia.rendering.context.RenderingContext;
 import info.magnolia.rendering.engine.RenderingEngine;
 import info.magnolia.rendering.template.AreaDefinition;
 import info.magnolia.rendering.template.RenderableDefinition;
+import info.magnolia.rendering.template.variation.RenderableVariationResolver;
 import info.magnolia.rendering.util.AppendableWriter;
+import info.magnolia.templating.elements.AreaElement;
 import info.magnolia.templating.functions.TemplatingFunctions;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,10 +46,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -97,10 +98,9 @@ public class RendererTest {
         when(webCtx.getLocale()).thenReturn(Locale.ENGLISH);
         MgnlContext.setInstance(webCtx);
 
-
-
         ServerConfiguration config = mock(ServerConfiguration.class);
         when(config.isAdmin()).thenReturn(true);
+
         ComponentProvider componentProvider = mock(ComponentProvider.class);
         when(componentProvider.getComponent(ServerConfiguration.class)).thenReturn(config);
         RenderingEngine engine = mock(RenderingEngine.class);
@@ -111,7 +111,6 @@ public class RendererTest {
         I18nContentSupport i18nContentSupport = mock(I18nContentSupport.class);
         when(i18nContentSupport.getDefaultLocale()).thenReturn(Locale.ENGLISH);
         when(componentProvider.getComponent(I18nContentSupport.class)).thenReturn(i18nContentSupport);
-
         Components.pushProvider(componentProvider);
 
         RenderContext.push();
@@ -126,12 +125,17 @@ public class RendererTest {
         renderer.setApplicationContext(webApplicationContext);
         renderer.setServletContext(servletContext);
         renderer.setEngine(thymeEngine);
+
         renderableDefinition = mock(RenderableDefinition.class);
         renderingContext = mock(RenderingContext.class);
         when(engine.getRenderingContext()).thenReturn(renderingContext);
+        RenderableVariationResolver variationResolver = mock(RenderableVariationResolver.class);
+        when(componentProvider.newInstance(eq(AreaElement.class), any())).thenReturn(new AreaElement(config,renderingContext,engine,variationResolver));
+
         stringWriter = new StringWriter();
         AppendableWriter out = new AppendableWriter(stringWriter);
         when(renderingContext.getAppendable()).thenReturn(out);
+
         BlossomTemplateDefinition templateDefinition = mock(BlossomTemplateDefinition.class);
         when(templateDefinition.getDialog()).thenReturn(null);
         AreaDefinition areaDef = mock(AreaDefinition.class);
@@ -145,18 +149,25 @@ public class RendererTest {
     }
 
 
-
-    @Test
-    public void smokeTest() throws Exception{
-
-
-        Map<String,Object> vars = new HashMap<>();
-
-        renderer.onRender(node, renderableDefinition, renderingContext, vars, "main.html");
-
-        String result = stringWriter.toString();
-        // basic check if cms:init has been processed
-        assertTrue(result.contains("cms:page"));
+    @After
+    public void cleanup(){
+        Components.popProvider();
+        RenderContext.pop();
     }
 
+    @Test
+    public void smokePageTest() throws Exception{
+        Map<String,Object> vars = new HashMap<>();
+        renderer.onRender(node, renderableDefinition, renderingContext, vars, "main.html");
+        String result = stringWriter.toString();
+        assertTrue("cms:init was not rendered",result.contains("<!-- cms:page"));
+    }
+
+    @Test
+    public void smokeComponentTest() throws Exception{
+        Map<String,Object> vars = new HashMap<>();
+        renderer.onRender(node, renderableDefinition, renderingContext, vars, "main.html :: component");
+        String result = stringWriter.toString();
+        assertTrue("fragment is wrong",result.startsWith("<div"));
+    }
 }
