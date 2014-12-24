@@ -43,7 +43,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import static junit.framework.Assert.assertTrue;
+
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;

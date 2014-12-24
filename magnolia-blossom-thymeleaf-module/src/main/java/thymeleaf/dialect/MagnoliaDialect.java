@@ -31,10 +31,7 @@ public class MagnoliaDialect extends AbstractDialect implements ApplicationConte
         return "cms";
     }
 
-    @Override
-    public boolean isLenient() {
-        return false;
-    }
+
 
     @Override
     public Set<IProcessor> getProcessors() {

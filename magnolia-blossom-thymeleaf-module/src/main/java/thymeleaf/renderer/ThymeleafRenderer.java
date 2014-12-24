@@ -2,8 +2,10 @@ package thymeleaf.renderer;
 
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.blossom.render.RenderContext;
+import info.magnolia.objectfactory.Components;
 import info.magnolia.rendering.context.RenderingContext;
 import info.magnolia.rendering.engine.RenderException;
+import info.magnolia.rendering.engine.RenderingEngine;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.renderer.AbstractRenderer;
 import info.magnolia.rendering.template.RenderableDefinition;
@@ -35,6 +37,7 @@ import java.util.Map;
 
 public class ThymeleafRenderer extends AbstractRenderer implements ServletContextAware, ApplicationContextAware {
 
+    public static final String RENDERING_CONTEXT = "renderingContext";
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private SpringTemplateEngine engine;
@@ -50,7 +53,7 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
      * instance of FreemarkerHelper.
      */
     public ThymeleafRenderer() {
-
+        super(Components.getComponent(RenderingEngine.class));
     }
 
 
@@ -59,7 +62,7 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
 
         Map<String, Object> vars = new HashMap<String, Object>(ctx);
         vars.put("content", JspTemplatingFunction.asContentMap(content));
-        vars.put("renderingContext",renderingCtx);
+        vars.put(RENDERING_CONTEXT,renderingCtx);
         vars.put("cmsfn", new JspTemplatingFunction());
 
         final HttpServletRequest request = MgnlContext.getWebContext().getRequest();

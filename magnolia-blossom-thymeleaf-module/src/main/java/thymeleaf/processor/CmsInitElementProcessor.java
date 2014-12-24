@@ -3,16 +3,13 @@ package thymeleaf.processor;
 import info.magnolia.cms.beans.config.ServerConfiguration;
 import info.magnolia.cms.core.AggregationState;
 import info.magnolia.cms.i18n.I18nContentSupport;
-import info.magnolia.cms.i18n.I18nContentSupportFactory;
 import info.magnolia.cms.security.Permission;
 import info.magnolia.context.MgnlContext;
-import info.magnolia.jcr.util.ContentMap;
 import info.magnolia.jcr.util.NodeUtil;
+import info.magnolia.objectfactory.Components;
 import info.magnolia.rendering.context.RenderingContext;
 import info.magnolia.rendering.template.TemplateDefinition;
 import info.magnolia.templating.elements.MarkupHelper;
-import info.magnolia.templating.jsp.cmsfn.JspTemplatingFunction;
-import info.magnolia.ui.framework.i18n.DefaultI18NAuthoringSupport;
 import org.thymeleaf.Arguments;
 import org.thymeleaf.dom.Comment;
 import org.thymeleaf.dom.Element;
@@ -20,7 +17,7 @@ import org.thymeleaf.dom.Node;
 import org.thymeleaf.dom.Text;
 import org.thymeleaf.exceptions.TemplateProcessingException;
 import org.thymeleaf.processor.attr.AbstractChildrenModifierAttrProcessor;
-import org.thymeleaf.standard.expression.StandardExpressionProcessor;
+import thymeleaf.renderer.ThymeleafRenderer;
 
 import javax.jcr.RepositoryException;
 import java.io.IOException;
@@ -37,8 +34,8 @@ import java.util.List;
  */
 public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcessor {
 
-    private I18nContentSupport i18nContentSupport = I18nContentSupportFactory.getI18nSupport();
-    private DefaultI18NAuthoringSupport i18nAuthoringSupport = new DefaultI18NAuthoringSupport();
+    private I18nContentSupport i18nContentSupport = Components.getComponent(I18nContentSupport.class);
+
     private static final String CMS_PAGE_TAG = "cms:page";
     public static final String CONTENT_ATTRIBUTE = "content";
 
@@ -57,7 +54,8 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
 
         javax.jcr.Node activePage = aggregationState.getMainContentNode();
 
-        boolean isAdmin = ServerConfiguration.getInstance().isAdmin()
+        ServerConfiguration config = Components.getComponent(ServerConfiguration.class);
+        boolean isAdmin = config.isAdmin()
                 && !aggregationState.isPreviewMode()
                 && activePage != null
                 && NodeUtil.isGranted(activePage, Permission.SET);
@@ -102,23 +100,12 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
         MarkupHelper helper = new MarkupHelper(writer);
         try {
             helper.append(" "+CMS_PAGE_TAG);
-            Object nodeObj = StandardExpressionProcessor.processExpression(
-                    arguments, "${content}");
-            javax.jcr.Node node;
-            if(nodeObj instanceof javax.jcr.Node){
-                node =  (javax.jcr.Node)nodeObj;
-            } else if(nodeObj instanceof ContentMap){
-                node = JspTemplatingFunction.asJCRNode((ContentMap)nodeObj);
-            } else {
-                throw new TemplateProcessingException("Musst pass a javx.jcr.Node or ContentMap here");
 
-            }
 
-            if(node != null) {
-                helper.attribute(CONTENT_ATTRIBUTE, getNodePath(node));
-            }
-            Object ctxObj = StandardExpressionProcessor.processExpression(
-                    arguments, "${renderingContext}");
+
+                helper.attribute(CONTENT_ATTRIBUTE, getNodePath(activePage));
+
+            Object ctxObj = arguments.getContext().getVariables().get(ThymeleafRenderer.RENDERING_CONTEXT);
             if(!(ctxObj instanceof RenderingContext)){
                 throw new TemplateProcessingException("Musst pass a RenderingContext here");
             }
