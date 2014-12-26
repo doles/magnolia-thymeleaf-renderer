@@ -79,7 +79,7 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
             el.setAttribute("type", "text/css");
             el.setAttribute("href", ctx + sheet);
             result.add(el);
-            Text t= new Text("\n");
+            Text t = new Text("\n");
             result.add(t);
         }
         for (String script : js) {
@@ -87,29 +87,26 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
             el.setAttribute("type", "text/javascript");
             el.setAttribute("src", ctx + script);
             result.add(el);
-            Text t= new Text("\n");
+            Text t = new Text("\n");
             result.add(t);
         }
         el = new Element("script");
         el.setAttribute("type", "text/javascript");
         el.setAttribute("src", ctx + "/.resources/calendar/lang/calendar-" + MgnlContext.getLocale().getLanguage() + ".js");
         result.add(el);
-        Text t= new Text("\n");
+        Text t = new Text("\n");
         result.add(t);
         StringWriter writer = new StringWriter();
         MarkupHelper helper = new MarkupHelper(writer);
         try {
-            helper.append(" "+CMS_PAGE_TAG);
-
-
-
-                helper.attribute(CONTENT_ATTRIBUTE, getNodePath(activePage));
+            helper.append(" " + CMS_PAGE_TAG);
+            helper.attribute(CONTENT_ATTRIBUTE, getNodePath(activePage));
 
             final RenderingEngine renderingEngine = Components.getComponent(RenderingEngine.class);
             final RenderingContext renderingContext = renderingEngine.getRenderingContext();
-            TemplateDefinition templateDefinition = (TemplateDefinition)renderingContext.getRenderableDefinition();
+            TemplateDefinition templateDefinition = (TemplateDefinition) renderingContext.getRenderableDefinition();
             String dlg = templateDefinition.getDialog();
-            if(dlg!=null){
+            if (dlg != null) {
                 helper.attribute("dialog", dlg);
             }
             helper.attribute("preview", String.valueOf(MgnlContext.getAggregationState().isPreviewMode()));
@@ -137,17 +134,17 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
 
 
         } catch (IOException e) {
-            throw new TemplateProcessingException("comment",e);
+            throw new TemplateProcessingException("comment", e);
         }
 
         Comment comment = new Comment(writer.toString());
 
         result.add(comment);
-         t= new Text("\n");
+        t = new Text("\n");
         result.add(t);
-        comment = new Comment(" /"+CMS_PAGE_TAG+" ");
+        comment = new Comment(" /" + CMS_PAGE_TAG + " ");
         result.add(comment);
-        t= new Text("\n");
+        t = new Text("\n");
         result.add(t);
 
         return result;
@@ -162,7 +159,7 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
         try {
             return node.getSession().getWorkspace().getName() + ":" + node.getPath();
         } catch (RepositoryException e) {
-            throw new TemplateProcessingException("Can't construct node path for node " + node,e);
+            throw new TemplateProcessingException("Can't construct node path for node " + node, e);
         }
     }
 }
