@@ -8,7 +8,7 @@
 
     <context:annotation-config/>
 
-    <context:component-scan base-package="thymeleaf.controller" use-default-filters="false">
+    <context:component-scan base-package="de.eiswind.magnolia.thymeleaf.controller" use-default-filters="false">
         <context:include-filter type="annotation" expression="info.magnolia.module.blossom.annotation.Template"/>
         <context:include-filter type="annotation" expression="info.magnolia.module.blossom.annotation.Area"/>
         <context:include-filter type="annotation" expression="info.magnolia.module.blossom.annotation.DialogFactory"/>
@@ -53,7 +53,7 @@
         <property name="prefix" value=""/>
         <property name="viewNames" value="*.html*"/>
         <property name="viewRenderer">
-            <bean class="thymeleaf.renderer.ThymeleafRenderer">
+            <bean class="de.eiswind.magnolia.thymeleaf.renderer.ThymeleafRenderer">
                 <property name="engine" ref="templateEngine"/>
             </bean>
         </property>
@@ -74,7 +74,7 @@
         <property name="templateResolver" ref="templateResolver" />
         <property name="additionalDialects">
             <set>
-                <bean class="thymeleaf.dialect.MagnoliaDialect"/>
+                <bean class="de.eiswind.magnolia.thymeleaf.dialect.MagnoliaDialect"/>
             </set>
         </property>
 

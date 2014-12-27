@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>magnolia-blossom-thymeleaf</groupId>
-    <artifactId>thymeleaf-example</artifactId>
-    <name>thymeleaf-example (parent pom)</name>
+    <groupId>de.eiswind</groupId>
+    <artifactId>magnolia.thymeleaf</artifactId>
+    <name>magnolia.thymeleaf-example (parent pom)</name>
     <version>2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -34,19 +34,18 @@
     </profiles>
 
 
-    <!-- Fill the following in, so you can use the release plugin -->
+
     <scm>
-        <connection>scm:git:git@bitbucket.org:eiswind/mgnl-thymeleaf.git</connection>
-        <developerConnection>scm:git:git@bitbucket.org:eiswind/mgnl-thymeleaf.git</developerConnection>
-        <url>scm:git:git@bitbucket.org:eiswind/mgnl-thymeleaf.git</url>
+        <connection>scm:git:git:git@github.com:eiswind/magnolia-thymeleaf-renderer.git</connection>
+        <developerConnection>scm:git:git@github.com:eiswind/magnolia-thymeleaf-renderer.git</developerConnection>
+        <url>scm:git:git@github.com:eiswind/magnolia-thymeleaf-renderer.git</url>
     </scm>
+
 
 
     <modules>
         <module>magnolia-blossom-thymeleaf-example</module>
         <module>magnolia-blossom-thymeleaf-module</module>
-
-
     </modules>
 
     <dependencyManagement>

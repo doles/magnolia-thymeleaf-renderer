@@ -185,7 +185,7 @@ Number of occurrences: %o%n
   <category name="openwfe">
     <priority value="WARN" />
   </category>
-  <category name="thymeleaf">
+  <category name="de.eiswind.magnolia.thymeleaf">
     <priority value="WARN" />
   </category>
 

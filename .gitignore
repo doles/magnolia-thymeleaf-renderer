@@ -2,11 +2,11 @@
 *.iml
 *.ipr
 *.iws
-magnolia-blossom-thymeleaf-example/overlays
-magnolia-blossom-thymeleaf-example/target
-magnolia-blossom-thymeleaf-module/target
+magnolia-blossom-de.eiswind.magnolia.thymeleaf-example/overlays
+magnolia-blossom-de.eiswind.magnolia.thymeleaf-example/target
+magnolia-blossom-de.eiswind.magnolia.thymeleaf-module/target
 target
-magnolia-blossom-thymeleaf-example/derby.log
+magnolia-blossom-de.eiswind.magnolia.thymeleaf-example/derby.log
 repositories
 cache
 logs

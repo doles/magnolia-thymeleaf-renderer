@@ -4,8 +4,8 @@
     <name>thymeleaf_example_webapp</name>
     <displayName>Magnolia-Blossom-Thymeleaf-Module</displayName>
     <description>The Magnolia-Blossom-Thymeleaf-Module</description>
-    <class>thymeleaf.example.setup.Module</class>
-    <versionHandler>thymeleaf.example.setup.ModuleVersionHandler</versionHandler>
+    <class>de.eiswind.magnolia.thymeleaf.example.setup.Module</class>
+    <versionHandler>de.eiswind.magnolia.thymeleaf.example.setup.ModuleVersionHandler</versionHandler>
     <version>1.0.5</version>
 
     <dependencies>
