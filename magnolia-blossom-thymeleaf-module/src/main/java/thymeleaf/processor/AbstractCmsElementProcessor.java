@@ -1,19 +1,35 @@
+
+/*
+ * Copyright (c) 2014 Thomas Kratz
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package thymeleaf.processor;
 
 import info.magnolia.objectfactory.Components;
 import info.magnolia.rendering.context.RenderingContext;
 import info.magnolia.rendering.engine.RenderException;
 import info.magnolia.templating.elements.TemplatingElement;
-
-import java.io.IOException;
-import java.lang.reflect.ParameterizedType;
-import java.util.Collections;
-
 import org.thymeleaf.dom.Element;
 import org.thymeleaf.dom.Macro;
 import org.thymeleaf.dom.Node;
 import org.thymeleaf.exceptions.TemplateProcessingException;
 import org.thymeleaf.processor.attr.AbstractAttrProcessor;
+
+import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
+import java.util.Collections;
 
 /**
  * Created with IntelliJ IDEA.
