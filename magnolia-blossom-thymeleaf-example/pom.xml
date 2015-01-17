@@ -14,12 +14,11 @@
     <packaging>war</packaging>
 
     <!-- Fill the following in, so you can use the release plugin -->
-    <scm>
-        <connection>scm:git:git:git@github.com:eiswind/magnolia-blossom-de.eiswind.magnolia.thymeleaf-proto.git</connection>
-        <developerConnection>scm:git:git@github.com:eiswind/magnolia-blossom-de.eiswind.magnolia.thymeleaf-proto.git</developerConnection>
-        <url>scm:git:git@github.com:eiswind/magnolia-blossom-de.eiswind.magnolia.thymeleaf-proto.git</url>
-    </scm>
 
+
+    <properties>
+        <project.config.path>${project.basedir}/../config</project.config.path>
+    </properties>
 
 
     <dependencies>

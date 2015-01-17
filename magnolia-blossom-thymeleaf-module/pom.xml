@@ -21,6 +21,7 @@
 
     <properties>
         <powermock.version>1.6.0</powermock.version>
+        <project.config.path>${project.basedir}/../config</project.config.path>
     </properties>
 
 
@@ -143,25 +144,7 @@
             </resource>
         </resources>
 
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
 
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
     </build>
 
 

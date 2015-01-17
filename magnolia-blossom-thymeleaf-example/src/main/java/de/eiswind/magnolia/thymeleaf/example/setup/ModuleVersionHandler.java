@@ -7,14 +7,9 @@ import info.magnolia.module.DefaultModuleVersionHandler;
  * by registering "deltas" to maintain the module's configuration, or other type of content.
  * If you don't need this, simply remove the reference to this class in the module descriptor xml.
  */
-public class ModuleVersionHandler extends DefaultModuleVersionHandler {
-
-    public ModuleVersionHandler(){
-//        Delta delta = DeltaBuilder.update("1.0.4", "")
-//        .addTask(new TemplatesInstallTask("/thymeleaf_proto/.*\\.html", true));
-//        register(delta);
-    }
+public final class ModuleVersionHandler extends DefaultModuleVersionHandler {
 
 
-    
+
+
 }

@@ -5,19 +5,23 @@ import info.magnolia.module.ModuleLifecycleContext;
 import info.magnolia.module.blossom.module.BlossomModuleSupport;
 
 /**
- * Created with IntelliJ IDEA.
- * User: tkratz
- * Date: 09.07.12
- * Time: 16:39
- * To change this template use File | Settings | File Templates.
+ * this module handles blossom.
  */
-public class Module extends BlossomModuleSupport implements ModuleLifecycle {
-    public void start(ModuleLifecycleContext moduleLifecycleContext) {
+public final class Module extends BlossomModuleSupport implements ModuleLifecycle {
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void start(final ModuleLifecycleContext moduleLifecycleContext) {
         initRootWebApplicationContext("classpath:/applicationContext.xml");
         initBlossomDispatcherServlet("blossom", "classpath:/blossom-servlet.xml");
     }
-
-    public void stop(ModuleLifecycleContext moduleLifecycleContext) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void stop(final ModuleLifecycleContext moduleLifecycleContext) {
         destroyDispatcherServlets();
         closeRootWebApplicationContext();
     }

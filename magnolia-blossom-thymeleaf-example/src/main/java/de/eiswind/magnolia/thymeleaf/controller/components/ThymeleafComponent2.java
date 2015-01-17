@@ -8,24 +8,30 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Thomas
- * Date: 10.11.12
- * Time: 14:39
- * To change this template use File | Settings | File Templates.
+ * Sample Component Controller.
  */
 @Template(id = "thymeleaf_proto:components/thymeleafComponent2", title = "Thymeleaf Component2")
 @Controller
+public final class ThymeleafComponent2 {
 
-public class ThymeleafComponent2 {
-
-
+    /**
+     * get the template fragment.
+     *
+     * @return the fragment
+     */
     @RequestMapping("/thymeleafComponent2")
     public String handleRequest() {
         return "templates/main.html :: component2";
     }
+
+    /**
+     * create the tab.
+     *
+     * @param cfg the cfg
+     * @param tab the tab
+     */
     @TabFactory("Properties")
-    public void createTab(UiConfig cfg,TabBuilder tab) {
+    public void createTab(final UiConfig cfg, final TabBuilder tab) {
         tab.fields(
                 cfg.fields.text("head").label("Head"),
                 cfg.fields.text("text").label("Text"),
