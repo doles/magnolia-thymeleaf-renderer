@@ -34,13 +34,11 @@
     </profiles>
 
 
-
     <scm>
         <connection>scm:git:git:git@github.com:eiswind/magnolia-thymeleaf-renderer.git</connection>
         <developerConnection>scm:git:git@github.com:eiswind/magnolia-thymeleaf-renderer.git</developerConnection>
         <url>scm:git:git@github.com:eiswind/magnolia-thymeleaf-renderer.git</url>
     </scm>
-
 
 
     <modules>
@@ -94,7 +92,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
 
         </plugins>
 
