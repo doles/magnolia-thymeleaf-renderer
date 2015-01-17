@@ -28,7 +28,7 @@ import java.util.Set;
 /**
  * configures the mgnl processors.
  */
-public final class MagnoliaDialect extends AbstractDialect {
+public final class MagnoliaDialect extends AbstractDialect  {
 
 
     @Override
@@ -45,6 +45,7 @@ public final class MagnoliaDialect extends AbstractDialect {
         processors.add(new CmsComponentElementProcessor());
         return processors;
     }
+
 
 
 }

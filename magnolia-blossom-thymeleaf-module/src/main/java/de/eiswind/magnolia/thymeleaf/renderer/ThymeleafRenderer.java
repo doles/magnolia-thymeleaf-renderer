@@ -16,7 +16,6 @@
 
 package de.eiswind.magnolia.thymeleaf.renderer;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.blossom.render.RenderContext;
 import info.magnolia.objectfactory.Components;
@@ -27,6 +26,7 @@ import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.renderer.AbstractRenderer;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.rendering.util.AppendableWriter;
+import info.magnolia.templating.functions.TemplatingFunctions;
 import info.magnolia.templating.jsp.cmsfn.JspTemplatingFunction;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -66,7 +66,7 @@ public final class ThymeleafRenderer extends AbstractRenderer implements Servlet
 
 
     /**
-     * Constructs a Renderer that uses Themeleaf.
+     * Constructs a Renderer that uses Thymeleaf.
      */
     public ThymeleafRenderer() {
         super(Components.getComponent(RenderingEngine.class));
@@ -77,15 +77,12 @@ public final class ThymeleafRenderer extends AbstractRenderer implements Servlet
      * {@inheritDoc}
      */
     @Override
-    @SuppressFBWarnings(value = "ISC_INSTANTIATE_STATIC_CLASS", justification = "No other way to pass to the rendering engine")
     protected void onRender(final Node content, final RenderableDefinition definition, final RenderingContext renderingCtx,
                             final Map<String, Object> ctx, final String templateScript) throws RenderException {
 
         Map<String, Object> vars = new HashMap<>(ctx);
         vars.put("content", JspTemplatingFunction.asContentMap(content));
-
-
-        vars.put("cmsfn", new JspTemplatingFunction());
+        vars.put("cmsfn", Components.getComponent(TemplatingFunctions.class));
 
         final HttpServletRequest request = MgnlContext.getWebContext().getRequest();
         final HttpServletResponse response = MgnlContext.getWebContext().getResponse();

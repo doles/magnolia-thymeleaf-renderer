@@ -13,11 +13,6 @@
     <name>Magnolia Blossom Thymeleaf Module</name>
 
 
-    <scm>
-        <connection>scm:git:git:git@github.com:eiswind/magnolia-thymeleaf-renderer.git</connection>
-        <developerConnection>scm:git:git@github.com:eiswind/magnolia-thymeleaf-renderer.git</developerConnection>
-        <url>scm:git:git@github.com:eiswind/magnolia-thymeleaf-renderer.git</url>
-    </scm>
 
     <properties>
         <powermock.version>1.6.0</powermock.version>
