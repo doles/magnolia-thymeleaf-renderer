@@ -48,7 +48,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * mgnl renderer for thymeleaf.
+ */
 public class ThymeleafRenderer extends AbstractRenderer implements ServletContextAware, ApplicationContextAware {
 
 
@@ -63,14 +65,16 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
 
 
     /**
-     * Constructs a FreemarkerTemplateRenderer that uses the default (singleton)
-     * instance of FreemarkerHelper.
+     * Constructs a Renderer that uses Themeleaf.
      */
     public ThymeleafRenderer() {
         super(Components.getComponent(RenderingEngine.class));
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onRender(Node content, RenderableDefinition definition, RenderingContext renderingCtx, Map<String, Object> ctx, String templateScript) throws RenderException {
 
@@ -110,12 +114,16 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
 
 
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Map<String, Object> newContext() {
         return new HashMap<String, Object>();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected String resolveTemplateScript(Node content, RenderableDefinition definition, RenderingModel<?> model, String actionResult) {
         return RenderContext.get().getTemplateScript();

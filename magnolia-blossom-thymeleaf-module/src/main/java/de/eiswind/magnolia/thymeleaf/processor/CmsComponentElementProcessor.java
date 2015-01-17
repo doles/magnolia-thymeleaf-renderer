@@ -29,15 +29,27 @@ import org.thymeleaf.standard.expression.Expression;
 import org.thymeleaf.standard.expression.StandardExpressionParser;
 
 
-public class CmsComponentElementProcessor extends AbstractCmsElementProcessor<ComponentElement> {
+/**
+ * the component processor.
+ */
+public final class CmsComponentElementProcessor extends AbstractCmsElementProcessor<ComponentElement> {
 
+    /**
+     * the content attribute name.
+     */
     public static final String ATTR_NAME = "component";
 
+    /**
+     * instance.
+     */
     public CmsComponentElementProcessor() {
 
         super(ATTR_NAME);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final ProcessorResult processAttribute(final Arguments arguments, final Element element, final String attributeName) {
 

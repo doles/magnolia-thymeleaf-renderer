@@ -31,34 +31,51 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
 
 /**
- * Created with IntelliJ IDEA.
- * User: tkratz
- * Date: 11.11.12
- * Time: 09:39
- * To change this template use File | Settings | File Templates.
+ * abstract base class for the magnolia element processors.
  */
 public abstract class AbstractCmsElementProcessor<T extends TemplatingElement> extends AbstractAttrProcessor {
 
+    /**
+     * initializes the attribute name.
+     * @param attrName the attribute name
+     */
     public AbstractCmsElementProcessor(String attrName) {
         super(attrName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getPrecedence() {
         return 1000;
     }
 
-    protected T createElement(final RenderingContext renderingContext) {
-
+    /**
+     * create mgnl templating element.
+     * @param renderingContext the context
+     * @return the teplating element
+     */
+    protected final T createElement(final RenderingContext renderingContext) {
         return Components.getComponentProvider().newInstance(getTemplatingElementClass(), renderingContext);
     }
 
+    /**
+     * the type of this element.
+     * @return the type
+     */
     @SuppressWarnings("unchecked")
-    protected Class<T> getTemplatingElementClass() {
+    protected final Class<T> getTemplatingElementClass() {
         return (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
-    protected void processElement(final Element element, final String attributeName, final T templatingElement) {
+    /**
+     * mimics mgnl rendering behaviour.
+     * @param element the thyme element
+     * @param attributeName the att name
+     * @param templatingElement the mgnl templating element
+     */
+    protected final void processElement(final Element element, final String attributeName, final T templatingElement) {
         final StringBuilder out = new StringBuilder();
         try {
             templatingElement.begin(out);

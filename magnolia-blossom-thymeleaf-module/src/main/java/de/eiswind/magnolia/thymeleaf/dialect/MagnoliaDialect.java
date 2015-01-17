@@ -26,13 +26,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Thomas
- * Date: 10.11.12
- * Time: 12:18
- * To change this template use File | Settings | File Templates.
+ * configures the mgnl processors.
  */
-public class MagnoliaDialect extends AbstractDialect {
+public final class MagnoliaDialect extends AbstractDialect {
 
 
     @Override

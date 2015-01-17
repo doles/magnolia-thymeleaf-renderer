@@ -41,21 +41,32 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcessor {
+/**
+ * initlializes mgnl stuff on the page.
+ */
+public final class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcessor {
 
     private I18nContentSupport i18nContentSupport = Components.getComponent(I18nContentSupport.class);
 
     private static final String CMS_PAGE_TAG = "cms:page";
+    /**
+     * name of the content attribute.
+     */
     public static final String CONTENT_ATTRIBUTE = "content";
 
     private static final String[] js = new String[]{"/.magnolia/pages/javascript.js", "/.magnolia/pages/messages.en.js", "/.resources/admin-js/dialogs/dialogs.js", "/.resources/calendar/calendar.js", "/.resources/calendar/calendar-setup.js", "/.resources/editor/info.magnolia.templating.editor.PageEditor/info.magnolia.templating.editor.PageEditor.nocache.js"};
     private static final String[] css = new String[]{"/.resources/admin-css/admin-all.css", "/.resources/magnolia-templating-editor/css/editor.css", "/.resources/calendar/skins/aqua/theme.css"};
 
+    /**
+     * create an instance.
+     */
     public CmsInitElementProcessor() {
         super("init");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected List<Node> getModifiedChildren(Arguments arguments, Element element, String attributeName)
 
@@ -160,11 +171,20 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getPrecedence() {
         return 1000;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    /**
+     * the path to a node.
+     * @param node the node
+     * @return its path
+     * @throws TemplateProcessingException wraps repo exceptions
+     */
     protected String getNodePath(javax.jcr.Node node) throws TemplateProcessingException {
         try {
             return node.getSession().getWorkspace().getName() + ":" + node.getPath();

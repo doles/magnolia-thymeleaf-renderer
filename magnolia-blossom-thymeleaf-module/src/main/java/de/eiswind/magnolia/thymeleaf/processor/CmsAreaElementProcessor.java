@@ -27,17 +27,28 @@ import org.thymeleaf.dom.Element;
 import org.thymeleaf.exceptions.TemplateProcessingException;
 import org.thymeleaf.processor.ProcessorResult;
 
+/**
+ * the area processor.
+ */
+public final class CmsAreaElementProcessor extends AbstractCmsElementProcessor<AreaElement> {
 
-public class CmsAreaElementProcessor extends AbstractCmsElementProcessor<AreaElement> {
 
-
+    /**
+     * the area attribute name.
+     */
     public static final String ATTR_NAME = "area";
 
+    /**
+     * create an instance.
+     */
     public CmsAreaElementProcessor() {
 
         super(ATTR_NAME);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final ProcessorResult processAttribute(final Arguments arguments, final Element element, final String attributeName) {
 
