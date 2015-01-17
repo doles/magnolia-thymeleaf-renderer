@@ -16,6 +16,7 @@
 
 package de.eiswind.magnolia.thymeleaf.renderer;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.blossom.render.RenderContext;
 import info.magnolia.objectfactory.Components;
@@ -76,11 +77,13 @@ public final class ThymeleafRenderer extends AbstractRenderer implements Servlet
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "ISC_INSTANTIATE_STATIC_CLASS", justification = "No other way to pass to the rendering engine")
     protected void onRender(final Node content, final RenderableDefinition definition, final RenderingContext renderingCtx,
                             final Map<String, Object> ctx, final String templateScript) throws RenderException {
 
         Map<String, Object> vars = new HashMap<>(ctx);
         vars.put("content", JspTemplatingFunction.asContentMap(content));
+
 
         vars.put("cmsfn", new JspTemplatingFunction());
 
