@@ -141,7 +141,7 @@
                                 <configLocation>${pom.basedir}/sun_checks.xml</configLocation>
                                 <encoding>UTF-8</encoding>
                                 <consoleOutput>false</consoleOutput>
-                                <failOnViolation>false</failOnViolation>
+                                <failOnViolation>true</failOnViolation>
                                 <failsOnError>false</failsOnError>
                                 <linkXRef>false</linkXRef>
 

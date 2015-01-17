@@ -1,61 +1,66 @@
 <!DOCTYPE html >
 
-<html  xmlns:cms="http://www.t8y.com" lang="en" xmlns:th="http://www.de.eiswind.magnolia.thymeleaf.org" >
-  <head cms:init="">
+<html xmlns:cms="http://www.t8y.com" lang="en" xmlns:th="http://www.de.eiswind.magnolia.thymeleaf.org">
+<head cms:init="">
     <meta charset="utf-8"/>
     <title>Bootstrap, from Twitter</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
 
     <!-- Le styles -->
     <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
     </style>
 
-   <link  th:href="'docroot/bootstrap/css/bootstrap.css'" href="../../../webapp/docroot/bootstrap/css/bootstrap.css" rel="stylesheet" />
-<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <link th:href="'docroot/bootstrap/css/bootstrap.css'" href="../../../webapp/docroot/bootstrap/css/bootstrap.css"
+          rel="stylesheet"/>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
 
-  </head>
+</head>
 
-  <body>
+<body>
 
 
-    <div class="container">
+<div class="container">
 
-      <!-- Main hero unit for a primary marketing message or call to action -->
-      <div class="hero-unit">
+    <!-- Main hero unit for a primary marketing message or call to action -->
+    <div class="hero-unit">
         <h1 th:text="${content[test]}">Hello, world!</h1>
 
 
         <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-      </div>
-
-
+    </div>
 
 
     <div class="row" cms:area="Area">
 
-  <div class="span4" >
+        <div class="span4">
 
-    <h2>Heading</h2>
+            <h2>Heading</h2>
 
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-    <p><a class="btn" href="#">View details &raquo;</a></p>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+                condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis
+                euismod. Donec sed odio dui. </p>
+
+            <p><a class="btn" href="#">View details &raquo;</a></p>
         </div>
 
         <div th:fragment="component" class="span4">
 
             <h2 th:text="${content[head]}">Heading</h2>
 
-            <p th:text="${content[text]}">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p th:text="${content[text]}">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac
+                cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
+                malesuada magna mollis euismod. Donec sed odio dui. </p>
+
             <p><a class="btn" href="#">View details &raquo;</a></p>
         </div>
 
@@ -63,21 +68,25 @@
 
             <h2 th:text="${content[head]}">Heading</h2>
 
-            <p th:text="${content[text]}">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p th:text="${content[text]}">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac
+                cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
+                malesuada magna mollis euismod. Donec sed odio dui. </p>
+
             <p><a class="btn" href="#" th:text="${content[button]}">View details &raquo;</a></p>
         </div>
-      </div>
+    </div>
 
-      <hr />
+    <hr/>
 
-      <footer>
+    <footer>
         <p>&copy; Company 2012</p>
-      </footer>
+    </footer>
 
-    </div> <!-- /container -->
+</div>
+<!-- /container -->
 
 
-    <!-- Placed at the end of the document so the pages load faster -->
+<!-- Placed at the end of the document so the pages load faster -->
 
-  </body>
+</body>
 </html>

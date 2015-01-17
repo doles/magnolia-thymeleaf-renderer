@@ -46,7 +46,8 @@ import java.util.List;
  */
 public final class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcessor {
 
-    private I18nContentSupport i18nContentSupport = Components.getComponent(I18nContentSupport.class);
+    private static final int PRECEDENCE = 1000;
+    private final I18nContentSupport i18nContentSupport = Components.getComponent(I18nContentSupport.class);
 
     private static final String CMS_PAGE_TAG = "cms:page";
     /**
@@ -54,8 +55,12 @@ public final class CmsInitElementProcessor extends AbstractChildrenModifierAttrP
      */
     public static final String CONTENT_ATTRIBUTE = "content";
 
-    private static final String[] js = new String[]{"/.magnolia/pages/javascript.js", "/.magnolia/pages/messages.en.js", "/.resources/admin-js/dialogs/dialogs.js", "/.resources/calendar/calendar.js", "/.resources/calendar/calendar-setup.js", "/.resources/editor/info.magnolia.templating.editor.PageEditor/info.magnolia.templating.editor.PageEditor.nocache.js"};
-    private static final String[] css = new String[]{"/.resources/admin-css/admin-all.css", "/.resources/magnolia-templating-editor/css/editor.css", "/.resources/calendar/skins/aqua/theme.css"};
+    private static final String[] JS = new String[]{"/.magnolia/pages/javascript.js",
+            "/.magnolia/pages/messages.en.js", "/.resources/admin-js/dialogs/dialogs.js", "/.resources/calendar/calendar.js",
+            "/.resources/calendar/calendar-setup.js",
+            "/.resources/editor/info.magnolia.templating.editor.PageEditor/info.magnolia.templating.editor.PageEditor.nocache.js"};
+    private static final String[] CSS = new String[]{"/.resources/admin-css/admin-all.css",
+            "/.resources/magnolia-templating-editor/css/editor.css", "/.resources/calendar/skins/aqua/theme.css"};
 
     /**
      * create an instance.
@@ -68,9 +73,7 @@ public final class CmsInitElementProcessor extends AbstractChildrenModifierAttrP
      * {@inheritDoc}
      */
     @Override
-    protected List<Node> getModifiedChildren(Arguments arguments, Element element, String attributeName)
-
-    {
+    protected List<Node> getModifiedChildren(final Arguments arguments, final Element element, final String attributeName) {
         AggregationState aggregationState = MgnlContext.getAggregationState();
 
         javax.jcr.Node activePage = aggregationState.getMainContentNode();
@@ -94,7 +97,7 @@ public final class CmsInitElementProcessor extends AbstractChildrenModifierAttrP
         el.setAttribute("gwt:property", "locale=" + i18nContentSupport.getLocale());
         result.add(el);
         String ctx = MgnlContext.getContextPath();
-        for (String sheet : css) {
+        for (String sheet : CSS) {
             el = new Element("link");
             el.setAttribute("rel", "stylesheet");
             el.setAttribute("type", "text/css");
@@ -103,7 +106,7 @@ public final class CmsInitElementProcessor extends AbstractChildrenModifierAttrP
             Text t = new Text("\n");
             result.add(t);
         }
-        for (String script : js) {
+        for (String script : JS) {
             el = new Element("script");
             el.setAttribute("type", "text/javascript");
             el.setAttribute("src", ctx + script);
@@ -176,16 +179,17 @@ public final class CmsInitElementProcessor extends AbstractChildrenModifierAttrP
      */
     @Override
     public int getPrecedence() {
-        return 1000;  //To change body of implemented methods use File | Settings | File Templates.
+        return PRECEDENCE;
     }
 
     /**
      * the path to a node.
+     *
      * @param node the node
      * @return its path
      * @throws TemplateProcessingException wraps repo exceptions
      */
-    protected String getNodePath(javax.jcr.Node node) throws TemplateProcessingException {
+    protected String getNodePath(final javax.jcr.Node node) throws TemplateProcessingException {
         try {
             return node.getSession().getWorkspace().getName() + ":" + node.getPath();
         } catch (RepositoryException e) {

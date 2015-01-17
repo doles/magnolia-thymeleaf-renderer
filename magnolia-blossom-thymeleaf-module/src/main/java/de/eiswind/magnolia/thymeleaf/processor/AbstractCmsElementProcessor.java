@@ -32,14 +32,19 @@ import java.util.Collections;
 
 /**
  * abstract base class for the magnolia element processors.
+ * @param <T> the element type.
  */
 public abstract class AbstractCmsElementProcessor<T extends TemplatingElement> extends AbstractAttrProcessor {
 
+
+    private static final int PRECEDENCE = 1000;
+
     /**
      * initializes the attribute name.
+     *
      * @param attrName the attribute name
      */
-    public AbstractCmsElementProcessor(String attrName) {
+    public AbstractCmsElementProcessor(final String attrName) {
         super(attrName);
     }
 
@@ -47,12 +52,13 @@ public abstract class AbstractCmsElementProcessor<T extends TemplatingElement> e
      * {@inheritDoc}
      */
     @Override
-    public int getPrecedence() {
-        return 1000;
+    public final int getPrecedence() {
+        return PRECEDENCE;
     }
 
     /**
      * create mgnl templating element.
+     *
      * @param renderingContext the context
      * @return the teplating element
      */
@@ -62,6 +68,7 @@ public abstract class AbstractCmsElementProcessor<T extends TemplatingElement> e
 
     /**
      * the type of this element.
+     *
      * @return the type
      */
     @SuppressWarnings("unchecked")
@@ -71,8 +78,9 @@ public abstract class AbstractCmsElementProcessor<T extends TemplatingElement> e
 
     /**
      * mimics mgnl rendering behaviour.
-     * @param element the thyme element
-     * @param attributeName the att name
+     *
+     * @param element           the thyme element
+     * @param attributeName     the att name
      * @param templatingElement the mgnl templating element
      */
     protected final void processElement(final Element element, final String attributeName, final T templatingElement) {

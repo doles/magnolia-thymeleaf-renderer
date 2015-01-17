@@ -51,7 +51,7 @@ import java.util.Map;
 /**
  * mgnl renderer for thymeleaf.
  */
-public class ThymeleafRenderer extends AbstractRenderer implements ServletContextAware, ApplicationContextAware {
+public final class ThymeleafRenderer extends AbstractRenderer implements ServletContextAware, ApplicationContextAware {
 
 
     //private final Logger log = LoggerFactory.getLogger(getClass());
@@ -76,9 +76,10 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
      * {@inheritDoc}
      */
     @Override
-    protected void onRender(Node content, RenderableDefinition definition, RenderingContext renderingCtx, Map<String, Object> ctx, String templateScript) throws RenderException {
+    protected void onRender(final Node content, final RenderableDefinition definition, final RenderingContext renderingCtx,
+                            final Map<String, Object> ctx, final String templateScript) throws RenderException {
 
-        Map<String, Object> vars = new HashMap<String, Object>(ctx);
+        Map<String, Object> vars = new HashMap<>(ctx);
         vars.put("content", JspTemplatingFunction.asContentMap(content));
 
         vars.put("cmsfn", new JspTemplatingFunction());
@@ -114,6 +115,7 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
 
 
     }
+
     /**
      * {@inheritDoc}
      */
@@ -121,11 +123,13 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
     protected Map<String, Object> newContext() {
         return new HashMap<String, Object>();
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    protected String resolveTemplateScript(Node content, RenderableDefinition definition, RenderingModel<?> model, String actionResult) {
+    protected String resolveTemplateScript(final Node content, final RenderableDefinition definition,
+                                           final RenderingModel<?> model, final String actionResult) {
         return RenderContext.get().getTemplateScript();
     }
 
@@ -134,23 +138,23 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
         return engine;
     }
 
-    public void setEngine(SpringTemplateEngine engine) {
-        this.engine = engine;
+    public void setEngine(final SpringTemplateEngine engine1) {
+        this.engine = engine1;
     }
 
     public ServletContext getServletContext() {
         return servletContext;
     }
 
-    public void setServletContext(ServletContext servletContext) {
-        this.servletContext = servletContext;
+    public void setServletContext(final ServletContext servletContext1) {
+        this.servletContext = servletContext1;
     }
 
     public ApplicationContext getApplicationContext() {
         return applicationContext;
     }
 
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
+    public void setApplicationContext(final ApplicationContext applicationContext1) {
+        this.applicationContext = applicationContext1;
     }
 }

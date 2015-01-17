@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2014 Thomas Kratz
  *
@@ -17,6 +16,8 @@
 
 package de.eiswind.magnolia.thymeleaf.processor;
 
+import de.eiswind.magnolia.thymeleaf.base.AbstractMockMagnoliaTest;
+import de.eiswind.magnolia.thymeleaf.renderer.TestConfiguration;
 import edu.emory.mathcs.backport.java.util.Collections;
 import info.magnolia.module.blossom.template.BlossomTemplateDefinition;
 import info.magnolia.rendering.template.assignment.TemplateDefinitionAssignment;
@@ -32,12 +33,14 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.thymeleaf.Arguments;
 import org.thymeleaf.TemplateProcessingParameters;
 import org.thymeleaf.context.Context;
-import org.thymeleaf.dom.*;
+import org.thymeleaf.dom.Comment;
+import org.thymeleaf.dom.Document;
+import org.thymeleaf.dom.Element;
+import org.thymeleaf.dom.Macro;
+import org.thymeleaf.dom.Node;
 import org.thymeleaf.resourceresolver.ClassLoaderResourceResolver;
 import org.thymeleaf.templateresolver.AlwaysValidTemplateResolutionValidity;
 import org.thymeleaf.templateresolver.TemplateResolution;
-import de.eiswind.magnolia.thymeleaf.base.AbstractMockMagnoliaTest;
-import de.eiswind.magnolia.thymeleaf.renderer.TestConfiguration;
 
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +67,7 @@ public class CmsProcessorTest extends AbstractMockMagnoliaTest {
 
     @Before
     @Override
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         super.setUp();
         final TemplateProcessingParameters templateProcessingParameters =
                 new TemplateProcessingParameters(thymeEngine.getConfiguration(), "main.html", new Context());
@@ -80,7 +83,7 @@ public class CmsProcessorTest extends AbstractMockMagnoliaTest {
 
     @After
     @Override
-    public void cleanup(){
+    public void cleanup() {
         super.cleanup();
     }
 
@@ -104,22 +107,22 @@ public class CmsProcessorTest extends AbstractMockMagnoliaTest {
         blossomTemplateDefinition.setI18nBasename("en");
         TemplateDefinitionAssignment templateDefinitionAssignment = mock(TemplateDefinitionAssignment.class);
         when(templateDefinitionAssignment.getAssignedTemplateDefinition(any())).thenReturn(blossomTemplateDefinition);
-        when(componentProvider.newInstance(eq(ComponentElement.class), any())).thenReturn(new ComponentElement(config,renderingContext,engine,templateDefinitionAssignment));
+        when(componentProvider.newInstance(eq(ComponentElement.class), any())).thenReturn(new ComponentElement(config, renderingContext, engine, templateDefinitionAssignment));
 
 
         Element element = new Element("div", "main.html");
         element.setAttribute("cms:component", false, "${content}");
-        Map<String,Object> vars = new HashMap<>();
+        Map<String, Object> vars = new HashMap<>();
         vars.put("content", node);
-        Arguments args2 =arguments.addLocalVariables(vars);
+        Arguments args2 = arguments.addLocalVariables(vars);
 
 
         CmsComponentElementProcessor cmsComponentElementProcessor = new CmsComponentElementProcessor();
-        cmsComponentElementProcessor.processAttribute(args2,element,"cms:component");
+        cmsComponentElementProcessor.processAttribute(args2, element, "cms:component");
 
-        List<Node> macros = element.getChildren().stream().filter((node)-> node instanceof Macro).collect(Collectors.toList());
+        List<Node> macros = element.getChildren().stream().filter((node) -> node instanceof Macro).collect(Collectors.toList());
         assertEquals("Expected one macro", 1, macros.size());
-        Macro macro = (Macro)macros.get(0);
+        Macro macro = (Macro) macros.get(0);
         assertTrue("should contain cms:compnent", macro.getContent().contains("<!-- cms:component"));
 
     }
@@ -128,21 +131,20 @@ public class CmsProcessorTest extends AbstractMockMagnoliaTest {
     public void testAreaProcessor() throws Exception {
 
 
-
         Element element = new Element("div", "main.html");
         element.setAttribute("cms:area", false, "Area");
         List<javax.jcr.Node> nodes = Collections.emptyList();
-        Map<String,Object> vars = new HashMap<>();
+        Map<String, Object> vars = new HashMap<>();
         vars.put("components", nodes);
-        Arguments args2 =arguments.addLocalVariables(vars);
+        Arguments args2 = arguments.addLocalVariables(vars);
 
 
         CmsAreaElementProcessor cmsAreaElementProcessor = new CmsAreaElementProcessor();
-        cmsAreaElementProcessor.processAttribute(args2,element,"cms:area");
+        cmsAreaElementProcessor.processAttribute(args2, element, "cms:area");
 
-        List<Node> macros = element.getChildren().stream().filter((node)-> node instanceof Macro).collect(Collectors.toList());
+        List<Node> macros = element.getChildren().stream().filter((node) -> node instanceof Macro).collect(Collectors.toList());
         assertEquals("Expected one macro", 1, macros.size());
-        Macro macro = (Macro)macros.get(0);
+        Macro macro = (Macro) macros.get(0);
         assertTrue("should contain cms:area", macro.getContent().contains("<!-- cms:area"));
 
     }

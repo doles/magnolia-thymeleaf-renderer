@@ -51,7 +51,7 @@ public final class CmsComponentElementProcessor extends AbstractCmsElementProces
      * {@inheritDoc}
      */
     @Override
-    public final ProcessorResult processAttribute(final Arguments arguments, final Element element, final String attributeName) {
+    public ProcessorResult processAttribute(final Arguments arguments, final Element element, final String attributeName) {
 
         final Expression expression = new StandardExpressionParser().parseExpression(arguments.getConfiguration(),
                 arguments, element.getAttributeValue(attributeName));

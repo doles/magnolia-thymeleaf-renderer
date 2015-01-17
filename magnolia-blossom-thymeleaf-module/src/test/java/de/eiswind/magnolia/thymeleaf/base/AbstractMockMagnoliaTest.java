@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2014 Thomas Kratz
  *
@@ -18,6 +17,8 @@
 package de.eiswind.magnolia.thymeleaf.base;
 
 import com.google.inject.Provider;
+import de.eiswind.magnolia.thymeleaf.dialect.MagnoliaDialect;
+import de.eiswind.magnolia.thymeleaf.renderer.ThymeleafRenderer;
 import info.magnolia.cms.beans.config.ServerConfiguration;
 import info.magnolia.cms.core.AggregationState;
 import info.magnolia.cms.i18n.DefaultMessagesManager;
@@ -46,8 +47,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import de.eiswind.magnolia.thymeleaf.dialect.MagnoliaDialect;
-import de.eiswind.magnolia.thymeleaf.renderer.ThymeleafRenderer;
 
 import javax.annotation.Resource;
 import javax.jcr.Node;
@@ -62,7 +61,10 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import static org.mockito.Matchers.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -85,10 +87,8 @@ public class AbstractMockMagnoliaTest {
     protected RenderingEngine engine;
 
 
-
-
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
 
         /** mock up magnolia */
         node = mock(Node.class);
@@ -96,7 +96,7 @@ public class AbstractMockMagnoliaTest {
         Workspace workspace = mock(Workspace.class);
         when(workspace.getName()).thenReturn("pages");
         when(session.getWorkspace()).thenReturn(workspace);
-        when(session.hasPermission(any(),any())).thenReturn(true);
+        when(session.hasPermission(any(), any())).thenReturn(true);
         when(node.getSession()).thenReturn(session);
         when(node.getPath()).thenReturn("/home");
         NodeIterator nodeIterator = mock(NodeIterator.class);
@@ -115,7 +115,7 @@ public class AbstractMockMagnoliaTest {
         when(webCtx.getAggregationState()).thenReturn(state);
 
         AccessManager accessManager = mock(AccessManager.class);
-        when(accessManager.isGranted(anyString(),anyLong())).thenReturn(true);
+        when(accessManager.isGranted(anyString(), anyLong())).thenReturn(true);
         when(webCtx.getAccessManager(anyString())).thenReturn(accessManager);
         when(webCtx.getLocale()).thenReturn(Locale.ENGLISH);
         MgnlContext.setInstance(webCtx);
@@ -133,7 +133,6 @@ public class AbstractMockMagnoliaTest {
         I18nContentSupport i18nContentSupport = mock(I18nContentSupport.class);
         when(i18nContentSupport.getDefaultLocale()).thenReturn(Locale.ENGLISH);
         when(componentProvider.getComponent(I18nContentSupport.class)).thenReturn(i18nContentSupport);
-
 
 
         Components.pushProvider(componentProvider);
@@ -172,13 +171,13 @@ public class AbstractMockMagnoliaTest {
         when(areaDef.getName()).thenReturn("Area");
         when(areaDef.getEnabled()).thenReturn(true);
         Map<String, AreaDefinition> areaMap = new HashMap<>();
-        areaMap.put("Area",areaDef);
+        areaMap.put("Area", areaDef);
         when(templateDefinition.getAreas()).thenReturn(areaMap);
         when(renderingContext.getRenderableDefinition()).thenReturn(templateDefinition);
     }
 
     @After
-    public void cleanup(){
+    public void cleanup() {
         Components.popProvider();
         RenderContext.pop();
     }
