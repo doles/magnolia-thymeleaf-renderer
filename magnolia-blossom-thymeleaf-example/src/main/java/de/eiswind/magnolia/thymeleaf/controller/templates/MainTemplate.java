@@ -1,11 +1,11 @@
 package de.eiswind.magnolia.thymeleaf.controller.templates;
 
+import de.eiswind.magnolia.thymeleaf.controller.components.ThymeleafComponent;
 import info.magnolia.module.blossom.annotation.*;
 import info.magnolia.ui.form.config.TabBuilder;
 import info.magnolia.ui.framework.config.UiConfig;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import de.eiswind.magnolia.thymeleaf.controller.components.ThymeleafComponent;
 
 /**
  * User: Thomas
