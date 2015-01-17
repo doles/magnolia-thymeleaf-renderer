@@ -13,7 +13,6 @@
     <name>Magnolia Blossom Thymeleaf Module</name>
 
 
-
     <properties>
         <powermock.version>1.6.0</powermock.version>
         <project.config.path>${project.basedir}/../config</project.config.path>
@@ -125,23 +124,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.6</version>
-
-                <configuration>
-                    <check></check>
-                    <formats>
-                        <format>html</format>
-                        <format>xml</format>
-                    </formats>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>cobertura</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
 
