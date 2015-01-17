@@ -138,7 +138,7 @@
                             <id>validate</id>
                             <phase>validate</phase>
                             <configuration>
-                                <configLocation>sun_checks.xml</configLocation>
+                                <configLocation>${pom.basedir}/sun_checks.xml</configLocation>
                                 <encoding>UTF-8</encoding>
                                 <consoleOutput>false</consoleOutput>
                                 <failOnViolation>false</failOnViolation>
