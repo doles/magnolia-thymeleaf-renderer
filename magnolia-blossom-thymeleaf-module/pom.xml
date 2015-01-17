@@ -10,7 +10,7 @@
     <artifactId>magnolia-blossom-thymeleaf-module</artifactId>
     <packaging>jar</packaging>
     <name>Magnolia Blossom Thymeleaf Module</name>
-    <version>${project.parent.version}</version>
+
 
 
 
