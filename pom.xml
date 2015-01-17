@@ -152,17 +152,26 @@
                             <id>validate</id>
                             <phase>validate</phase>
                             <configuration>
-                                <configLocation>${project.basedir}/sun_checks.xml</configLocation>
+                                <configLocation>sun_checks.xml</configLocation>
                                 <encoding>UTF-8</encoding>
-                                <consoleOutput>true</consoleOutput>
+                                <consoleOutput>false</consoleOutput>
                                 <failsOnError>false</failsOnError>
                                 <linkXRef>false</linkXRef>
+
                             </configuration>
+
                             <goals>
                                 <goal>check</goal>
                             </goals>
                         </execution>
                     </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.puppycrawl.tools</groupId>
+                            <artifactId>checkstyle</artifactId>
+                            <version>6.2</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
 
             </plugins>

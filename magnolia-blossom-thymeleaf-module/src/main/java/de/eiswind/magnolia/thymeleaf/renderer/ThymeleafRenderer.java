@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2014 Thomas Kratz
  *
@@ -73,7 +72,7 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
 
 
     @Override
-    protected void onRender(Node content, RenderableDefinition definition,RenderingContext renderingCtx,  Map<String, Object> ctx, String templateScript) throws RenderException {
+    protected void onRender(Node content, RenderableDefinition definition, RenderingContext renderingCtx, Map<String, Object> ctx, String templateScript) throws RenderException {
 
         Map<String, Object> vars = new HashMap<String, Object>(ctx);
         vars.put("content", JspTemplatingFunction.asContentMap(content));
@@ -105,7 +104,7 @@ public class ThymeleafRenderer extends AbstractRenderer implements ServletContex
 
             // and pass the fragment name and spec then onto the engine
             engine.process(fragment.getTemplateName(), context, fragment.getFragmentSpec(), out);
-        }catch(IOException x) {
+        } catch (IOException x) {
             throw new RenderException(x);
         }
 

@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2014 Thomas Kratz
  *
@@ -22,7 +21,6 @@ import info.magnolia.objectfactory.Components;
 import info.magnolia.rendering.context.RenderingContext;
 import info.magnolia.rendering.engine.RenderingEngine;
 import info.magnolia.templating.elements.ComponentElement;
-
 import org.thymeleaf.Arguments;
 import org.thymeleaf.dom.Element;
 import org.thymeleaf.exceptions.TemplateProcessingException;
@@ -48,12 +46,12 @@ public class CmsComponentElementProcessor extends AbstractCmsElementProcessor<Co
         final Object contentObject = expression.execute(arguments.getConfiguration(), arguments);
 
         final javax.jcr.Node content;
-        if(contentObject instanceof ContentMap){
-            content = ((ContentMap)contentObject).getJCRNode();
-        } else if(contentObject instanceof javax.jcr.Node){
-            content =(javax.jcr.Node)contentObject;
-        }else {
-            throw new TemplateProcessingException("Cannot cast "+contentObject.getClass()+" to javax.jcr.Node");
+        if (contentObject instanceof ContentMap) {
+            content = ((ContentMap) contentObject).getJCRNode();
+        } else if (contentObject instanceof javax.jcr.Node) {
+            content = (javax.jcr.Node) contentObject;
+        } else {
+            throw new TemplateProcessingException("Cannot cast " + contentObject.getClass() + " to javax.jcr.Node");
         }
 
         final RenderingEngine renderingEngine = Components.getComponent(RenderingEngine.class);

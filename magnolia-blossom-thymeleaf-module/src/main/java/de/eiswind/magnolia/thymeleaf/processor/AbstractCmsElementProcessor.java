@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2014 Thomas Kratz
  *
@@ -40,7 +39,7 @@ import java.util.Collections;
  */
 public abstract class AbstractCmsElementProcessor<T extends TemplatingElement> extends AbstractAttrProcessor {
 
-    public AbstractCmsElementProcessor(String attrName){
+    public AbstractCmsElementProcessor(String attrName) {
         super(attrName);
     }
 
@@ -75,7 +74,7 @@ public abstract class AbstractCmsElementProcessor<T extends TemplatingElement> e
         // remove all children so they are ignored
         element.clearChildren();
         // and set children now to be our html
-        element.setChildren(Collections.<Node> singletonList(macro));
+        element.setChildren(Collections.<Node>singletonList(macro));
 
         // remove cms:area attribute so isn't processed again
         element.removeAttribute(attributeName);

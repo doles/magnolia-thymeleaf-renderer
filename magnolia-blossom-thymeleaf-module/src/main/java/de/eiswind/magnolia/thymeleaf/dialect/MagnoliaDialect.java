@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2014 Thomas Kratz
  *
@@ -17,11 +16,11 @@
 
 package de.eiswind.magnolia.thymeleaf.dialect;
 
-import org.thymeleaf.dialect.AbstractDialect;
-import org.thymeleaf.processor.IProcessor;
 import de.eiswind.magnolia.thymeleaf.processor.CmsAreaElementProcessor;
 import de.eiswind.magnolia.thymeleaf.processor.CmsComponentElementProcessor;
 import de.eiswind.magnolia.thymeleaf.processor.CmsInitElementProcessor;
+import org.thymeleaf.dialect.AbstractDialect;
+import org.thymeleaf.processor.IProcessor;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -40,7 +39,6 @@ public class MagnoliaDialect extends AbstractDialect {
     public String getPrefix() {
         return "cms";
     }
-
 
 
     @Override

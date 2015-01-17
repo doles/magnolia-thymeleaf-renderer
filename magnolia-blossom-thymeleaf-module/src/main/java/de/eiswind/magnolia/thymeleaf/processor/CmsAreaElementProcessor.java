@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2014 Thomas Kratz
  *
@@ -23,7 +22,6 @@ import info.magnolia.rendering.context.RenderingContext;
 import info.magnolia.rendering.engine.RenderingEngine;
 import info.magnolia.rendering.template.AreaDefinition;
 import info.magnolia.templating.elements.AreaElement;
-
 import org.thymeleaf.Arguments;
 import org.thymeleaf.dom.Element;
 import org.thymeleaf.exceptions.TemplateProcessingException;
