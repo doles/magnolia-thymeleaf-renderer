@@ -43,7 +43,7 @@ public final class MainTemplate {
 
 
     /**
-     * sample area cotroller.
+     * sample area controller.
      */
     @Area("Area")
     @Inherits
