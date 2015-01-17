@@ -151,10 +151,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
 
             </plugin>
-        </plugins>
-    </build>
-    <reporting>
-        <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
@@ -164,6 +160,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
         </plugins>
-    </reporting>
+    </build>
+
 
 </project>
