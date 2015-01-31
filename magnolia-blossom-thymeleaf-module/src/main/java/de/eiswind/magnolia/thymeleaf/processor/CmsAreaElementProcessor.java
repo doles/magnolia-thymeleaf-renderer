@@ -50,7 +50,7 @@ public class CmsAreaElementProcessor extends AbstractCmsElementProcessor<AreaEle
      * {@inheritDoc}
      */
     @Override
-    public ProcessorResult processAttribute( Arguments arguments,  Element element,  String attributeName) {
+    public ProcessorResult processAttribute(Arguments arguments, Element element, String attributeName) {
 
         final String attributeValue = element.getAttributeValue(attributeName);
 

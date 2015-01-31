@@ -56,11 +56,11 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
     public static final String CONTENT_ATTRIBUTE = "content";
 
     private static final String[] JS = new String[]{"/.magnolia/pages/javascript.js",
-            "/.magnolia/pages/messages.en.js", "/.resources/admin-js/dialogs/dialogs.js", "/" +
-            ".resources/calendar/calendar.js",
+            "/.magnolia/pages/messages.en.js", "/.resources/admin-js/dialogs/dialogs.js",
+            "/.resources/calendar/calendar.js",
             "/.resources/calendar/calendar-setup.js",
-            "/.resources/editor/info.magnolia.templating.editor.PageEditor/info.magnolia.templating.editor.PageEditor" +
-                    ".nocache.js"};
+            "/.resources/editor/info.magnolia.templating.editor.PageEditor/info.magnolia.templating.editor.PageEditor"
+                    + ".nocache.js"};
     private static final String[] CSS = new String[]{"/.resources/admin-css/admin-all.css",
             "/.resources/magnolia-templating-editor/css/editor.css", "/.resources/calendar/skins/aqua/theme.css"};
 
@@ -118,8 +118,8 @@ public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcess
         }
         el = new Element("script");
         el.setAttribute("type", "text/javascript");
-        el.setAttribute("src", ctx + "/.resources/calendar/lang/calendar-" + MgnlContext.getLocale().getLanguage() +
-                ".js");
+        el.setAttribute("src", ctx + "/.resources/calendar/lang/calendar-"
+                + MgnlContext.getLocale().getLanguage() + ".js");
         result.add(el);
         Text t = new Text("\n");
         result.add(t);
