@@ -21,7 +21,7 @@
 
 <!--
 
-  Checkstyle configuration that checks the sun coding conventions from:
+  Relaxed Checkstyle configuration that checks the sun coding conventions from:
 
     - the Java Language Specification at
       http://java.sun.com/docs/books/jls/second_edition/html/index.html
@@ -131,7 +131,7 @@
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
         <module name="LineLength">
-            <property name="max" value="140"/>
+            <property name="max" value="120"/>
         </module>
         <module name="MethodLength"/>
         <module name="ParameterNumber"/>
@@ -174,14 +174,18 @@
         <module name="HiddenField"/>
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
+        <!--
         <module name="MagicNumber"/>
+        -->
         <module name="MissingSwitchDefault"/>
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>
 
         <!-- Checks for class design                         -->
         <!-- See http://checkstyle.sf.net/config_design.html -->
+        <!--
         <module name="DesignForExtension"/>
+        -->
         <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>
         <module name="InterfaceIsType"/>
@@ -191,7 +195,9 @@
         <!-- Miscellaneous other checks.                   -->
         <!-- See http://checkstyle.sf.net/config_misc.html -->
         <module name="ArrayTypeStyle"/>
+        <!--
         <module name="FinalParameters"/>
+        -->
         <module name="TodoComment"/>
         <module name="UpperEll"/>
 

@@ -32,6 +32,7 @@ import java.util.Collections;
 
 /**
  * abstract base class for the magnolia element processors.
+ *
  * @param <T> the element type.
  */
 public abstract class AbstractCmsElementProcessor<T extends TemplatingElement> extends AbstractAttrProcessor {
@@ -44,7 +45,7 @@ public abstract class AbstractCmsElementProcessor<T extends TemplatingElement> e
      *
      * @param attrName the attribute name
      */
-    public AbstractCmsElementProcessor(final String attrName) {
+    public AbstractCmsElementProcessor(String attrName) {
         super(attrName);
     }
 
@@ -62,7 +63,7 @@ public abstract class AbstractCmsElementProcessor<T extends TemplatingElement> e
      * @param renderingContext the context
      * @return the teplating element
      */
-    protected final T createElement(final RenderingContext renderingContext) {
+    protected final T createElement(RenderingContext renderingContext) {
         return Components.getComponentProvider().newInstance(getTemplatingElementClass(), renderingContext);
     }
 
@@ -83,12 +84,12 @@ public abstract class AbstractCmsElementProcessor<T extends TemplatingElement> e
      * @param attributeName     the att name
      * @param templatingElement the mgnl templating element
      */
-    protected final void processElement(final Element element, final String attributeName, final T templatingElement) {
+    protected final void processElement(Element element, String attributeName, T templatingElement) {
         final StringBuilder out = new StringBuilder();
         try {
             templatingElement.begin(out);
             templatingElement.end(out);
-        } catch (final RenderException | IOException e) {
+        } catch (RenderException | IOException e) {
             throw new TemplateProcessingException("render area element", e);
         }
 

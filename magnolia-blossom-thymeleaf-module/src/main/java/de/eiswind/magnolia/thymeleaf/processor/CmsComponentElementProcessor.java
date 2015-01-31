@@ -32,7 +32,7 @@ import org.thymeleaf.standard.expression.StandardExpressionParser;
 /**
  * the component processor.
  */
-public final class CmsComponentElementProcessor extends AbstractCmsElementProcessor<ComponentElement> {
+public  class CmsComponentElementProcessor extends AbstractCmsElementProcessor<ComponentElement> {
 
     /**
      * the content attribute name.
@@ -51,7 +51,7 @@ public final class CmsComponentElementProcessor extends AbstractCmsElementProces
      * {@inheritDoc}
      */
     @Override
-    public ProcessorResult processAttribute(final Arguments arguments, final Element element, final String attributeName) {
+    public ProcessorResult processAttribute(Arguments arguments, Element element,  String attributeName) {
 
         final Expression expression = new StandardExpressionParser().parseExpression(arguments.getConfiguration(),
                 arguments, element.getAttributeValue(attributeName));

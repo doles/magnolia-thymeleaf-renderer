@@ -101,7 +101,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>${springVersion}</version>
+            <version>${spring.version}</version>
         </dependency>
 
         <dependency>

@@ -28,7 +28,7 @@ import java.util.Set;
 /**
  * configures the mgnl processors.
  */
-public final class MagnoliaDialect extends AbstractDialect  {
+public class MagnoliaDialect extends AbstractDialect  {
 
 
     @Override

@@ -30,7 +30,7 @@ import org.thymeleaf.processor.ProcessorResult;
 /**
  * the area processor.
  */
-public final class CmsAreaElementProcessor extends AbstractCmsElementProcessor<AreaElement> {
+public class CmsAreaElementProcessor extends AbstractCmsElementProcessor<AreaElement> {
 
 
     /**
@@ -50,7 +50,7 @@ public final class CmsAreaElementProcessor extends AbstractCmsElementProcessor<A
      * {@inheritDoc}
      */
     @Override
-    public ProcessorResult processAttribute(final Arguments arguments, final Element element, final String attributeName) {
+    public ProcessorResult processAttribute( Arguments arguments,  Element element,  String attributeName) {
 
         final String attributeValue = element.getAttributeValue(attributeName);
 

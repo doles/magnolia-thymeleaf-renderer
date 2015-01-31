@@ -52,7 +52,7 @@ import java.util.Map;
 /**
  * mgnl renderer for thymeleaf.
  */
-public final class ThymeleafRenderer extends AbstractRenderer implements ServletContextAware, ApplicationContextAware {
+public class ThymeleafRenderer extends AbstractRenderer implements ServletContextAware, ApplicationContextAware {
 
 
     //private final Logger log = LoggerFactory.getLogger(getClass());
@@ -77,8 +77,8 @@ public final class ThymeleafRenderer extends AbstractRenderer implements Servlet
      * {@inheritDoc}
      */
     @Override
-    protected void onRender(final Node content, final RenderableDefinition definition, final RenderingContext renderingCtx,
-                            final Map<String, Object> ctx, final String templateScript) throws RenderException {
+    protected void onRender(Node content, RenderableDefinition definition, RenderingContext renderingCtx,
+                            Map<String, Object> ctx, String templateScript) throws RenderException {
 
         Map<String, Object> vars = new HashMap<>(ctx);
         vars.put("content", JspTemplatingFunction.asContentMap(content));

@@ -44,7 +44,7 @@ import java.util.List;
 /**
  * initlializes mgnl stuff on the page.
  */
-public final class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcessor {
+public class CmsInitElementProcessor extends AbstractChildrenModifierAttrProcessor {
 
     private static final int PRECEDENCE = 1000;
     private final I18nContentSupport i18nContentSupport = Components.getComponent(I18nContentSupport.class);
@@ -56,9 +56,11 @@ public final class CmsInitElementProcessor extends AbstractChildrenModifierAttrP
     public static final String CONTENT_ATTRIBUTE = "content";
 
     private static final String[] JS = new String[]{"/.magnolia/pages/javascript.js",
-            "/.magnolia/pages/messages.en.js", "/.resources/admin-js/dialogs/dialogs.js", "/.resources/calendar/calendar.js",
+            "/.magnolia/pages/messages.en.js", "/.resources/admin-js/dialogs/dialogs.js", "/" +
+            ".resources/calendar/calendar.js",
             "/.resources/calendar/calendar-setup.js",
-            "/.resources/editor/info.magnolia.templating.editor.PageEditor/info.magnolia.templating.editor.PageEditor.nocache.js"};
+            "/.resources/editor/info.magnolia.templating.editor.PageEditor/info.magnolia.templating.editor.PageEditor" +
+                    ".nocache.js"};
     private static final String[] CSS = new String[]{"/.resources/admin-css/admin-all.css",
             "/.resources/magnolia-templating-editor/css/editor.css", "/.resources/calendar/skins/aqua/theme.css"};
 
@@ -73,7 +75,7 @@ public final class CmsInitElementProcessor extends AbstractChildrenModifierAttrP
      * {@inheritDoc}
      */
     @Override
-    protected List<Node> getModifiedChildren(final Arguments arguments, final Element element, final String attributeName) {
+    protected List<Node> getModifiedChildren(Arguments arguments, Element element, String attributeName) {
         AggregationState aggregationState = MgnlContext.getAggregationState();
 
         javax.jcr.Node activePage = aggregationState.getMainContentNode();
@@ -116,7 +118,8 @@ public final class CmsInitElementProcessor extends AbstractChildrenModifierAttrP
         }
         el = new Element("script");
         el.setAttribute("type", "text/javascript");
-        el.setAttribute("src", ctx + "/.resources/calendar/lang/calendar-" + MgnlContext.getLocale().getLanguage() + ".js");
+        el.setAttribute("src", ctx + "/.resources/calendar/lang/calendar-" + MgnlContext.getLocale().getLanguage() +
+                ".js");
         result.add(el);
         Text t = new Text("\n");
         result.add(t);
@@ -136,7 +139,8 @@ public final class CmsInitElementProcessor extends AbstractChildrenModifierAttrP
             helper.attribute("preview", String.valueOf(MgnlContext.getAggregationState().isPreviewMode()));
 
             //here we provide the page editor with the available locales and their respective URI for the current page
-//            if (i18nAuthoringSupport.isEnabled() && i18nContentSupport.isEnabled() && i18nContentSupport.getLocales().size()>1){
+//            if (i18nAuthoringSupport.isEnabled() && i18nContentSupport.isEnabled() && i18nContentSupport.getLocales
+// ().size()>1){
 //
 //                Content currentPage = MgnlContext.getAggregationState().getMainContent();
 //                String currentUri = createURI(currentPage, i18nContentSupport.getLocale());
@@ -189,7 +193,7 @@ public final class CmsInitElementProcessor extends AbstractChildrenModifierAttrP
      * @return its path
      * @throws TemplateProcessingException wraps repo exceptions
      */
-    protected String getNodePath(final javax.jcr.Node node) throws TemplateProcessingException {
+    protected String getNodePath(javax.jcr.Node node) throws TemplateProcessingException {
         try {
             return node.getSession().getWorkspace().getName() + ":" + node.getPath();
         } catch (RepositoryException e) {
