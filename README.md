@@ -11,7 +11,7 @@ The custom dialect comes with cms:init, cms:area and cms:component
 To see how the blossom-serlvet needs to be setup, and how to use the magnolia processors take a look at the example web app and the [wiki pages](https://github.com/eiswind/magnolia-thymeleaf-renderer/wiki).
 
 Maven coordinates:
-
+```xml
 <repositories>
     <repository>
         <snapshots>
@@ -28,7 +28,7 @@ Maven coordinates:
     <artifactId>magnolia-blossom-thymeleaf-module</artifactId>
     <version>0.1.0</version>
 </dependency>
-
+```
 March 2015: Magnolia 5.3.7
 
 December 2014: Update to Magnolia 5.3.6 and Spring4. Added basic testing.
