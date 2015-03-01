@@ -31,7 +31,7 @@
         <repository>
             <id>bintray</id>
             <name>bintray</name>
-            <url>https://api.bintray.com/content/eiswind/maven/mgnl-thymeleaf/</url>
+            <url>https://api.bintray.com/content/eiswind/maven/magnolia-thymeleaf/prototype</url>
         </repository>
     </distributionManagement>
     <profiles>
@@ -338,11 +338,9 @@
                     <version>2.10.1</version>
                     <executions>
                         <execution>
-                            <id>package</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
+                            <id>attach-javadocs</id>
+                            <phase>deploy</phase>
+                            <goals><goal>jar</goal></goals>
                         </execution>
                     </executions>
                     <configuration>
@@ -387,10 +385,19 @@
                     <executions>
                         <execution>
                             <id>attach-sources</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>jar-no-fork</goal>
-                            </goals>
+                            <phase>deploy</phase>
+                            <goals><goal>jar-no-fork</goal></goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <!-- explicitly define maven-deploy-plugin after other to force exec order -->
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>deploy</id>
+                            <phase>deploy</phase>
+                            <goals><goal>deploy</goal></goals>
                         </execution>
                     </executions>
                 </plugin>
