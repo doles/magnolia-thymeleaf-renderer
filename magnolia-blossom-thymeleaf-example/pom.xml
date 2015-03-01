@@ -16,11 +16,11 @@
     <properties>
         <project.config.path>${project.basedir}/../config</project.config.path>
 
-        <magnoliaVersion>5.3.6</magnoliaVersion>
-        <javaVersion>1.7</javaVersion>
+        <magnoliaVersion>5.3.7</magnoliaVersion>
+        <javaVersion>1.8</javaVersion>
         <blossomVersion>3.0.4</blossomVersion>
-        <spring.version>4.1.3.RELEASE</spring.version>
-        <thymeleaf.version>2.1.3.RELEASE</thymeleaf.version>
+        <spring.version>4.1.4.RELEASE</spring.version>
+        <thymeleaf.version>2.1.4.RELEASE</thymeleaf.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     </properties>
@@ -238,7 +238,7 @@
                         <execution>
 
                             <configuration>
-                                <configLocation>config/relaxed_sun_checks.xml</configLocation>
+                                <configLocation>${project.config.path}/relaxed_sun_checks.xml</configLocation>
                                 <encoding>UTF-8</encoding>
                                 <consoleOutput>false</consoleOutput>
                                 <failOnViolation>true</failOnViolation>
