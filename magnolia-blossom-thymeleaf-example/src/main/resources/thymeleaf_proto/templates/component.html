@@ -1,0 +1,22 @@
+<!DOCTYPE html >
+<html xmlns:cms="http://www.eiswind.de/mgnl" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head cms:init="">
+    <meta charset="utf-8"/>
+    <title>Bootstrap, from Twitter</title>
+    <link th:href="'docroot/bootstrap/css/bootstrap.css'"
+          href="../../../webapp/docroot/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div th:fragment="teasercomponent" class="span4">
+            <h2 th:text="${content[heading]}">Heading</h2>
+            <p th:text="${content[text]}">Donec id elit non mi porta gravida at eget metus. </p>
+        </div>
+    </div>
+</div>
+<footer th:fragment="footercomponent">
+    <p th:text="${content[footertext]}">&copy; Company 2015</p>
+</footer>
+</body>
+</html>
