@@ -1,5 +1,7 @@
 package de.eiswind.magnolia.thymeleaf.example.setup;
 
+import de.eiswind.magnolia.thymeleaf.example.configuration.BlossomServletConfiguration;
+import de.eiswind.magnolia.thymeleaf.example.configuration.SampleApplicationConfiguration;
 import info.magnolia.module.ModuleLifecycle;
 import info.magnolia.module.ModuleLifecycleContext;
 import info.magnolia.module.blossom.module.BlossomModuleSupport;
@@ -12,18 +14,26 @@ public final class Module extends BlossomModuleSupport implements ModuleLifecycl
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void start(final ModuleLifecycleContext moduleLifecycleContext) {
-        initRootWebApplicationContext("classpath:/applicationContext.xml");
-        initBlossomDispatcherServlet("blossom", "classpath:/blossom-servlet.xml");
+    public void start(ModuleLifecycleContext moduleLifecycleContext) {
+        if (moduleLifecycleContext.getPhase() == ModuleLifecycleContext.PHASE_SYSTEM_STARTUP) {
+
+            // Using Spring java config
+            super.initRootWebApplicationContext(SampleApplicationConfiguration.class);
+            super.initBlossomDispatcherServlet("blossom", BlossomServletConfiguration.class);
+
+/*
+            // Using Spring xml config
+            super.initRootWebApplicationContext("classpath:/applicationContext.xml");
+            super.initBlossomDispatcherServlet("blossom", "classpath:/blossom-servlet.xml");
+*/
+        }
     }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void stop(final ModuleLifecycleContext moduleLifecycleContext) {
-        destroyDispatcherServlets();
-        closeRootWebApplicationContext();
+
+    public void stop(ModuleLifecycleContext moduleLifecycleContext) {
+        if (moduleLifecycleContext.getPhase() == ModuleLifecycleContext.PHASE_SYSTEM_SHUTDOWN) {
+            super.destroyDispatcherServlets();
+            super.closeRootWebApplicationContext();
+        }
     }
 
 }

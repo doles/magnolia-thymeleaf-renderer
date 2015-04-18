@@ -10,10 +10,10 @@
 
     <properties>
         <project.config.path>${project.basedir}/../config</project.config.path>
-        <magnoliaVersion>5.3.7</magnoliaVersion>
+        <magnoliaVersion>5.3.8</magnoliaVersion>
         <javaVersion>1.8</javaVersion>
-        <blossomVersion>3.0.5</blossomVersion>
-        <spring.version>4.1.4.RELEASE</spring.version>
+        <blossomVersion>3.0.6</blossomVersion>
+        <spring.version>4.1.6.RELEASE</spring.version>
         <thymeleaf.version>2.1.4.RELEASE</thymeleaf.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
