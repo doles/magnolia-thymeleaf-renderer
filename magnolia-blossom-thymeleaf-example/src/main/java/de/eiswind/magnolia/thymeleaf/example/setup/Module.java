@@ -1,6 +1,5 @@
 package de.eiswind.magnolia.thymeleaf.example.setup;
 
-import de.eiswind.magnolia.thymeleaf.example.configuration.BlossomServletConfiguration;
 import de.eiswind.magnolia.thymeleaf.example.configuration.SampleApplicationConfiguration;
 import info.magnolia.module.ModuleLifecycle;
 import info.magnolia.module.ModuleLifecycleContext;
@@ -19,7 +18,7 @@ public final class Module extends BlossomModuleSupport implements ModuleLifecycl
 
             // Using Spring java config
             super.initRootWebApplicationContext(SampleApplicationConfiguration.class);
-            super.initBlossomDispatcherServlet("blossom", BlossomServletConfiguration.class);
+
 
 /*
             // Using Spring xml config

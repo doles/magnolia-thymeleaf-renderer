@@ -1,11 +1,8 @@
 package de.eiswind.magnolia.thymeleaf.controller.templates;
 
 import de.eiswind.magnolia.thymeleaf.controller.components.ThymeleafComponent;
-import info.magnolia.module.blossom.annotation.Area;
-import info.magnolia.module.blossom.annotation.AvailableComponentClasses;
-import info.magnolia.module.blossom.annotation.Inherits;
-import info.magnolia.module.blossom.annotation.TabFactory;
-import info.magnolia.module.blossom.annotation.Template;
+import de.eiswind.magnolia.thymeleaf.controller.components.ThymeleafComponent3;
+import info.magnolia.module.blossom.annotation.*;
 import info.magnolia.ui.form.config.TabBuilder;
 import info.magnolia.ui.framework.config.UiConfig;
 import org.springframework.stereotype.Controller;
@@ -47,7 +44,7 @@ public final class MainTemplate {
      */
     @Area("Area")
     @Inherits
-    @AvailableComponentClasses({ThymeleafComponent.class})
+    @AvailableComponentClasses({ThymeleafComponent.class, ThymeleafComponent3.class})
     @Controller
     public static final class PromosArea {
 

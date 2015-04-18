@@ -10,20 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * Sample Component Controller.
  */
-@Template(id = "thymeleaf_proto:components/thymeleafComponent", title = "Thymeleaf Component")
+@Template(id = "thymeleaf_proto:components/thymeleafComponent3", title = "Thymeleaf Component3")
 @Controller
-public final class ThymeleafComponent {
-
+public final class ThymeleafComponent3 {
 
     /**
      * get the template fragment.
      *
      * @return the fragment
      */
-    @RequestMapping("/thymeleafComponent")
-    public String handleRequest3() {
-//        System.out.println("Node:"+ content);
-        return "templates/main.html :: component";
+    @RequestMapping("/thymeleafComponent3")
+    public String handleRequest() {
+        return "templates/main.html :: component2";
     }
 
     /**
@@ -36,15 +34,8 @@ public final class ThymeleafComponent {
     public void createTab(final UiConfig cfg, final TabBuilder tab) {
         tab.fields(
                 cfg.fields.text("head").label("Head"),
-                cfg.fields.text("text").label("Text2")
-        );
-    }
-
-    @TabFactory("Properties2")
-    public void createTab2(final UiConfig cfg, final TabBuilder tab) {
-        tab.fields(
-                cfg.fields.text("head").label("Head"),
-                cfg.fields.text("text").label("Text2")
+                cfg.fields.text("text").label("Text"),
+                cfg.fields.text("button").label("Button")
         );
     }
 
