@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.eiswind</groupId>
     <artifactId>magnolia-blossom-thymeleaf-module</artifactId>
-    <version>0.2.1-SNAPSHOT</version>
+    <version>0.2.1</version>
     <packaging>jar</packaging>
     <name>Magnolia Blossom Thymeleaf Module</name>
 
@@ -24,7 +24,7 @@
         <connection>scm:git:git:git@github.com:eiswind/magnolia-thymeleaf-renderer.git</connection>
         <developerConnection>scm:git:git@github.com:eiswind/magnolia-thymeleaf-renderer.git</developerConnection>
         <url>scm:git:git@github.com:eiswind/magnolia-thymeleaf-renderer.git</url>
-      <tag>HEAD</tag>
+      <tag>release/magnolia-blossom-thymeleaf-module/0.2.1-SNAPSHOT</tag>
   </scm>
 
     <distributionManagement>
